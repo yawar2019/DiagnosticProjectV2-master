@@ -1,0 +1,137 @@
+﻿
+@model List<NamrataKalyani.Models._BilIingInfoModel>
+@{
+    ViewBag.Title = "GetBillingInfo";
+}
+
+<h2>GetBillingInfo</h2>
+
+<div class="container">
+    @using (Html.BeginForm("UpdateBillingInfo", "Billing", FormMethod.Post))
+    {
+        <div class="col-md-4" style="margin-bottom:4px">
+            @Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Search" class="btn-primary" />
+    }
+
+    @using (Html.BeginForm("UpdateBillingInfo", "Billing", FormMethod.Post))
+    {
+        <table class="table table-condensed table-hover" id="mytable">
+            <tr>
+                <th>Report Name</th>
+                <th>Amount</th>
+                <th>Discount(Rs)</th>
+                <th>Expenses</th>
+                <th>Referal Amount(%)</th>
+                <th>Investment</th>
+                <th>Status</th>
+                <th>Total</th>
+            </tr>
+
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(m => m[i].ReportId, new { @class = "form-control amount" })
+                            @Html.HiddenFor(m => m[i].PId, new { @class = "form-control amount" })
+                            @Model[i].ReportName
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].Amount, new { @class = "form-control amount" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].Discount, new { @class = "form-control discount" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].Expenses, new { @class = "form-control expenses" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].ReferalAmount, new { @class = "form-control referalAmount" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].Investment, new { @class = "form-control investment" })
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => m[i].Status, new List<SelectListItem>() {
+
+                          new SelectListItem {Text="Paid",Value="1"},
+                          new SelectListItem {Text="Pending",Value="0"},
+                      })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m[i].Total_Amount, new { @class = "form-control total_amount" })
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="text" class="grdtot" value="" name="" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <input type="submit" class="btn btn-success" value="Save" />
+                    </td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+            </tfoot>
+        </table>
+    }
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+
+    function percentage(num, per) {
+        return (num / 100) * per;
+    }
+
+
+        $(function () {
+            $('.grdtot,.total_amount').prop('readonly', true);
+            var $tblrows = $("#mytable tbody tr");
+
+            $tblrows.each(function (index) {
+                var $tblrow = $(this);
+
+                $tblrow.find('input[type=text]').on('change', function () {
+
+                    var amt = $tblrow.find("input[type=text].amount").val();
+                    var disc = $tblrow.find("input[type=text].discount").val();
+                    var exp = $tblrow.find("input[type=text].expenses").val();
+                    var refamt = amt * $tblrow.find("input[type=text].referalAmount").val() / 100;
+                    var inv = $tblrow.find("input[type=text].investment").val();
+                    var subTotal = parseFloat(amt) - parseFloat(disc) - parseFloat(exp) - parseFloat(refamt) - parseFloat(inv);
+
+                    if (!isNaN(subTotal)) {
+
+                        $tblrow.find('.total_amount').val(subTotal.toFixed(2));
+                        var grandTotal = 0;
+
+                        $(".total_amount").each(function () {
+                            var stval = parseFloat($(this).val());
+                            grandTotal += isNaN(stval) ? 0 : stval;
+                        });
+
+                        $('.grdtot').val(grandTotal.toFixed(2));
+                    }
+                });
+            });
+        });
+</script>
+

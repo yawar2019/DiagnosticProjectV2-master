@@ -1,0 +1,99 @@
+﻿@model  NamrataKalyani.Models._BilIingInfoModel
+@{ ViewBag.Title = "UpdateBillingInfo";
+                Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <h2>Create Bill</h2>
+    </div>
+</div>
+<table class="table-bordered table-condensed">
+    <tr>
+        <th>BillId</th>
+        <th>Patient Name</th>
+        <th>Investigation</th>
+    </tr>
+    <tr>
+        <td>@Model.BillId</td>
+        <td>@Model.PatientName</td>
+        <td>@Model.ReportName</td>
+    </tr>
+</table>
+<form action="~/Billing/UpdateBillingInfo" method="post">
+    <input type="hidden" name="BillId" value="@Model.BillId" />
+    <div class="form-group">
+        <label>Total Amount</label>
+        <input type="text" name="Amount" id="amount" value="@Model.Amount" class="form-control" />
+        <label>Referal Discount %</label>
+        <input type="text" name="ReferalPercentage" width="20" id="referalPercentage" value="@Model.ReferalPercentage" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Discount</label>
+        <input type="text" name="Discount" id="discount" value="@Model.Discount" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Referal Amount</label>
+        <input type="text" name="ReferalAmount" id="referalAmount" value="@Model.ReferalAmount" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Due</label>
+        <input type="text" name="Due" id="due" value="@Model.Due" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Expenses</label>
+        <input type="text" name="Expenses" id="expenses" value="@Model.Expenses" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Status</label>
+        @Html.DropDownList("Status", new List<SelectListItem>() {
+      new SelectListItem {Text="Paid",Value="true"},
+      new SelectListItem {Text="Due",Value="false"},
+  }, new { @class = "drop-down" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+</form>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $('#referalPercentage').on('change', function () {
+
+        var amt = $("#amount").val();
+        var per = $("#referalPercentage").val();
+        var res = (amt / 100) * per;
+        $("#referalAmount").val(res);
+    });
+
+
+            //$(function () {
+            //    $('.grdtot,.total_amount').prop('readonly', true);
+            //    var $tblrows = $("#mytable tbody tr");
+
+            //    $tblrows.each(function (index) {
+            //        var $tblrow = $(this);
+
+            //        $tblrow.find('input[type=text]').on('change', function () {
+
+            //            var amt = $tblrow.find("input[type=text].amount").val();
+            //            var disc = $tblrow.find("input[type=text].discount").val();
+            //            var exp = $tblrow.find("input[type=text].expenses").val();
+            //            var refamt = amt * $tblrow.find("input[type=text].referalAmount").val() / 100;
+            //            var inv = $tblrow.find("input[type=text].investment").val();
+            //            var subTotal = parseFloat(amt) - parseFloat(disc) - parseFloat(exp) - parseFloat(refamt) - parseFloat(inv);
+
+            //            if (!isNaN(subTotal)) {
+
+            //                $tblrow.find('.total_amount').val(subTotal.toFixed(2));
+            //                var grandTotal = 0;
+
+            //                $(".total_amount").each(function () {
+            //                    var stval = parseFloat($(this).val());
+            //                    grandTotal += isNaN(stval) ? 0 : stval;
+            //                });
+
+            //                $('.grdtot').val(grandTotal.toFixed(2));
+            //            }
+            //        });
+            //    });
+            //});
+</script>

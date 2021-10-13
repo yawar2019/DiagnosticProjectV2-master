@@ -1,0 +1,123 @@
+﻿@model NamrataKalyani.Models.ReportByPidModel
+@{
+    ViewBag.Title = "Print_Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    .table > tbody > label > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        font-size: 12px !important;
+    }
+
+    label {
+        font-size: 12px !important;
+    }
+</style>
+<link href="~/Content/Print.css" rel="stylesheet" />
+<div class="page-header" style="text-align: center">
+    <div style="text-align: left">
+        <a href="@Url.Action("GetAllReportsByPatientId","Doc",new { Pid = Model.Pid })">Back to List</a>
+    </div>
+    <a rel="stylesheet"><img src="~/Content/Images/PrintIcon.png" onclick="window.print(); document.margin='none'; return false;"></a>
+</div>
+<div class="page-footer">
+</div>
+<table>
+    <thead>
+        <tr>
+            <td>
+                <!--place holder for the fixed-position header-->
+                <div class="page-header-space"></div>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <!--*** CONTENT GOES HERE ***-->
+                <div class="page">
+                    <div class="example">
+                        <table style="border-collapse: collapse; border: solid" width="80%" align="center" cellspacing=1 cellpadding=1>
+                            <tr style="border: double; border-width: 1px 0;">
+                                <td>
+                                    @Html.Label("Sr No :- ", new { style = "color:Black; text-decoration:underline; " })
+                                    @Html.Label(Model.Srno.ToString(), new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                                <td>
+                                    @Html.Label("Pt. Name :- ", new { style = "color:Black ; text-decoration:underline;" })
+                                    @Html.Label(Model.Pname, new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                                <td>
+                                    @Html.Label("Date:-", new { style = "color:Black;text-decoration:underline;" })
+                                    @DateTime.Now
+                                </td>
+                            </tr>
+                            <tr style="border: double; border-width: 1px 0;">
+                                <td>
+                                    @Html.Label("Bill No :-", new { style = "color:Black ; text-decoration:underline;" })
+                                    @Html.Label(Model.BillingID.ToString(), new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                                <td>
+                                    @Html.Label("Age :-", new { style = "color:Black ; text-decoration:underline;" })
+                                    @Html.Label(Model.Age.ToString(), new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                                <td>
+                                    @Html.Label("Collected By :- ", new { style = "color:Black ; text-decoration:underline;" })
+                                    @Html.Label(Model.CollectedBy.ToString(), new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                            </tr>
+                            <tr style="border:double; border-width: 1px 0;">
+                                <td>
+                                    @Html.Label("Ref. By DR :-", new { style = "color:Black ; text-decoration:underline; " })
+                                    @Html.Label(Model.RefByDoc, new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                                <td>
+                                    @Html.Label("Gender :-", new { style = "color:Black ; text-decoration:underline;" })
+                                    @Html.Label(Model.Gender, new { style = "color:Black; font-weight: normal;" })
+                                </td>
+                                <td></td>
+                            </tr>
+                            @*<tr style="border: double; border-width: 1px 0;">
+                                    <td>
+                                        @Html.Label("Pt. Name :- ", new { style = "color:Black ; text-decoration:underline;" })
+                                        @Html.Label(Model.Pname, new { style = "color:Black; font-weight: normal;" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("Age :-", new { style = "color:Black ; text-decoration:underline;" })
+                                        @Html.Label(Model.Age.ToString(), new { style = "color:Black; font-weight: normal;" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("Date:-", new { style = "color:Black;text-decoration:underline;" })
+                                        @DateTime.Now
+                                    </td>
+                                </tr>*@
+                        </table>
+                        <div>
+                            @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Description))
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <!--place holder for the fixed-position footer-->
+                <div class="page-footer-space"></div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

@@ -1,0 +1,74 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<NamrataKalyani.Models.ReportModel>
+
+
+@{ ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <h2>Report</h2>
+    </div>
+</div>
+
+
+
+<div style="text-align:right;">
+    @Html.ActionLink("Create Report", "Create", null, new { @class = "btn btn-primary" })
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ReportType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ShortName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreatedBy)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().CreatedOn)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().UpdatedBy)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().UpdatedOn)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReportType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ShortName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdatedName)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdatedName)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.UpdatedOn)
+        </td>*@
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+    </td>
+</tr>}
+
+</table>
+
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

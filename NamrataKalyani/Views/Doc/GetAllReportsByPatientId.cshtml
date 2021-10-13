@@ -1,0 +1,126 @@
+﻿@model IEnumerable<NamrataKalyani.Models.GetAllReportsByPatientIdModel>
+
+@{
+    ViewBag.Title = "GetAllReportsByPatientId";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@*<script>
+    function ChangeReportType() {
+        let urlParams = @Request.QueryString["Pid"];
+        //alert(urlParams);
+       // var hostname = "akbardiagnostic.dswebcare.com";
+        var hostname = "http://localhost:54429";
+        
+        if ($('#ReportType').val() == 1) {
+            window.location = hostname + "/Doc/ClinicalBiochemistoryReportLIPIDProfile?pid="+urlParams;
+        }
+        else if ($('#ReportType').val() == 2) {
+            window.location = hostname + "/Doc/ClinicalBiochemistoryReportLTF?pid="+urlParams;
+
+        }
+        else if ($('#ReportType').val() == 3) {
+            window.location = hostname + "/Doc/ComputerBloodPictureReport?pid="+urlParams;
+
+        }
+        else {
+            return null;
+        }
+    }
+</script>*@
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <h2>Create Reports</h2>
+    </div>
+</div>
+
+@*<div class="form-group">
+    @Html.Label("Report Type", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("ReportType", null, "Select Report", htmlAttributes: new { @class = "control-label col-md-4 btn btn-default dropdown-toggle" })
+    </div>
+</div>*@
+ 
+@*<div class="btn-group-justified">
+    <div class="col-md-offset-2 col-md-4">
+        <input type="button" value="Create Test" class="btn btn-success" onclick="ChangeReportType();" />
+    </div>
+</div>*@
+ 
+ <div class="container-fluid">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedOn)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    <input type="hidden" id="BillId" value="@item.BillId" />
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedOn)
+                </td>
+                <td>
+                    @Html.ActionLink("Print View", "ShowReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Edit", "EditPrintReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Bill", "GetBillingInfo", "Billing", new { BillId = item.BillId }, new { @class = "btn btn-danger" })
+
+
+                    @*@if (item.ReportTypeId == 1)
+                        {
+                            @Html.ActionLink("Edit", "UpdateLIPIDProfileReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Print", "Print_LPIDReport", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId ,Printer_Name = item.Printer_Name }, new { @class = "btn btn-primary" })
+
+                        }
+                        else if (item.ReportTypeId == 2)
+                        {
+                            @Html.ActionLink("Edit", "UpdateLTFReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Print", "Print_LTF", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId, Printer_Name = item.Printer_Name   }, new { @class = "btn btn-primary" })
+                        }
+                        else if (item.ReportTypeId == 3)
+                        {
+                            @Html.ActionLink("Edit", "UpdateCBPReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Print", "Print_CBPReport1", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId,Printer_Name = item.Printer_Name}, new { @class = "btn btn-primary" })
+                        }*@
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $('#CreateBill').click(function () {
+        var id = $('#BillId').val();
+        window.location.replace("http://localhost:54429/Billing/GetBillingInfo/?BillId=" + id);
+    });
+</script>   

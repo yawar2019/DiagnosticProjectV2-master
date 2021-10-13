@@ -1,0 +1,76 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<NamrataKalyani.Models.ReferalDoctorModel>
+
+@{ ViewBag.Title = "ReferalDoctor";
+    Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <h2>Referal Doctor</h2>
+    </div>
+</div>
+<div style="text-align:right;">
+    @Html.ActionLink("Create New", "CreateRecord", null, new { @class = "btn btn-success" })
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DoctorName)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().Mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Email)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().UpdatedOn)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DoctorName)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.Mobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedOn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdatedName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdatedOn)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditRecord", new { id = item.DocId }, new { @class = "btn btn-primary" })
+
+        @* @Html.ActionLink("Delete", "DeleteRecord", new { id = item.DocId }, new { @class = "btn btn-danger" })*@
+    </td>
+</tr>}
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("ReferDocIndex", new { page }))
+

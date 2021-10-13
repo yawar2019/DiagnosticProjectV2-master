@@ -1,0 +1,58 @@
+﻿@model NamrataKalyani.Models.ReportByPidModel
+@{ ViewBag.Title = "EditPrintReport";
+                Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <h2>EditPrintReport</h2>
+    </div>
+</div>
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .tox tox-tinymce {
+        width: 100% !important;
+        height: 400px !important;
+    }
+</style>
+<link href="~/Content/prism.css" rel="stylesheet" />
+<div class="container-fluid">
+    @using (Html.BeginForm())
+    {
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>ReportDataModel</h4>
+                    <hr />
+                    <input type="hidden" name="ReportId" value=@Model.ReportId />
+                    <input type="hidden" name="BillId" value=@Model.BillId />
+                    <div>
+                        <textarea id="codesample" name="Description">
+                @Model.Description
+            </textarea>
+                        @*@Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { id = "codesample" } })*@
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>}
+<div>
+    @Html.ActionLink("Back to List", "GetAllReportsByPatientId", new { Pid = @Model.Pid })
+</div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/tinymce.min.js"></script>
+@*<script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/5-stable/tinymce.min.js"></script>*@
+<script src="~/Scripts/prism.js"></script>
+<script type="text/javascript">
+    tinymce.init({ selector: 'textarea', width: 500 });
+</script>
+
