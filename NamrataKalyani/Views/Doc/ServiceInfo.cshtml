@@ -15,8 +15,16 @@
 <form class="form-inline" action="~/Doc/ServiceFilter">
     <div class="form-group">
         <label class="control-label">Select Service</label>
-         @Html.DropDownList("ServiceNames", (IEnumerable<SelectListItem>)ViewBag.ServiceNames,new {@class="form-control"})
-    </div>
+        @* @Html.DropDownList("ServiceNames", (IEnumerable<SelectListItem>)ViewBag.ServiceNames,new {@class="form-control"})*@
+        @Html.DropDownList("ServiceNames",new List<SelectListItem>() {
+       new SelectListItem {Text="ServiceName",Value="ServiceName" },
+       new SelectListItem {Text="Method",Value="Method" },
+       new SelectListItem {Text="Sample",Value="Sample" },
+       new SelectListItem {Text="Schedule",Value="Schedule" },
+       new SelectListItem {Text="Vacutainer",Value="Vacutainer" },
+    
+   }, new { @class = "form-control" }) 
+     </div>
     <div class="form-group">
         <input type="text" class="form-control" name="filterValue">
     </div>
@@ -42,6 +50,8 @@
     </tr>
     @foreach (var item in Model)
     {
+        
+
         <tr>
             <td>@item.ServiceNo</td>
             <td>@item.ServiceName</td>
@@ -55,7 +65,10 @@
             <td>@item.Vacutainer</td>
             <td>@Html.ActionLink("Edit","EditService",new {id=@item.ServiceNo})</td>
         </tr>
+      
     }
 </table>
 
 @Html.PagedListPager(Model, page => Url.Action("ServiceInfo", new { page }))
+
+ 
