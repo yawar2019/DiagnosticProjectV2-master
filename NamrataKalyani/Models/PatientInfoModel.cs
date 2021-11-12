@@ -39,6 +39,7 @@ namespace NamrataKalyani.Models
         [DisplayName("Ref. By Doctor")]
         public string RefByDoc { get; set; }
         [DisplayName("Gender")]
+        [Required(ErrorMessage ="Select Gender")]
         public string gender { get; set; }
         [DisplayName("Mobile No.")]
         [Required(ErrorMessage ="Enter Mobile Number")]
@@ -71,7 +72,18 @@ namespace NamrataKalyani.Models
         public string CollectedByList { get; set; }
               [DisplayName("CollectedBy")]        [Required(ErrorMessage =("Select Collected By"))]        public int CollectedById { get; set; }
 
+        [DisplayName("Bill Id")]        [Required(ErrorMessage = ("Bill Id Cannot Be Empty"))]        public int BillBookNumber { get; set; }
 
+                [Required(ErrorMessage = ("Cannot be Empty"))]        public string ymd { get; set; }
+
+        [Required(ErrorMessage = ("Surname Cannot be Empty"))]        public string surname { get; set; }
+
+        [DisplayName("Total")]        [Required(ErrorMessage = ("Paid Ammount Cannout be Empty "))]        public decimal Total { get; set; }
+        [DisplayName("Paid")]        [Required(ErrorMessage = ("Paid Ammount Cannout be Empty "))]        public decimal PaidAmmount { get; set; }
+
+        [DisplayName("Due")]        [Required(ErrorMessage = ("Due Ammount Cannot be Empty"))]        public decimal Due { get; set; }
+        [DisplayName("Select to Print")]
+        public bool chkprint { get; set; }
     }
 
     public class PatientInfoOldModel

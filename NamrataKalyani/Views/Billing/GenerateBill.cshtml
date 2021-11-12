@@ -1,0 +1,75 @@
+﻿@model NamrataKalyani.Models._BilIingInfoModel
+@{
+    ViewBag.Title = "GenerateBill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    
+    td{
+        font-weight:bold;
+        text-align:left;
+    }
+    table {
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+table td {
+    border: 1px solid #ccc;
+}
+table .absorbing-column {
+    width: 100%;
+}
+</style>
+<link href="~/Content/Print.css" rel="stylesheet" />
+<div>
+    <a rel="stylesheet"><img src="~/Content/Images/PrintIcon.png" onclick="window.print(); document.margin='none'; return false;"></a>
+</div>
+<div class="row">
+    <div class="col-md-6" style="text-align:right"><b>Contact:Mohammed Omer</b></div>
+    <div class="col-md-6" style="text-align:right"><b>Phone:9393493408<br /> 7989342043</b></div>
+    <div></div>
+</div>  
+<div style="text-align:center">
+    <span style="font-weight:bold;font-size:xx-large;white-space:nowrap">AKBAR</span><br />
+    <span style="font-weight:bold;font-size:x-large;white-space:nowrap">Diagnostic centre</span><br />
+    <span style="font-weight:bold;font-size:large;white-space:nowrap">OPP:Noorani Masjid,Mahmood Nagar,Hassan Nagar,Hyd 500052 (T-S)</span>
+</div>
+<div class="container-fluid">
+   <table class="table  table-bordered" style="max-width:100%;white-space:nowrap;">
+       <tr>
+           <td style="font-weight:bold;">Bill No:</td>
+           <td><span>ADC/</span><span>@Model.BillId</span><span>/</span><span>@Model.BillNumber</span></td>
+           <td style="font-weight:bold;">Patient Name:</td> 
+           <td>@Model.PatientName</td>
+           <td style="font-weight:bold;">Ref. by DR:</td>
+           <td>@Model.DoctorName</td>
+       </tr>
+       <tr>
+           <td colspan="6" style="font-weight:bold;">Investigation:@Model.ReportName</td>
+       </tr>
+       <tr>
+           <td style="font-weight:bold;">Age:</td>
+           <td><span>@Model.Age</span><span> @Model.YMD</span>(<span>@Model.gender</span>)</td>
+           <td style="font-weight:bold;">Date</td>
+           <td>@DateTime.Now</td>
+           <td style="font-weight:bold;">BarCode</td>
+           <td><img src="~/Content/Images/barcode.jpg" /></td>
+       </tr>
+       <tr>
+           <td style="font-weight:bold;">Total:</td>
+           <td>@Model.Amount</td>
+           <td style="font-weight:bold;">Paid</td>
+           <td>@Model.Paid</td>
+           <td style="font-weight:bold;">Due</td>
+           <td>@Model.Due</td>
+       </tr>
+   </table>
+</div>
+<div style="text-align:center;">
+    <span style="font-weight:600;font-size:medium;white-space:nowrap">Please Collect your Reports After 7:PM</span><br />
+    <span style="font-weight:600;font-size:medium;white-space:nowrap">Notice:Please bring the receipt while collecting the report</span>
+</div>
+@Html.ActionLink("Back", "PatientInfo","Doc",null,new { @style = "document.margin='none'; return false;" }) 
+

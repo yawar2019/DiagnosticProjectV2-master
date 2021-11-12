@@ -1,0 +1,13 @@
+﻿@model NamrataKalyani.Models.CollectedByModel
+@{
+    ViewBag.Title = "UpdateCollectedByInfo";
+}
+
+<h2>UpdateCollectedByInfo</h2>
+
+<form action="~/Billing/UpdateCollectedByInfo" method="post">
+    <input type="hidden" name="CollectedById" value="@Model.CollectedById" />
+    <label>Collected By Name</label>
+    <input type="text" name="CollectedByName" value="@Model.CollectedByName" /><br />
+    <input type="submit" value="Update" />
+</form>

@@ -6,6 +6,7 @@ using Dapper;
 using NamrataKalyani.Models;
 using ceTe.DynamicPDF.HtmlConverter;
 using NamrataKalyani.CustomAttribute;
+using PagedList;
 
 namespace NamrataKalyani.Controllers
 {
@@ -35,7 +36,7 @@ namespace NamrataKalyani.Controllers
         {
             return View();
         }
-        
+
 
         public ActionResult PatientInfo()
         {
@@ -51,11 +52,11 @@ namespace NamrataKalyani.Controllers
 
             var Clist = RetuningData.ReturnigList<PatientInfoModel>("uspGetCollectedByList", null);
             ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedById");
-            
-
 
             return View();
         }
+
+
 
         [HttpPost]
         public ActionResult PatientInfo(PatientInfoModel pm)
@@ -67,6 +68,12 @@ namespace NamrataKalyani.Controllers
             param.Add("@CollectedById", pm.CollectedById);
             param.Add("@RefDocId", pm.DoctorList);
             param.Add("@mobileNo", pm.Name_Mobile);
+            param.Add("@BillNumber", pm.BillBookNumber);
+            param.Add("@ymd", pm.ymd);
+            param.Add("@surname", pm.surname);
+            param.Add("@Total", pm.Total);
+            param.Add("@Paid", pm.PaidAmmount);
+            param.Add("@Due", pm.Due);
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
 
@@ -78,13 +85,23 @@ namespace NamrataKalyani.Controllers
             param1.Add("@UpdatedBy", UserId);
 
             string[] str = pm.RptId.Split(',');
+            var billId = 0;
             foreach (var item in str)
             {
                 param1.Add("@Pid", Pid);
                 param1.Add("@ReportId", item);
-                RetuningData.ReturnSingleValue<string>("AddBillingTransaction", param1);
+                billId = RetuningData.ReturnSingleValue<int>("AddBillingTransaction", param1);
             }
-            return RedirectToAction("Dashboard", "Doc");
+            if (pm.chkprint == true)
+            {
+                return RedirectToAction("GenerateBill", "Billing", new { id = billId });
+
+            }
+            else
+            {
+                return RedirectToAction("Dashboard", "Doc");
+
+            }
         }
         public ActionResult PatientReport()
         {
@@ -453,7 +470,8 @@ namespace NamrataKalyani.Controllers
                 ViewBag.ReportType = new SelectList(Reports, "Id", "ReportType");
                 var dlist = RetuningData.ReturnigList<PatientInfoModel>("uspGetDoctotList", null);
                 ViewBag.DoctorList = new SelectList(dlist, "docid", "DoctorName");
-                var Clist = RetuningData.ReturnigList<PatientInfoModel>("uspGetCollectedByList", null);                ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedById");                
+                var Clist = RetuningData.ReturnigList<PatientInfoModel>("uspGetCollectedByList", null);                ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedById");
+
 
                 return View("PatientInfo", i);
             }
@@ -485,5 +503,76 @@ namespace NamrataKalyani.Controllers
             param.Add("@BillID", obj.BillId);            param.Add("@RptID", obj.ReportId);
             param.Add("@Description", obj.Description);            param.Add("@UpdatedBy", UserId);            int pat = RetuningData.AddOrSave<int>("usp_UpdatePrintReportById", param);
             return RedirectToAction("GetAllReportsByPatientId", new { id = obj.Pid });        }
+
+        public ActionResult ServiceInfo(int? page)
+        {
+            var param1 = new DynamicParameters();
+
+
+            var ServicecolumName = RetuningData.ReturnigList<ServiceColumnName>("usp_ServiceColumnName", param1);
+            ViewBag.ServiceNames = new SelectList(ServicecolumName.ToList(), "COLUMN_NAME", "COLUMN_NAME");
+
+            var param = new DynamicParameters();
+                        var pat = RetuningData.ReturnigList<ServiceModel>("usp_getServiceDetails", param).ToPagedList(page ?? 1, 10); ;
+
+            return View(pat);
+        }
+
+        public ActionResult CreateService()
+        {
+             
+            return View();
+        }
+
+        public ActionResult EditService(int? id)
+        {
+            var services= RetuningData.ReturnigList<ServiceModel>("usp_getServiceDetails", null);
+            var singleRecord = services.Where(a => a.ServiceNo == id).SingleOrDefault();
+            return View(singleRecord);
+        }
+
+        [HttpPost]
+        public ActionResult CreateService(ServiceModel pm)
+        {
+            var param = new DynamicParameters();
+            param.Add("@serviceNo", pm.ServiceNo);
+            param.Add("@serviceName", pm.ServiceName);
+            param.Add("@op", pm.OP);
+            param.Add("@ldsl", pm.LDSL);
+            param.Add("@method", pm.Method);
+            param.Add("@sample", pm.Sample);
+            param.Add("@schedule", pm.Schedule);
+            param.Add("@cutOfTime", pm.CutOfTime);
+            param.Add("@tat", pm.TAT);
+            param.Add("@vacutainer", pm.Vacutainer);
+
+
+            int sid = RetuningData.AddOrSave<int>("USP_Ins_Update_Services", param);
+
+            if (sid > 0)
+                return RedirectToAction("ServiceInfo");
+            else
+                return View();
+        }
+
+        
+             public ActionResult ServiceFilter(int? page,string ServiceNames,string filterValue)
+        {
+            var param1 = new DynamicParameters();
+
+
+            var ServicecolumName = RetuningData.ReturnigList<ServiceColumnName>("usp_ServiceColumnName", param1);
+            ViewBag.ServiceNames = new SelectList(ServicecolumName.ToList(), "COLUMN_NAME", "COLUMN_NAME");
+
+            var param = new DynamicParameters();
+            param.Add("@DDLVALUE", ServiceNames);
+            param.Add("@STRINGVALUE", filterValue);
+            var pat = RetuningData.ReturnigList<ServiceModel>("usp_GetServiceDetailsByColumnNames", param).ToPagedList(page ?? 1, 10);
+            if(string.IsNullOrEmpty(filterValue))
+            {
+                return RedirectToAction("ServiceInfo");
+            }
+            return View("ServiceInfo", pat);
+        }
     }
 }

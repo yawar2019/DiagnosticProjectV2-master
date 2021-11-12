@@ -1,0 +1,61 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<NamrataKalyani.Models.ServiceModel>
+
+ @{
+    ViewBag.Title = "ServiceInfo";
+}
+
+<h2>ServiceInfo</h2>
+<div style="text-align:right">
+    @Html.ActionLink("Create","CreateService", "Doc",null, new { @class = "btn btn-primary" })
+</div>
+
+
+<form class="form-inline" action="~/Doc/ServiceFilter">
+    <div class="form-group">
+        <label class="control-label">Select Service</label>
+         @Html.DropDownList("ServiceNames", (IEnumerable<SelectListItem>)ViewBag.ServiceNames,new {@class="form-control"})
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="filterValue">
+    </div>
+     
+    <input type="submit" class="btn btn-success" value="Filter" />
+</form>
+ 
+
+
+<table class="table table-bordered table-responsive">
+    <tr>
+        <th>ServiceNo</th>
+        <th>ServiceName</th>
+        <th>OP</th>
+        <th>LDSL</th>
+        <th>Method</th>
+        <th>Sample</th>
+        <th>Schedule</th>
+        <th>CutOfTime</th>
+        <th>TAT</th>
+        <th>Vacutainer</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ServiceNo</td>
+            <td>@item.ServiceName</td>
+            <td>@item.OP</td>
+            <td>@item.LDSL</td>
+            <td>@item.Method</td>
+            <td>@item.Sample</td>
+            <td>@item.Schedule</td>
+            <td>@item.CutOfTime</td>
+            <td>@item.TAT</td>
+            <td>@item.Vacutainer</td>
+            <td>@Html.ActionLink("Edit","EditService",new {id=@item.ServiceNo})</td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("ServiceInfo", new { page }))

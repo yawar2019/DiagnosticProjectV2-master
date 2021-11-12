@@ -4,9 +4,9 @@
     <title>Akber Diagnostic Center</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script> 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
+
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" />
     <link href="~/Content/Slider.css" rel="stylesheet" />
@@ -14,42 +14,47 @@
     <link href="~/Content/boxicons.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-   
+
     <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {
+            height: 1500px;
+        }
 
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
 
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
 
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @@media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;}
-    }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @@media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
     </style>
 </head>
 <body id="body-pd">
-
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div> 
-        <p style="color:white"><i class='bx bx-user nav_icon'></i> <span class="nav_name">Welcome: @System.Web.HttpContext.Current.Session["UserName"].ToString()</span></p></div>
+        <div>
+            <p style="color:white"><i class='bx bx-user nav_icon'></i> <span class="nav_name">Welcome: @System.Web.HttpContext.Current.Session["UserName"].ToString()</span></p>
+        </div>
         <div>   <a href="@Url.Action("Logout","Login",null)" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Sign Off</span> </a></div>
-        
+
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
@@ -60,10 +65,14 @@
                         <i class='bx bxs-grid-alt nav_icon'></i>
                         <span class="nav_name">Home</span>
                     </a>
-                    <a href="@Url.Action("index","Reports",null)" class="nav_link">
-                        <i class='bx bxs-report nav_icon'></i>
-                        <span class="nav_name">Report</span>
-                    </a> <a href="@Url.Action("ReferDocIndex","ReferalDoctor",null)" class="nav_link">
+                    @if (Convert.ToInt32(Session["RoleId"]) == 1)
+                    {
+                        <a href="@Url.Action("index", "Reports", null)" class="nav_link">
+                            <i class='bx bxs-report nav_icon'></i>
+                            <span class="nav_name">Report</span>
+                        </a>
+                    }
+                    <a href="@Url.Action("ReferDocIndex","ReferalDoctor",null)" class="nav_link">
                         <i class='bx bxs-plus-circle nav_icon'></i> <span class="nav_name">Doctor</span>
                     </a>
                     <a href="@Url.Action("GetBillingInfo","Billing",null)" class="nav_link">
@@ -71,29 +80,29 @@
                     </a>
                     @if (Convert.ToInt32(Session["RoleId"]) == 1)
                     {
-                    <a href="@Url.Action("Registration", "Login", null)" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Staff Registration</span>
-                    </a>
-                    <a href="@Url.Action("Registration", "Login", null)" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">CollectedBy Registration</span>
-                    </a>
+                        <a href="@Url.Action("Registration", "Login", null)" class="nav_link">
+                            <i class='bx bx-walk nav_icon'></i> <span class="nav_name">Employees</span>
+                        </a>
+                        <a href="@Url.Action("ShowCollectedByDetails", "Billing", null)" class="nav_link">
+                            <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">CollectedBy</span>
+                        </a>
                     }
+                    <a href="@Url.Action("ServiceInfo","Doc",null)" class="nav_link">
+                        <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Service</span>
+                    </a>
                 </div>
             </div>
-
         </nav>
     </div>
-
     <div class="height-100 bg-light">
         @RenderBody()
     </div>
 
-
     @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@
- 
+        @Scripts.Render("~/bundles/bootstrap")*@
 
-  
+
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

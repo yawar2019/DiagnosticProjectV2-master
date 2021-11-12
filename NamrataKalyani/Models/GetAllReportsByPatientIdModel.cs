@@ -8,6 +8,7 @@ namespace NamrataKalyani.Models
     public class GetAllReportsByPatientIdModel
     {
         public int Pid { get; set; }
+        public string PatientName { get; set; }
         public string Name { get; set; }
         public int ReportTypeId { get; set; }
         public int ReportId { get; set; }

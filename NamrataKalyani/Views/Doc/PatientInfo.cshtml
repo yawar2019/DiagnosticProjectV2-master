@@ -7,96 +7,231 @@
     </div>
 </div>
 
-
 <div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading">Patient Details</div>
         <div class="panel-body">
             @using (Html.BeginForm("PatientInfo1", "Doc", FormMethod.Post, new { @class = "form-inline" }))
             {
-<div class="col-md-5" style="margin-bottom:2px;">
-    @Html.Label("User Type", htmlAttributes: new { @class = "control-label" })
-    @Html.RadioButton("User Type", "Existing User", true, new { Onclick = "DisableObjects(this)" }) Existing User
-    @Html.RadioButton("User Type", "New User", new { Onclick = "EnableObjects(this)" })  New User
-</div>
+                <div class="col-md-5" style="margin-bottom:2px;">
+                    @Html.Label("User Type", htmlAttributes: new { @class = "control-label" })
+                    @*@Html.RadioButton("User Type", "Existing User", new { Onclick = "DisableObjects(this)" }) Existing User
+                        @Html.RadioButton("User Type", "New User",true, new { Onclick = "EnableObjects(this)" })  New User*@
+                    @Html.DropDownList("UserType", new List<SelectListItem>(){
+                               new SelectListItem {Text="New User",Value="New User"},
+                               //new SelectListItem {Text="Existing User",Value="Existing User"}
+                                }, "Select User Type", new { @class = "form-control", @Onclick = "DisableObjects(this)", @required = "required" })
+                </div>
                 <div class="col-md-7" style="margin-bottom:2px;">
                     @Html.LabelFor(model => model.mobileNo, htmlAttributes: new { @class = "control-label" })
                     @Html.TextBoxFor(model => model.mobileNo, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.mobileNo, "", new { @class = "text-danger" })
                     <button type="submit" class="btn btn-success" id="search">Search</button>
                 </div>
-                                <div class="col-md-12" style="margin-bottom:2px;">
-
-                                </div>            }
-
+                <div class="col-md-12" style="margin-bottom:2px;">
+                </div>            }
             @using (Html.BeginForm("PatientInfo", "Doc", FormMethod.Post, new { @class = "form-inline" }))
             {
 
-<div class="col-md-4">
-    @* <input type="hidden" id="Name_Mobile" name="Name_Mobile" value="@Model!=null?@Model.Name_Mobile:@string.Empty" />*@
-    @Html.HiddenFor(model => model.Name_Mobile, new { id = "Name_Mobile" })
-    @Html.LabelFor(model => model.DoctorName)
-    @Html.DropDownListFor(model => model.DoctorList, (IEnumerable<SelectListItem>)ViewBag.DoctorList, "Select Doctor", new { @class = "form-control" })
-    @Html.ValidationMessageFor(model => model.DoctorList, "", new { @class = "text-danger" })
-</div>
                 <div class="col-md-4">
+                    @* <input type="hidden" id="Name_Mobile" name="Name_Mobile" value="@Model!=null?@Model.Name_Mobile:@string.Empty" />*@
+                    @Html.HiddenFor(model => model.Name_Mobile, new { id = "Name_Mobile" })
+                    @Html.LabelFor(model => model.DoctorName)
+                    @Html.DropDownListFor(model => model.DoctorList, (IEnumerable<SelectListItem>)ViewBag.DoctorList, "Select Doctor", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DoctorList, "", new { @class = "text-danger" })
+                </div>            <div class="col-md-6">
+                    @Html.DropDownList("surname", new List<SelectListItem>(){
+                               new SelectListItem {Text="Mr.",Value="Mr."},
+                               new SelectListItem {Text="Mrs.",Value="Mrs."},
+                               new SelectListItem {Text="Miss",Value="Miss"},
+                               new SelectListItem {Text="Baby",Value="Baby"},
+                               new SelectListItem {Text="Baba",Value="Baba"},
+                                }, new { @class = "form-control" })
+
+
                     @Html.LabelFor(model => model.pname, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.pname, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.pname, "", new { @class = "text-danger" })
                 </div>
-                                <div class="col-md-4">
-                                    @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label" })
-                                    @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control",@style="width:50px",@type="text" } })
-                                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
-                                </div>
-                                                <div class="col-md-12" style="margin-bottom:2px;"> </div>
-                                                                <div class="col-md-12" style="margin-bottom:2px;"> </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control", @style = "width:50px", @type = "text" } })
+                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
 
-                                                                                <div class="col-md-5">
-                                                                                    @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                                                    @Html.RadioButtonFor(model => model.gender, "Male", new { @checked = true }) Male
-                                                                                    @Html.RadioButtonFor(model => model.gender, "Female") Female
+                    @Html.DropDownList("ymd", new List<SelectListItem>(){
+                               new SelectListItem {Text="years",Value="years"},
+                               new SelectListItem {Text="months",Value="months"},
+                               new SelectListItem {Text="days",Value="days"},
+                                }, new { @class = "form-control" })
+                </div>
+                <div class="col-md-12" style="margin-bottom:2px;"> </div>
+                <div class="col-md-12" style="margin-bottom:2px;"> </div>
+                <div class="col-md-5">
+                    @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.RadioButtonFor(model => model.gender, "Male", new { @checked = true }) Male
+                        @Html.RadioButtonFor(model => model.gender, "Female") Female*@
 
-                                                                                </div>
-                                                                                                <div>
-                                                                                                    @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })
-                                                                                                    @Html.LabelFor(model => model.CollectedById)
-                                                                                                    @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
-                                                                                                    @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.gender, new List<SelectListItem>(){
+                               new SelectListItem {Text="Male",Value="Male"},
+                               new SelectListItem {Text="Female",Value="Female"},
+                                }, "Select Gender", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
 
-                                                                                                </div>
+                </div>
+                <div>
+                    @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })
+                    @Html.LabelFor(model => model.CollectedById)
+                    @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-7">
+                    <label class="form-inline">Select Report </label>
+                    <select id="ReportType" multiple="multiple" class="form-control" required name="Report">
+                        @if (ViewBag.ReportType != null)
+                        {
+                            foreach (var item in ViewBag.ReportType)
+                            {
+                                if (item.Text != null)
+                                {
+                                    <option value="@item.Value">
+                                        @item.Text
+                                    </option>}
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.BillBookNumber, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.BillBookNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillBookNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.PaidAmmount, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.PaidAmmount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PaidAmmount, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Due, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Due, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.chkprint, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.chkprint, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @*<div class="col-md-7">
+                        @Html.LabelFor(model => model.ReportTypeId)
+                        @Html.DropDownListFor(model => model.ReportTypeId, (IEnumerable<SelectListItem>)ViewBag.ReportType, null, new { @class = "form-control", id = "ReportType", multiple = "multiple", name = "Report" })
+                    </div>*@
+                <div class="col-md-4">
 
-                                                                                                                <div class="col-md-7">
-                                                                                                                    <label class="form-inline">Select Report </label>
-                                                                                                                        <select id="ReportType" multiple="multiple" class="form-control" required name="Report">
-                                                                                                                            @if (ViewBag.ReportType != null)
-                                                                                                                            {
-                                                                                                                                foreach (var item in ViewBag.ReportType)
-                                                                                                                                {
-                                                                                                                                    if (item.Text != null)
-                                                                                                                                    {
-                                                                                                                                        <option value="@item.Value">
-                                                                                                                                            @item.Text
-                                                                                                                                        </option>}
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                        </select>
-                                                                                                                </div>
-                                                                                                                                @*<div class="col-md-7">
-                                                                                                                                    @Html.LabelFor(model => model.ReportTypeId)
-                                                                                                                                    @Html.DropDownListFor(model => model.ReportTypeId, (IEnumerable<SelectListItem>)ViewBag.ReportType, null, new { @class = "form-control", id = "ReportType", multiple = "multiple", name = "Report" })
-                                                                                                                                </div>*@
-                                                                                                                                                <div class="col-md-4">
-                                                                                                                                                    @Html.HiddenFor(model => model.RptId, new { id = "RptID" })
-                                                                                                                                                    <div class="col-md-offset-6 col-md-10 text-center" style="margin-top:10px">
-                                                                                                                                                        <input type="submit" id="Create" class="btn btn-success" value="Create" />
-                                                                                                                                                    </div>
-                                                                                                                                                </div>}
+                    @Html.HiddenFor(model => model.RptId, new { id = "RptID" })
+                    <div class="col-md-offset-6 col-md-10 text-center" style="margin-top:10px">
+                        <input type="submit" id="Create" class="btn btn-success" value="Create" />
+                    </div>
+
+                </div>}
         </div>
+
+
+
+        <form class="form-inline" action="~/Billing/getBillinfo" method="get">
+            <div class="form-group">
+                <label for="BillNo">Bill Id</label>
+                <input type="text" class="form-control" name="id">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        @if (ViewBag.Billinfo != null)
+        {
+            <table class="table table-bordered table-condensed table-striped">
+                <tr>
+                    <th>Auto BillId</th>
+                    <th>Book Bill Number</th>
+                    <th>Patient Name</th>
+                    <th>Total</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Discount</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var item in ViewBag.Billinfo)
+                {
+                    <tr>
+                        <td>@item.BillId</td>
+                        <td>@item.BillNumber</td>
+                        <td>@item.PatientName</td>
+                        <td>@item.Amount</td>
+                        <td>@item.Paid</td>
+                        <td>@item.Due</td>
+                        <td>@item.Discount</td>
+                        <td>
+                            <a  onclick="getEditBillinfo(@item.BillId,@item.Amount,@item.Paid,@item.Due,@item.Discount)"  class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit Bill</a>
+                        </td>
+                        <td>
+                            <a href="~/Billing/GenerateBill/@item.BillId" class="btn btn-success">Generate Bill</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
     </div>
 
 </div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <form action="~/Billing/UpdateBillingInfofromPatientScreen" method="post">
+                    <input type="hidden" name="BillId" id="BillId" />
+                    <div class="form-group">
+                        <label>Total Amount</label>
+                        <input type="text" name="Amount" id="amount" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Paid</label>
+                        <input type="text" name="Paid" id="paid"  class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Due</label>
+                        <input type="text" name="Due" id="due"  class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Discount</label>
+                        <input type="text" name="Discount" id="discount"  class="form-control" />
+                    </div>
+                    @*<div class="form-group">
+                        <label>Status</label>
+                        @Html.DropDownList("Status", new List<SelectListItem>() {
+      new SelectListItem {Text="Paid",Value="true"},
+      new SelectListItem {Text="Due",Value="false"},
+  }, new { @class = "drop-down" })
+                    </div>*@
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+ 
 @*<div>
         @Html.ActionLink("Back to List", "Index")
     </div>*@
@@ -136,13 +271,19 @@
                     alert("Enter Mobile Number");
                     return;
                 }
+                var s = $("#UserType option:selected").val();
+                if (s == "" || s == '') {
+                    alert("Select User Type");
+                    event.preventDefault();
+                    return;
+                }
                 $('#RptID').val(arrSelected);
                 $('#Name_Mobile').val($('#mobileNo').val());
 
             });
 
             function DisableObjects(rbEUser) {
-                if (rbEUser.checked == true) {
+                if (rbEUser.selectedIndex == 2) {
                     $('#pname').attr("disabled", "true");
                     $('#age').attr("disabled", "true");
                     $('#gender').attr("disabled", "true");
@@ -151,6 +292,13 @@
                     //document.getElementById(age).disabled = true;
                     //document.getElementById(gender).disabled = true;
                     $('#search').css('display', 'block');
+                }
+                else {
+                    $('#pname').removeAttr("disabled");
+                    $('#age').removeAttr("disabled");
+                    $('#gender').removeAttr("disabled");
+                    $('#gender').removeAttr("disabled");
+                    $('#search').css('display', 'none');
                 }
 
             }
@@ -164,9 +312,18 @@
 
                 }
             }
+
+            function getEditBillinfo(billId,total,paid,due,discount)
+            {
+                $('#BillId').val(billId);
+                $('#amount').val(total);
+                $('#paid').val(paid);
+                $('#due').val(due);
+                $('#discount').val(discount);
+                
+            }
         </script>
     </head>
 }
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

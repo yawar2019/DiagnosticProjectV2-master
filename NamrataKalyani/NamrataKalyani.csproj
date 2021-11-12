@@ -147,6 +147,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReferalDoctorController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Models\ServiceColumnName.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="CustomAttribute\SessionTimeoutAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,6 +156,7 @@
     <Compile Include="Models\CenterModel.cs" />
     <Compile Include="Models\ClinicalBiochemistoryReportLIPIDProfileModel.cs" />
     <Compile Include="Models\ClinicalBiochemistoryReportLTFModel.cs" />
+    <Compile Include="Models\CollectedByModel.cs" />
     <Compile Include="Models\ComputerBloodPictureReportModel.cs" />
     <Compile Include="Models\ReferalDoctorModel.cs" />
     <Compile Include="Models\ReportByPidModel.cs" />
@@ -179,6 +182,7 @@
     <Content Include="Content\dataTables.dateTime.min.css" />
     <Content Include="Content\Design\fancyTable.min.js" />
     <Content Include="Content\Forms.css" />
+    <Content Include="Content\Images\barcode.jpg" />
     <Content Include="Content\Images\PrintIcon.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Print.css" />
@@ -319,6 +323,14 @@
     <Content Include="Views\Shared\_MyLayout.cshtml" />
     <Content Include="Views\Shared\_LayoutPartialView.cshtml" />
     <Content Include="Views\Shared\_BillLayout.cshtml" />
+    <Content Include="Views\Billing\ShowCollectedByDetails.cshtml" />
+    <Content Include="Views\Billing\UpdateCollectedByInfo.cshtml" />
+    <Content Include="Views\Billing\SaveCollectedByInfo.cshtml" />
+    <Content Include="Views\Billing\CollectedBy.cshtml" />
+    <Content Include="Views\Billing\GenerateBill.cshtml" />
+    <Content Include="Views\Doc\ServiceInfo.cshtml" />
+    <Content Include="Views\Doc\CreateService.cshtml" />
+    <Content Include="Views\Doc\EditService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,6 @@
 ﻿@model  NamrataKalyani.Models._BilIingInfoModel
 @{ ViewBag.Title = "UpdateBillingInfo";
-                Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+  Layout = "~/Views/Shared/_MyLayout.cshtml"; }
 <div class="panel panel-default ">
     <div class="panel-heading headingcolor">
         <h2>Create Bill</h2>
@@ -27,6 +27,14 @@
         <input type="text" name="ReferalPercentage" width="20" id="referalPercentage" value="@Model.ReferalPercentage" class="form-control" />
     </div>
     <div class="form-group">
+        <label>Paid</label>
+        <input type="text" name="Paid" id="Paid" value="@Model.Paid" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Due</label>
+        <input type="text" name="Due" id="due" value="@Model.Due" class="form-control" />
+    </div>
+    <div class="form-group">
         <label>Discount</label>
         <input type="text" name="Discount" id="discount" value="@Model.Discount" class="form-control" />
     </div>
@@ -34,10 +42,7 @@
         <label>Referal Amount</label>
         <input type="text" name="ReferalAmount" id="referalAmount" value="@Model.ReferalAmount" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>Due</label>
-        <input type="text" name="Due" id="due" value="@Model.Due" class="form-control" />
-    </div>
+   
     <div class="form-group">
         <label>Expenses</label>
         <input type="text" name="Expenses" id="expenses" value="@Model.Expenses" class="form-control" />

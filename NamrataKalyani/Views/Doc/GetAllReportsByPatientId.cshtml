@@ -51,7 +51,10 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Patient Name
+            </th>
+            <th>
+              Report Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedName)
@@ -71,7 +74,9 @@
         @foreach (var item in Model)
         {
             <tr>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatientName)
+                </td>
                 <td>
                     <input type="hidden" id="BillId" value="@item.BillId" />
                     @Html.DisplayFor(modelItem => item.Name)

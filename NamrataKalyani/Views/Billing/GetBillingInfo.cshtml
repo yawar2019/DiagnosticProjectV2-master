@@ -48,10 +48,11 @@
                     <th>Investigation</th>
                     <th>Date</th>
                     <th>Total</th>
+                    <th>Paid</th>
+                    <th>Due</th>
                     <th>Discount</th>
                     <th>Expenses</th>
                     <th>Referal</th>
-                    <th>Due</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -86,6 +87,12 @@
                                 @Html.DisplayFor(m => item.Amount)
                             </td>
                             <td>
+                                @Html.DisplayFor(m => item.Paid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Due)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(m => item.Discount)
                             </td>
                             <td>
@@ -94,9 +101,7 @@
                             <td>
                                 @Html.DisplayFor(m => item.ReferalAmount)
                             </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Due)
-                            </td>
+                            
                             <td>
                                 @if (item.Status == false)
                 {
