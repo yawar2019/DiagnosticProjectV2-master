@@ -9,6 +9,9 @@ namespace NamrataKalyani.Models
         [Required]
         public string ServiceName { get; set; }
         [Required]
+        public string ShortName { get; set; }
+
+        [Required]
         public int OP { get; set; }
         [Required]
         public int LDSL { get; set; }

@@ -18,6 +18,7 @@
         @* @Html.DropDownList("ServiceNames", (IEnumerable<SelectListItem>)ViewBag.ServiceNames,new {@class="form-control"})*@
         @Html.DropDownList("ServiceNames",new List<SelectListItem>() {
        new SelectListItem {Text="ServiceName",Value="ServiceName" },
+       new SelectListItem {Text="ShortName",Value="ShortName" },
        new SelectListItem {Text="Method",Value="Method" },
        new SelectListItem {Text="Sample",Value="Sample" },
        new SelectListItem {Text="Schedule",Value="Schedule" },
@@ -38,6 +39,7 @@
     <tr>
         <th>ServiceNo</th>
         <th>ServiceName</th>
+        <th>ShortName</th>
         <th>OP</th>
         <th>LDSL</th>
         <th>Method</th>
@@ -55,6 +57,7 @@
         <tr>
             <td>@item.ServiceNo</td>
             <td>@item.ServiceName</td>
+            <td>@item.ShortName</td>
             <td>@item.OP</td>
             <td>@item.LDSL</td>
             <td>@item.Method</td>
@@ -63,7 +66,7 @@
             <td>@item.CutOfTime</td>
             <td>@item.TAT</td>
             <td>@item.Vacutainer</td>
-            <td>@Html.ActionLink("Edit","EditService",new {id=@item.ServiceNo})</td>
+            <td>@Html.ActionLink("Edit","EditService",new {id=@item.ServiceNo},new {@class="btn btn-primary"})</td>
         </tr>
       
     }

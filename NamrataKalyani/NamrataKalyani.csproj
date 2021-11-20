@@ -193,6 +193,7 @@
     <Content Include="Database\03-01-2021_script.sql" />
     <Content Include="Database\06-09-2021_Diognastic.sql" />
     <Content Include="Database\10-09-2021_script_Diognastic.sql" />
+    <Content Include="Database\20-11-2021-script.sql" />
     <Content Include="Database\22092021Diagnostic.sql" />
     <Content Include="Database\27sep2021_script.sql" />
     <Content Include="Document\Example.png" />

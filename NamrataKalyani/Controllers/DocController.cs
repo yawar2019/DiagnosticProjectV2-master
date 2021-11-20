@@ -537,6 +537,7 @@ namespace NamrataKalyani.Controllers
             var param = new DynamicParameters();
             param.Add("@serviceNo", pm.ServiceNo);
             param.Add("@serviceName", pm.ServiceName);
+            param.Add("@shortName", pm.ShortName);
             param.Add("@op", pm.OP);
             param.Add("@ldsl", pm.LDSL);
             param.Add("@method", pm.Method);
