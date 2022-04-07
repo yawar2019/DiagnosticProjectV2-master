@@ -142,6 +142,32 @@ namespace NamrataKalyani.Controllers
             var _CollectectedById = RetuningData.ReturnigList<CollectedByModel>("usp_getCollectedById", param).SingleOrDefault();
             return View(_CollectectedById);
         }
+        
+        [HttpGet]
+        public ActionResult DeleteBillingInfo(int? Id)
+        {
+            int result = 0, roleId;
+            if (!String.IsNullOrEmpty(System.Web.HttpContext.Current.Session["RoleId"].ToString()))
+            {
+                roleId = Convert.ToInt32(System.Web.HttpContext.Current.Session["RoleId"]);
+            }
+            else
+            {
+                return RedirectToAction("login", "login");
+            }
+            var param = new DynamicParameters();
+            param.Add("@BillId", Id);
+             
+            result = RetuningData.AddOrSave<int>("usp_DeleteBilling", param);
+            if (result > 0)
+            {
+                return RedirectToAction("GetBillingInfo");
+            }
+            else
+            {
+                return null;
+            }
+        }
         [HttpPost]
         public ActionResult UpdateCollectedByInfo(CollectedByModel col)
         {

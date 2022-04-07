@@ -27,7 +27,7 @@ namespace NamrataKalyani.Controllers
         }
 
         // GET: Reports
-        public ActionResult Index(int? page)        {            var rm = RetuningData.ReturnigList<ReportModel>("sp_getReports", null).ToPagedList(page ?? 1, 10);
+        public ActionResult Index()        {            var rm = RetuningData.ReturnigList<ReportModel>("sp_getReports", null).ToList();
             return View(rm);        }        
         public ActionResult Create()
         {

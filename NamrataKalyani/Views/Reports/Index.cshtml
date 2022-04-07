@@ -1,74 +1,92 @@
-﻿@using PagedList;
-@using PagedList.Mvc;
-@model IPagedList<NamrataKalyani.Models.ReportModel>
+﻿
+@model List<NamrataKalyani.Models.ReportModel>
 
 
 @{ ViewBag.Title = "Report";
-    Layout = "~/Views/Shared/_MyLayout.cshtml"; }
-<div class="panel panel-default ">
+    //Layout = null; 
+        }
+<style>
+   .table>tr>td
+   {
+       font-size:12px;
+   }
+
+   div,a,th,td
+   {
+       font-size:14px;
+   }
+
+</style>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+ <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<div class="panel panel-primary">
     <div class="panel-heading headingcolor">
-        <h2>Report</h2>
+        <h4>Report</h4>
     </div>
 </div>
 
 
 
-<div style="text-align:right;">
-    @Html.ActionLink("Create Report", "Create", null, new { @class = "btn btn-primary" })
+<div style="text-align:right;padding-bottom:10px;">
+    @Html.ActionLink("Create Report", "Create", null, new { @class = "btn btn-primary",@style="font-size:14px;" })
 </div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.First().ReportType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().ShortName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().CreatedBy)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.First().CreatedOn)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.First().UpdatedBy)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.First().UpdatedOn)
-            </th>*@
-        <th></th>
-    </tr>
+<table class="table" id="example" >
+    <thead>
 
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ReportType)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ShortName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UpdatedName)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.UpdatedName)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.UpdatedOn)
-        </td>*@
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+        <tr>
+            <th>
+                ReportType
+            </th>
+            <th>
+                ShortName
+            </th>
+            <th>
+                CreatedBy
+            </th>
+             
+            <th>
+                UpdatedBy
+            </th>
+            
+            <th>Action</th>
 
-        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
-    </td>
-</tr>}
+        </tr>
+    </thead>
 
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedName)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedName)
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>}
+    </tbody>
 </table>
 
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
+ 
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
 
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
