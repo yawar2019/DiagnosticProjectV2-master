@@ -504,7 +504,7 @@ namespace NamrataKalyani.Controllers
             param.Add("@Description", obj.Description);            param.Add("@UpdatedBy", UserId);            int pat = RetuningData.AddOrSave<int>("usp_UpdatePrintReportById", param);
             return RedirectToAction("GetAllReportsByPatientId", new { id = obj.Pid });        }
 
-        public ActionResult ServiceInfo(int? page)
+        public ActionResult ServiceInfo()
         {
             var param1 = new DynamicParameters();
 
@@ -513,7 +513,7 @@ namespace NamrataKalyani.Controllers
             ViewBag.ServiceNames = new SelectList(ServicecolumName.ToList(), "COLUMN_NAME", "COLUMN_NAME");
 
             var param = new DynamicParameters();
-                        var pat = RetuningData.ReturnigList<ServiceModel>("usp_getServiceDetails", param).ToPagedList(page ?? 1, 10); ;
+                        var pat = RetuningData.ReturnigList<ServiceModel>("usp_getServiceDetails", param);
 
             return View(pat);
         }

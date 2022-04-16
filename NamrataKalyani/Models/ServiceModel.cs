@@ -14,7 +14,7 @@ namespace NamrataKalyani.Models
         [Required]
         public int OP { get; set; }
         [Required]
-        public int LDSL { get; set; }
+        public string LDSL { get; set; }
         [Required]
         public string Method { get; set; }
         [Required]

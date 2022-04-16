@@ -184,6 +184,7 @@
     <Content Include="Content\dataTables.dateTime.min.css" />
     <Content Include="Content\Design\fancyTable.min.js" />
     <Content Include="Content\Forms.css" />
+    <Content Include="Content\Images\akbarLabImage.jpg" />
     <Content Include="Content\Images\barcode.jpg" />
     <Content Include="Content\Images\PrintIcon.png" />
     <Content Include="Content\PagedList.css" />
