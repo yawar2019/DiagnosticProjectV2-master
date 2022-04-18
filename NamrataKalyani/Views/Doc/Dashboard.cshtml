@@ -2,8 +2,9 @@
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
+    var Count = 0;
 }
-
+ 
 <div class="panel panel-default ">
     <div class="panel-heading headingcolor">
         <h4>Dashboard</h4>
@@ -15,58 +16,71 @@
         window.location = "http://localhost:54429/Doc/PatientInfo";
     }
 </script>
-
 @using (Html.BeginForm())
 {
-     
-
-<div class="col-md-12">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="panel panel-default ">
-            <div class="panel-heading headingcolor">
-
-                @Html.Label("Search Existing Patient")
 
 
-            </div>
-            <div class="panel-body bagraoung">
+    <div class="col-md-12">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="panel panel-default ">
+                <div class="panel-heading headingcolor">
+                    @Html.Label("Search Existing Patient")
 
-                <div class="form-group">
-                    @Html.Label("Name/Mobile", htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-6" style="margin-bottom:3px">
-                        @Html.TextBox("Name_Mobile", null, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessage("NameOrMobile", "", new { @class = "text-danger" })
+                </div>
+                <div class="panel-body bagraoung">
+                    <div class="form-group">
+                        @Html.Label("Name/Mobile", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6" style="margin-bottom:3px">
+                            @Html.TextBox("Name_Mobile", null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessage("NameOrMobile", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-6">
+                            <input type="submit" class="btn btn-success" value="Search" name="Dashboard" />
+                            @Html.ActionLink("New Registration", "PatientInfo", null, new { @class = "btn btn-primary" })
+
+                        </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-6">
-                        <input type="submit" class="btn btn-success" value="Search" name="Dashboard" class="btn btn-default" />
-                        @Html.ActionLink("New Registration", "PatientInfo")
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
-</div>
 
+}
+
+@using (Html.BeginForm("GetBillingInfo", "Billing", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-4" style="margin-bottom:4px">
+            @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
+            <label>Start Date</label>
+            <input type="text" name="min" id="min" />
+        </div>
+        <div class="col-md-4" style="margin-bottom:4px">
+            <label>End Date</label>
+            <input type="text" name="max" id="max" />
+        </div>
+
+    </div>
 }
 
 <table class="table table-condensed table-striped">
     <tr>
+        <th>Sno</th>
+        <th>Bill No</th>
+        <th>Date</th>
         <th>
             Patient Name
         </th>
+        <th>Referal Doctor</th>
+       <th>Investigation</th>
         <th>
             Mobile Number
         </th>
-        <th>
-            Date
-        </th>
-        <th> Action </th>
 
+        <th> Action </th>
     </tr>
     @if (Model != null)
     {
@@ -74,21 +88,76 @@
         {
             <tr>
                 <td>
-                    @item.pname
+                    1
                 </td>
                 <td>
-                    @item.mobileNo
+                    123
                 </td>
                 <td>
                     @item.CreatedOn
                 </td>
-
                 <td>
-                    <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.pid">View Reports</a>  
+                    @item.pname
+                </td>
+                
+                <td>
+                    @item.DoctorName
+                </td>
+                <td>
+                    LFT
+                </td>
+                <td>
+                    @item.mobileNo
+                </td>
+                
+                <td>
+                    <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.pid">View Reports</a>
                 </td>
             </tr>
         }
     }
 </table>
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+<script>
+    
+    var minDate, maxDate;
+
+    // Custom filtering function which will search data in column four between two values
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[5]);
+
+            if (
+                (min === null && max === null) ||
+                (min === null && date <= max) ||
+                (min <= date && max === null) ||
+                (min <= date && date <= max)
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
 
 
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+
+    // DataTables initialisation
+    var table = $('#mytable').DataTable();
+
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
+    
+</script>

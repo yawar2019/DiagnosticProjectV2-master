@@ -29,8 +29,27 @@ namespace NamrataKalyani.Models
         [Required(ErrorMessage = "No Role is Selected")]
         public int RoleId { get; set; }
         [DisplayName("Center")]
-        public int CenterId { get; set; }
+        public string CenterId { get; set; }
         public bool status { get; set; }
 
+        [Required(ErrorMessage = "Qualification is Required")]
+        [DisplayName("Qualification")]
+        public string Qualification { get; set; }
+
+        [Required(ErrorMessage = "Experience is Required")]
+        [DisplayName("Experience")]
+        public string Experience { get; set; }
+
+        [Required(ErrorMessage = "MobileNo is Required")]
+        [DisplayName("MobileNo")]
+        public string MobileNo { get; set; }
+
+        [Required(ErrorMessage = "UID is Required")]
+        [DisplayName("UID")]
+        public string UID { get; set; }
+
+        [Required(ErrorMessage = "Collected By User is Required")]
+        [DisplayName("Collected By Name")]
+        public string CollectedByUser { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Login";
-   // Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @*<h2>Login</h2>*@
@@ -114,61 +114,63 @@
             text-align: center;
         }
     }
+    body {
+       
+        background-image: url('../../Images/akbarLabImage.jpg');
+    }
 </style>
+<body>
+    <div >
 
-@using (Html.BeginForm())
-{
-    <br/>
-    <div class="col-md-12">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="panel panel-default ">
-                <div class="panel-heading headingcolor">
+        @using (Html.BeginForm())
+        {
+            <br />
+            <div class="col-md-12" style="padding-top:70px;">
+                <div class="col-md-2"></div>
+                <div class="col-md-6" style="padding-right: 114px;">
+                    <div class="panel panel-default ">
+                        <div class="panel-heading headingcolor" style="background-color:#483d8b;color:white;">
+                            @Html.Label("LOGIN")
 
-                    @Html.Label("LOGIN")
-                  
+                        </div>
+                        <div class="panel-body bagraoung">
 
-                </div>
-                <div class="panel-body bagraoung">
-
-                 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @*<div class="form-group">
-                            @Html.LabelFor(model => model.lid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.lid, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.lid, "", new { @class = "text-danger" })
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.lid, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.lid, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.lid, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Passward, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+@Html.PasswordFor(model => model.Passward,  new { @class = "form-control text-box single-line"  })
+                                    @Html.ValidationMessageFor(model => model.Passward, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-10">
+                                    <input type="submit" value="Login" class="btn btn-default" style="width: 30%;" />
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Passward, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(model => model.Passward, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Passward, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Login" class="btn btn-default" style="width: 30%;" />
-                            
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
-        </div>
-        
-                }
+
+        }
+    </div>
+</body>
 
                 @*<div>
                     @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Signup", "Registration")

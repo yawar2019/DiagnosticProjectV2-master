@@ -27,9 +27,9 @@ namespace NamrataKalyani.Controllers
                 UserId = Convert.ToInt32(System.Web.HttpContext.Current.Session["UserId"]);
             }
         }
-        public ActionResult ReferDocIndex(int? page)
+        public ActionResult ReferDocIndex()
         {
-            var rd = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getReferDoc", null).ToPagedList(page ?? 1, 10);
+            var rd = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getReferDoc", null);
 
             return View(rd);
         }
@@ -99,16 +99,16 @@ namespace NamrataKalyani.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteRecord(ReferalDoctorModel rdm)
+        public ActionResult DeleteConfirm(int? id)
         {
 
             var param = new DynamicParameters();
 
-            param.Add("@Rid", rdm.DocId);
-            var num = RetuningData.ReturnigList<ReferalDoctorModel>("DeleteReferalDocById", param).SingleOrDefault();
+            param.Add("@DocId", id);
+            var num = RetuningData.ReturnigList<int>("[uspDeleteDoctor]", param).SingleOrDefault();
 
 
-            if (num != null)
+            if (num>0)
             {
                 ViewBag.msg = "Record Deleted";
                 return RedirectToAction("ReferDocIndex");

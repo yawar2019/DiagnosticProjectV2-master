@@ -1,10 +1,14 @@
 ﻿
-@using PagedList;
-@using PagedList.Mvc;
-@model IPagedList<NamrataKalyani.Models.ReferalDoctorModel>
+@model List<NamrataKalyani.Models.ReferalDoctorModel>
 
 @{ ViewBag.Title = "ReferalDoctor";
     Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+
 <div class="panel panel-default ">
     <div class="panel-heading headingcolor">
         <h2>Referal Doctor</h2>
@@ -13,64 +17,60 @@
 <div style="text-align:right;">
     @Html.ActionLink("Create New", "CreateRecord", null, new { @class = "btn btn-success" })
 </div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.First().DoctorName)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.First().Mobile)
+<table class="table table-bordered table-responsive" id="example">
+    <thead>
+        <tr>
+            <th>
+                <label>DoctorName</label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().Email)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.First().CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().CreatedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().UpdatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().UpdatedOn)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.DoctorName)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.Mobile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.CreatedName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CreatedOn)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UpdatedName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UpdatedOn)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "EditRecord", new { id = item.DocId }, new { @class = "btn btn-primary" })
-
-        @* @Html.ActionLink("Delete", "DeleteRecord", new { id = item.DocId }, new { @class = "btn btn-danger" })*@
-    </td>
-</tr>}
-
+                <label>CreatedOn</label>
+            </th>
+            <th>
+                <label> CreatedOn</label>
+            </th>
+            <th>
+                <label> UpdatedBy</label>
+            </th>
+            <th>
+                <label>Update On</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedOn)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditRecord", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "DeleteRecord", new { id = item.DocId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>}
+    </tbody>
 </table>
 
-@Html.PagedListPager(Model, page => Url.Action("ReferDocIndex", new { page }))
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
 
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

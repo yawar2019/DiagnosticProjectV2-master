@@ -1,11 +1,8 @@
 ﻿@model NamrataKalyani.Models.ReferalDoctorModel
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -16,73 +13,20 @@
     <div>
         <h4>ReferalDoctorModel</h4>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ReferalDoctorName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ReferalDoctorName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Mobile)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Mobile)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CreatedBy)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CreatedOn)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.UpdatedBy)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.UpdatedOn)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.UpdatedOn)
-            </dd>
-    
-        </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
+        <b> @Html.DisplayNameFor(model => model.DoctorName):</b>
+
+        <span>@Model.DoctorName</span>
+
+        <br />
+        <br />
+        
+        <form action="~/ReferalDoctor/DeleteConfirm/@Model.DocId" method="post">
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "ReferDocIndex")
+                <input type="submit" value="Delete" class="btn btn-default" />
             </div>
-        }
+        </form>
     </div>
+    @Html.ActionLink("Back to List", "ReferDocIndex")
+
 </body>
 </html>

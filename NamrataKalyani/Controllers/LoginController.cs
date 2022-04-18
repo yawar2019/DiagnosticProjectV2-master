@@ -50,6 +50,14 @@ namespace NamrataKalyani.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+
+        public ActionResult Employees()
+        {
+            var employees = RetuningData.ReturnigList<RegistrationModel>("usp_GetEmployees", null);
+
+            return View(employees);
+        }
+
         public ActionResult Registration()
         {
             var dlist = RetuningData.ReturnigList<CenterModel>("usp_getCenter", null);

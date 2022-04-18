@@ -14,8 +14,8 @@ namespace NamrataKalyani.Models
         [DisplayName("Email")]
         [Required(ErrorMessage ="Email is Required")]
         public string email { get; set; }
-        [Required(ErrorMessage = "PassWord is Required")]
-        [DisplayName("PassWord")]
+        [Required(ErrorMessage = "Password is Required")]
+        [DisplayName("Password")]
         public string Passward { get; set; }
         public string Name_Mobile { get; set; }
         public int RoleId { get; set; }
