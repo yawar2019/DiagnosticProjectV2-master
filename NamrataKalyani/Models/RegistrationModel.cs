@@ -9,7 +9,7 @@ namespace NamrataKalyani.Models
 {
     public class RegistrationModel
     {
-        //  public int rid { get; set; }
+         public int EmpId { get; set; }
         [DisplayName("Name")]
         [Required(ErrorMessage = "Name is Required")]
         public string name { get; set; }
@@ -51,5 +51,15 @@ namespace NamrataKalyani.Models
         [Required(ErrorMessage = "Collected By User is Required")]
         [DisplayName("Collected By Name")]
         public string CollectedByUser { get; set; }
+
+        [Required(ErrorMessage = "Date of joining is Required")]
+        [DisplayName("Date of Joining")]
+        public string DOJ { get; set; }
+
+        [Required(ErrorMessage = "Address is Required")]
+        [DisplayName("Address")]
+        public string Address { get; set; }
+
+
     }
 }

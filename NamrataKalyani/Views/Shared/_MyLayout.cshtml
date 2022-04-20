@@ -80,15 +80,15 @@
                     </a>
                     @if (Convert.ToInt32(Session["RoleId"]) == 1)
                     {
-                        <a href="@Url.Action("Registration", "Login", null)" class="nav_link">
+                        <a href="@Url.Action("Employees", "Login", null)" class="nav_link">
                             <i class='bx bx-walk nav_icon'></i> <span class="nav_name">Employees</span>
                         </a>
-                        <a href="@Url.Action("ShowCollectedByDetails", "Billing", null)" class="nav_link">
+                        @*<a href="@Url.Action("ShowCollectedByDetails", "Billing", null)" class="nav_link">
                             <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">CollectedBy</span>
-                        </a>
+                        </a>*@
                     }
                     <a href="@Url.Action("ServiceInfo","Doc",null)" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Service</span>
+                        <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">Service</span>
                     </a>
                 </div>
             </div>

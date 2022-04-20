@@ -340,6 +340,9 @@
     <Content Include="Views\Doc\EditService.cshtml" />
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Login\Employees.cshtml" />
+    <Content Include="Views\Login\EditRegistration.cshtml" />
+    <Content Include="Views\Login\DeleteRegistration.cshtml" />
+    <Content Include="Views\Login\DetailsRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

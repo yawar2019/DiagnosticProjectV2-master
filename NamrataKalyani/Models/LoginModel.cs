@@ -19,5 +19,6 @@ namespace NamrataKalyani.Models
         public string Passward { get; set; }
         public string Name_Mobile { get; set; }
         public int RoleId { get; set; }
+        public bool Status { get; set; }
     }
 }
