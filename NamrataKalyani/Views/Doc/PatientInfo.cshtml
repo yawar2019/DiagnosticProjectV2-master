@@ -4,6 +4,7 @@
 
 <style>
     .multiselect-container .multiselect-filter > input.multiselect-search {
+        border:medium;
     border-color: black;
     border-style: solid;
     width: 500px;
@@ -57,6 +58,9 @@
                                new SelectListItem {Text="Miss",Value="Miss"},
                                new SelectListItem {Text="Baby",Value="Baby"},
                                new SelectListItem {Text="Baba",Value="Baba"},
+                               new SelectListItem {Text="Ms",Value="Ms"},
+                               new SelectListItem {Text="Dr",Value="Dr"},
+                               new SelectListItem {Text="Master",Value="Master"},
                                 }, new { @class = "form-control" })
 
 
@@ -90,7 +94,7 @@
 
                 </div>
                 <div>
-                    @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })
+                  @*  @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })*@
                     @Html.LabelFor(model => model.CollectedById)
                     @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })

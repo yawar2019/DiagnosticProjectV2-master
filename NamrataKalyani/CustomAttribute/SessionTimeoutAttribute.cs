@@ -12,6 +12,7 @@ namespace NamrataKalyani.CustomAttribute
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             HttpContext ctx = HttpContext.Current;
+
             if (String.IsNullOrEmpty(HttpContext.Current.Session["UserId"].ToString()))
             {
                 filterContext.Result = new RedirectResult("~/Login/Login");

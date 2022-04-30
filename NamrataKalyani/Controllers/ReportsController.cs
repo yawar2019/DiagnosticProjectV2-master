@@ -27,8 +27,12 @@ namespace NamrataKalyani.Controllers
         }
 
         // GET: Reports
-        public ActionResult Index()        {            var rm = RetuningData.ReturnigList<ReportModel>("sp_getReports", null).ToList();
-            return View(rm);        }        
+        public ActionResult Index()
+        {
+            var rm = RetuningData.ReturnigList<ReportModel>("sp_getReports", null).ToList();
+            return View(rm);
+        }
+        
         public ActionResult Create()
         {
             return View();
@@ -65,7 +69,25 @@ namespace NamrataKalyani.Controllers
             return View(rm);
         }
 
-        [HttpPost]        public ActionResult Edit(ReportModel rm)        {            var param = new DynamicParameters();            param.Add("@Rid", rm.Id);            param.Add("@RName", rm.ReportType);            param.Add("@Description", rm.Description);            param.Add("@ShortName", rm.ShortName);            param.Add("@UpdatedBy", UserId );            param.Add("@UpdatedOn", DateTime.Now);            int i = RetuningData.AddOrSave<int>("usp_UpdateReportById", param);            if (i > 0)            {                return RedirectToAction("Index");            }            return View();        }
+        [HttpPost]
+        public ActionResult Edit(ReportModel rm)
+        {
+            var param = new DynamicParameters();
+            param.Add("@Rid", rm.Id);
+            param.Add("@RName", rm.ReportType);
+            param.Add("@Description", rm.Description);
+            param.Add("@ShortName", rm.ShortName);
+            param.Add("@UpdatedBy", UserId );
+            param.Add("@UpdatedOn", DateTime.Now);
+
+            int i = RetuningData.AddOrSave<int>("usp_UpdateReportById", param);
+
+            if (i > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
 
 
         public ActionResult Delete(int? id)

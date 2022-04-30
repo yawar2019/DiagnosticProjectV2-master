@@ -1,10 +1,11 @@
-﻿@model IEnumerable<NamrataKalyani.Models.PatientInfoModel>
+﻿@model IEnumerable<NamrataKalyani.Models._BilIingInfoModel>
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
     var Count = 0;
 }
- 
+ <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
 <div class="panel panel-default ">
     <div class="panel-heading headingcolor">
         <h4>Dashboard</h4>
@@ -16,7 +17,7 @@
         window.location = "http://localhost:54429/Doc/PatientInfo";
     }
 </script>
-@using (Html.BeginForm())
+@using (Html.BeginForm("DashBoard","Doc",FormMethod.Get))
 {
 
 
@@ -30,9 +31,9 @@
                 </div>
                 <div class="panel-body bagraoung">
                     <div class="form-group">
-                        @Html.Label("Name/Mobile", htmlAttributes: new { @class = "control-label col-md-4" })
+                        @Html.Label("Mobile", htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-6" style="margin-bottom:3px">
-                            @Html.TextBox("Name_Mobile", null, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.TextBox("Name_Mobile", null,new { @class = "form-control",@type="number" })
                             @Html.ValidationMessage("NameOrMobile", "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -50,72 +51,84 @@
 
 }
 
-@using (Html.BeginForm("GetBillingInfo", "Billing", FormMethod.Get))
+@using (Html.BeginForm("Dashboard", "Doc", FormMethod.Get))
 {
     <div class="row">
         <div class="col-md-4" style="margin-bottom:4px">
             @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
             <label>Start Date</label>
-            <input type="text" name="min" id="min" />
+            <input type="date"   id="min" name="BeginDate" class="form-control" />
         </div>
         <div class="col-md-4" style="margin-bottom:4px">
             <label>End Date</label>
-            <input type="text" name="max" id="max" />
+            <input type="date" name="EndDate" id="max" class="form-control" />
+        </div>
+        <div class="col-md-2" style="margin-bottom:2px">
+           
+            <input type="submit" name="max" id="max" class="btn btn-primary" />
         </div>
 
     </div>
 }
 
-<table class="table table-condensed table-striped">
-    <tr>
-        <th>Sno</th>
-        <th>Bill No</th>
-        <th>Date</th>
-        <th>
-            Patient Name
-        </th>
-        <th>Referal Doctor</th>
-       <th>Investigation</th>
-        <th>
-            Mobile Number
-        </th>
+<table class="table table-condensed table-striped" id="example">
+    <thead>
+        <tr>
+            <th>Sno</th>
+            <th>Bill No</th>
+            <th>Book BillNo</th>
+            <th>Date</th>
+            <th>
+                Patient Name
+            </th>
+            <th>Referal Doctor</th>
+            <th>Investigation</th>
+            <th>
+                Mobile Number
+            </th>
 
-        <th> Action </th>
-    </tr>
+            <th> Action </th>
+        </tr>
+    </thead>
     @if (Model != null)
     {
         foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    1
-                </td>
-                <td>
-                    123
-                </td>
-                <td>
-                    @item.CreatedOn
-                </td>
-                <td>
-                    @item.pname
-                </td>
-                
-                <td>
-                    @item.DoctorName
-                </td>
-                <td>
-                    LFT
-                </td>
-                <td>
-                    @item.mobileNo
-                </td>
-                
-                <td>
-                    <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.pid">View Reports</a>
-                </td>
-            </tr>
-        }
-    }
+            <tbody>
+                <tr>
+                    <td>
+                        @{Count++; } @Count
+                    </td>
+                    <td>
+                        @item.BillId
+                    </td>
+                    <td>
+                        @item.BillNumber
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td>
+                        @item.PatientName
+                    </td>
+
+                    <td>
+                        @item.DoctorName
+                    </td>
+                    <td>
+                        @item.ReportName
+                    </td>
+                    <td>
+                        @item.MobileNo
+                    </td>
+
+                    <td>
+                        <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId">View</a>
+                        <a class="btn btn-warning" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+                                }                           }
 </table>
 <script src="~/Scripts/jquery-3.5.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
@@ -160,4 +173,14 @@
         table.draw();
     });
     
+</script>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
 </script>

@@ -1,359 +1,373 @@
-﻿@model IEnumerable<NamrataKalyani.Models._BilIingInfoModel>
-@{ ViewBag.Title = "GetBillingInfo";
-    Layout = "~/Views/Shared/_MyLayout.cshtml"; }
+﻿    @model IEnumerable<NamrataKalyani.Models._BilIingInfoModel>
+    @{ ViewBag.Title = "GetBillingInfo";
+        Layout = "~/Views/Shared/_MyLayout.cshtml"; }
 
-<style>
-    th, td {
-        white-space: nowrap;
-    }
-</style>
-<link href="~/Content/twitter-bootstrap.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-<link href="~/Content/dataTables.dateTime.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" />
+    <style>
+        th, td {
+            white-space: nowrap;
+        }
+    </style>
+    <link href="~/Content/twitter-bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.dateTime.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" />
 
-<div class="panel panel-default ">
-    <div class="panel-heading headingcolor">
+    <div class="panel panel-default ">
+        <div class="panel-heading headingcolor">
 
-        <h2>Billing Info</h2>
-    </div>
-</div>
-
-<div class="container" margin-left:"0px;">
-    @using (Html.BeginForm("GetBillingInfo", "Billing", FormMethod.Get))
-    {
-        <div class="row">
-            <div class="col-md-4" style="margin-bottom:4px">
-                @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
-                <label>Start Date</label>
-                <input type="text" name="min" id="min" />
-            </div>
-            <div class="col-md-4" style="margin-bottom:4px">
-                <label>End Date</label>
-                <input type="text" name="max" id="max" />
-            </div>
-           
+            <h2>Billing Info</h2>
         </div>
-    }
+    </div>
 
-    <div class="container">
-        <table id="mytable" class="table table-striped table-bordered w-auto text-xsmall" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Sr.No</th>
-                    <th>BillId</th>
-                    <th>PatientName</th>
-                    <th>DoctorName</th>
-                    <th>Investigation</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Paid</th>
-                    <th>Due</th>
-                    <th>Discount</th>
-                    <th>Expenses</th>
-                    <th>Referal</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int sno = 0;
+    <div class="container" margin-left:"0px;">
+        @using (Html.BeginForm("GetBillingInfo", "Billing", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-4" style="margin-bottom:4px">
+                    @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
+                    <label>Start Date</label>
+                    <input type="text" name="min" id="min" />
+                </div>
+                <div class="col-md-4" style="margin-bottom:4px">
+                    <label>End Date</label>
+                    <input type="text" name="max" id="max" />
+                </div>
+           
+            </div>
+        }
 
-                    foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @{ sno++; }
-                                @sno
-                            </td>
-                            <td>
-                                @item.BillId
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.PatientName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.DoctorName)
-                            </td>
-                            <td>
-                                @Html.HiddenFor(m => item.PId)
-                                @item.ReportName
-                            </td>
-                            <td>
-                                @item.Date.ToString("yyyy-MM-dd")
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Amount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Paid)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Due)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Discount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Expenses)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.ReferalAmount)
-                            </td>
+        <div class="container">
+            <table id="mytable" class="table table-striped table-bordered w-auto text-xsmall" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>BillId</th>
+                        <th>PatientName</th>
+                        <th>DoctorName</th>
+                        <th>Investigation</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>Discount</th>
+                        <th>Expenses</th>
+                        <th>Referal</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int sno = 0;
+
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @item.BillId
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.PatientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.DoctorName)
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(m => item.PId)
+                                    @item.ReportName
+                                </td>
+                                <td>
+                                    @item.Date.ToString("yyyy-MM-dd")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Amount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Paid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Due)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Discount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Expenses)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.ReferalAmount)
+                                </td>
                             
-                            <td>
-                                @if (item.Status == false)
-                {
-                                    <span style="color:red">Due</span> }
-                                else
-                                {
-                                    <span style="color:darkgreen">Paid</span>}
-                            </td>
-                            <td>
-                                <a href="~/Billing/UpdateBillingInfo/@item.BillId"><i class="fa fa-pencil"></i></a>|
+                                <td>
+                                    @if (item.Status == false)
+                    {
+                                        <span style="color:red">Due</span> }
+                                    else
+                                    {
+                                        <span style="color:darkgreen">Paid</span>}
+                                </td>
+                                <td>
+                                    <a href="~/Billing/UpdateBillingInfo/@item.BillId"><i class="fa fa-pencil"></i></a>|
                            
                              
-                                <a href="~/Billing/DeleteBillingInfo/@item.BillId"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <a href="~/Billing/DeleteBillingInfo/@item.BillId"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                </td>
+                            </tr> }}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="6" style="text-align:right">Total:</th>
+                        <th style="text-align:left">Total:</th>
+                        <th style="text-align:left">Total:</th>
+                        <th style="text-align:left">Total:</th>
+                        <th style="text-align:left">Total:</th>
+                        <th style="text-align:left">Total:</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                @*<tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="text" class="grdtot" value="" name="" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <input type="submit" class="btn btn-success" value="Save"/>
                             </td>
-                        </tr> }}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="6" style="text-align:right">Total:</th>
-                    <th style="text-align:left">Total:</th>
-                    <th style="text-align:left">Total:</th>
-                    <th style="text-align:left">Total:</th>
-                    <th style="text-align:left">Total:</th>
-                    <th style="text-align:left">Total:</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </tfoot>
-            @*<tfoot>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><input type="text" class="grdtot" value="" name="" /></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <input type="submit" class="btn btn-success" value="Save"/>
-                        </td>
-                        <td></td>
-                        <td></td>
+                            <td></td>
+                            <td></td>
 
-                    </tr>
-                </tfoot>*@
-        </table>
+                        </tr>
+                    </tfoot>*@
+            </table>
+        </div>
     </div>
-</div>
 
-@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
-<script src="~/Scripts/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#mytable').DataTable({
-            dom: 'Bfrtip',
-            "pageLength": 100,
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ],
-        //});
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#mytable').DataTable({
+                dom: 'Bfrtip',
+                "pageLength": 100,
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'colvis',
+                    'csvHtml5',
+                     {
+                         extend: 'pdf',
+                         title: "Akbar Diagnostic Reports",
+                         exportOptions: {
+                             columns: ':visible:not(.not-export-col)',
+                         },
+                         styles: {
+                             tableHeader: {
+                                 alignment: 'left'
+                             }
+                         }
+                     }
+                    //'pdfHtml5'
+                ],
+            //});
     
 
    
-        //$('#mytable').DataTable({
+            //$('#mytable').DataTable({
 
-            "footerCallback": function (row, data, start, end, display) {
+                "footerCallback": function (row, data, start, end, display) {
                 
-                var api = this.api(), data;
+                    var api = this.api(), data;
 
-                // Remove the formatting to get integer data for summation
-                var intVal = function (i) {
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
 
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '') * 1 :
-                        typeof i === 'number' ?
-                        i : 0;
-                };
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    };
 
-                // Total over all pages
-                total = api
-                    .column(6)
+                    // Total over all pages
+                    total = api
+                        .column(6)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+                    // Total over this page
+                    pageTotal6 = api
+                        .column(6, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    pageTotal7 = api
+                       .column(7, { page: 'current' })
+                       .data()
+                       .reduce(function (a, b) {
+                           return intVal(a) + intVal(b);
+                       }, 0);
+
+
+                    pageTotal8 = api
+                       .column(8, { page: 'current' })
+                       .data()
+                       .reduce(function (a, b) {
+                           return intVal(a) + intVal(b);
+                       }, 0);
+
+
+                    pageTotal9 = api
+                       .column(9, { page: 'current' })
+                       .data()
+                       .reduce(function (a, b) {
+                           return intVal(a) + intVal(b);
+                       }, 0);
+
+                    pageTotal10 = api
+                    .column(10, { page: 'current' })
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
 
-
-                // Total over this page
-                pageTotal6 = api
-                    .column(6, { page: 'current' })
+                    pageTotal11 = api
+                    .column(11, { page: 'current' })
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
 
-                pageTotal7 = api
-                   .column(7, { page: 'current' })
-                   .data()
-                   .reduce(function (a, b) {
-                       return intVal(a) + intVal(b);
-                   }, 0);
-
-
-                pageTotal8 = api
-                   .column(8, { page: 'current' })
-                   .data()
-                   .reduce(function (a, b) {
-                       return intVal(a) + intVal(b);
-                   }, 0);
-
-
-                pageTotal9 = api
-                   .column(9, { page: 'current' })
-                   .data()
-                   .reduce(function (a, b) {
-                       return intVal(a) + intVal(b);
-                   }, 0);
-
-                pageTotal10 = api
-                .column(10, { page: 'current' })
-                .data()
-                .reduce(function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0);
-
-                pageTotal11 = api
-                .column(11, { page: 'current' })
-                .data()
-                .reduce(function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0);
-
-                // Update footer
-                $(api.column(6).footer()).html(
-                    pageTotal6
-                );
-                $(api.column(7).footer()).html(
-                    pageTotal7
-                );
-                $(api.column(8).footer()).html(
-                    pageTotal8
-                );
-                $(api.column(9).footer()).html(
-                    pageTotal9
-                );
-                $(api.column(10).footer()).html(
-                   pageTotal10
-                 );
-                $(api.column(11).footer()).html(
-                  pageTotal11
-                );
-            }
-        });
-
-
-
-
-
-        var minDate, maxDate;
-
-        // Custom filtering function which will search data in column four between two values
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                var min = minDate.val();
-                var max = maxDate.val();
-                var date = new Date(data[5]);
-
-                if (
-                    (min === null && max === null) ||
-                    (min === null && date <= max) ||
-                    (min <= date && max === null) ||
-                    (min <= date && date <= max)
-                ) {
-                    return true;
+                    // Update footer
+                    $(api.column(6).footer()).html(
+                        pageTotal6
+                    );
+                    $(api.column(7).footer()).html(
+                        pageTotal7
+                    );
+                    $(api.column(8).footer()).html(
+                        pageTotal8
+                    );
+                    $(api.column(9).footer()).html(
+                        pageTotal9
+                    );
+                    $(api.column(10).footer()).html(
+                       pageTotal10
+                     );
+                    $(api.column(11).footer()).html(
+                      pageTotal11
+                    );
                 }
-                return false;
-            }
-        );
+            });
 
 
-        // Create date inputs
-        minDate = new DateTime($('#min'), {
-            format: 'MMMM Do YYYY'
+
+
+
+            var minDate, maxDate;
+
+            // Custom filtering function which will search data in column four between two values
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = minDate.val();
+                    var max = maxDate.val();
+                    var date = new Date(data[5]);
+
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+
+
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            // DataTables initialisation
+            var table = $('#mytable').DataTable();
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
         });
-        maxDate = new DateTime($('#max'), {
-            format: 'MMMM Do YYYY'
-        });
 
-        // DataTables initialisation
-        var table = $('#mytable').DataTable();
-
-        // Refilter the table
-        $('#min, #max').on('change', function () {
-            table.draw();
-        });
-    });
-
-            //function percentage(num, per) {
-            //    return (num / 100) * per;
-            //}
+                //function percentage(num, per) {
+                //    return (num / 100) * per;
+                //}
 
 
-            //$(function () {
-            //    $('.grdtot,.total_amount').prop('readonly', true);
-            //    var $tblrows = $("#mytable tbody tr");
+                //$(function () {
+                //    $('.grdtot,.total_amount').prop('readonly', true);
+                //    var $tblrows = $("#mytable tbody tr");
 
-            //    $tblrows.each(function (index) {
-            //        var $tblrow = $(this);
+                //    $tblrows.each(function (index) {
+                //        var $tblrow = $(this);
 
-            //        $tblrow.find('input[type=text]').on('change', function () {
+                //        $tblrow.find('input[type=text]').on('change', function () {
 
-            //            var amt = $tblrow.find("input[type=text].amount").val();
-            //            var disc = $tblrow.find("input[type=text].discount").val();
-            //            var exp = $tblrow.find("input[type=text].expenses").val();
-            //            var refamt = amt * $tblrow.find("input[type=text].referalAmount").val() / 100;
-            //            var inv = $tblrow.find("input[type=text].investment").val();
-            //            var subTotal = parseFloat(amt) - parseFloat(disc) - parseFloat(exp) - parseFloat(refamt) - parseFloat(inv);
+                //            var amt = $tblrow.find("input[type=text].amount").val();
+                //            var disc = $tblrow.find("input[type=text].discount").val();
+                //            var exp = $tblrow.find("input[type=text].expenses").val();
+                //            var refamt = amt * $tblrow.find("input[type=text].referalAmount").val() / 100;
+                //            var inv = $tblrow.find("input[type=text].investment").val();
+                //            var subTotal = parseFloat(amt) - parseFloat(disc) - parseFloat(exp) - parseFloat(refamt) - parseFloat(inv);
 
-            //            if (!isNaN(subTotal)) {
+                //            if (!isNaN(subTotal)) {
 
-            //                $tblrow.find('.total_amount').val(subTotal.toFixed(2));
-            //                var grandTotal = 0;
+                //                $tblrow.find('.total_amount').val(subTotal.toFixed(2));
+                //                var grandTotal = 0;
 
-            //                $(".total_amount").each(function () {
-            //                    var stval = parseFloat($(this).val());
-            //                    grandTotal += isNaN(stval) ? 0 : stval;
-            //                });
+                //                $(".total_amount").each(function () {
+                //                    var stval = parseFloat($(this).val());
+                //                    grandTotal += isNaN(stval) ? 0 : stval;
+                //                });
 
-            //                $('.grdtot').val(grandTotal.toFixed(2));
-            //            }
-            //        });
-            //    });
-            //});
-</script>
+                //                $('.grdtot').val(grandTotal.toFixed(2));
+                //            }
+                //        });
+                //    });
+                //});
+    </script>
 

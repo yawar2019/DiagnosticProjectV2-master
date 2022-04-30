@@ -16,6 +16,9 @@ namespace NamrataKalyani.Models
         [Required]
         public string LDSL { get; set; }
         [Required]
+        public string LabToLab { get; set; }
+
+        [Required]
         public string Method { get; set; }
         [Required]
         public string Sample { get; set; }

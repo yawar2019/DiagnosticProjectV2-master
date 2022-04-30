@@ -20,6 +20,6 @@ namespace NamrataKalyani.Models
         public int? Age { get; set; }
         public string gender { get; set; }
         
-
+        public string MobileNo { get; set; }
     }
 }
