@@ -146,8 +146,11 @@
     <Compile Include="Controllers\DocController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NotepadController.cs" />
     <Compile Include="Controllers\ReferalDoctorController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Models\MailModel.cs" />
+    <Compile Include="Models\NotepadModel.cs" />
     <Compile Include="Models\ServiceColumnName.cs" />
     <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="CustomAttribute\SessionTimeoutAttribute.cs" />
@@ -343,9 +346,16 @@
     <Content Include="Views\Login\EditRegistration.cshtml" />
     <Content Include="Views\Login\DeleteRegistration.cshtml" />
     <Content Include="Views\Login\DetailsRegistration.cshtml" />
+    <Content Include="Views\Notepad\Index.cshtml" />
+    <Content Include="Views\Notepad\Create.cshtml" />
+    <Content Include="Views\Notepad\Details.cshtml" />
+    <Content Include="Views\Notepad\Edit.cshtml" />
+    <Content Include="Views\Notepad\Delete.cshtml" />
+    <Content Include="Views\ReferalDoctor\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="uploads\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>

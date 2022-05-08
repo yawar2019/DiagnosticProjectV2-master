@@ -54,16 +54,16 @@
 @using (Html.BeginForm("Dashboard", "Doc", FormMethod.Get))
 {
     <div class="row">
-        <div class="col-md-4" style="margin-bottom:4px">
+        <div class="col-md-offset-2 col-md-2" style="margin-bottom:4px">
             @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
             <label>Start Date</label>
             <input type="date"   id="min" name="BeginDate" class="form-control" />
         </div>
-        <div class="col-md-4" style="margin-bottom:4px">
+        <div class="col-md-2" style="margin-bottom:4px">
             <label>End Date</label>
             <input type="date" name="EndDate" id="max" class="form-control" />
         </div>
-        <div class="col-md-2" style="margin-bottom:2px">
+        <div class="col-md-1" style="padding-top:24px;padding-left:1px;">
            
             <input type="submit" name="max" id="max" class="btn btn-primary" />
         </div>
@@ -92,43 +92,46 @@
     </thead>
     @if (Model != null)
     {
-        foreach (var item in Model)
+    <tbody>
+        @foreach (var item in Model)
         {
-            <tbody>
-                <tr>
-                    <td>
-                        @{Count++; } @Count
-                    </td>
-                    <td>
-                        @item.BillId
-                    </td>
-                    <td>
-                        @item.BillNumber
-                    </td>
-                    <td>
-                        @item.Date
-                    </td>
-                    <td>
-                        @item.PatientName
-                    </td>
 
-                    <td>
-                        @item.DoctorName
-                    </td>
-                    <td>
-                        @item.ReportName
-                    </td>
-                    <td>
-                        @item.MobileNo
-                    </td>
+        <tr>
+            <td>
+                @{Count++; } @Count
+            </td>
+            <td>
+                @item.BillId
+            </td>
+            <td>
+                @item.BillNumber
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @item.PatientName
+            </td>
 
-                    <td>
-                        <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId">View</a>
-                        <a class="btn btn-warning" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId">Edit</a>
-                    </td>
-                </tr>
-            </tbody>
-                                }                           }
+            <td>
+                @item.DoctorName
+            </td>
+            <td>
+                @item.ReportName
+            </td>
+            <td>
+                @item.MobileNo
+            </td>
+
+            <td>
+                <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId">View Reports</a>
+                <a class="btn btn-warning" href="~/Billing/GenerateBill/@item.BillId">Print Bill</a>
+                <a class="btn btn-success" href="~/Billing/UpdateBillingInfo/@item.BillId">Edit Bill</a>
+            </td>
+        </tr>
+        }   
+    </tbody>
+                                            }
 </table>
 <script src="~/Scripts/jquery-3.5.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>

@@ -4,11 +4,11 @@
 
 <style>
     .multiselect-container .multiselect-filter > input.multiselect-search {
-        border:medium;
-    border-color: black;
-    border-style: solid;
-    width: 500px;
-    border-width: medium;  
+        border: medium;
+        border-color: black;
+        border-style: solid;
+        width: 500px;
+        border-width: medium;
     }
 </style>
 
@@ -94,7 +94,7 @@
 
                 </div>
                 <div>
-                  @*  @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })*@
+                    @*  @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })*@
                     @Html.LabelFor(model => model.CollectedById)
                     @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })
@@ -135,10 +135,10 @@
                     @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Due, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-md-4">
+                @*<div class="col-md-4">
                     @Html.LabelFor(model => model.chkprint, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.chkprint, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+                </div>*@
                 @*<div class="col-md-7">
                         @Html.LabelFor(model => model.ReportTypeId)
                         @Html.DropDownListFor(model => model.ReportTypeId, (IEnumerable<SelectListItem>)ViewBag.ReportType, null, new { @class = "form-control", id = "ReportType", multiple = "multiple", name = "Report" })
@@ -154,99 +154,99 @@
         </div>
 
 
+        <div style="display:none;">
+            <form class="form-inline" action="~/Billing/getBillinfo" method="get">
+                <div class="form-group">
+                    <label for="BillNo">Bill Id</label>
+                    <input type="text" class="form-control" name="id">
+                </div>
 
-        <form class="form-inline" action="~/Billing/getBillinfo" method="get">
-            <div class="form-group">
-                <label for="BillNo">Bill Id</label>
-                <input type="text" class="form-control" name="id">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-        @if (ViewBag.Billinfo != null)
-        {
-            <table class="table table-bordered table-condensed table-striped">
-                <tr>
-                    <th>Auto BillId</th>
-                    <th>Book Bill Number</th>
-                    <th>Patient Name</th>
-                    <th>Total</th>
-                    <th>Paid</th>
-                    <th>Due</th>
-                    <th>Discount</th>
-                    <th>Action</th>
-                </tr>
-                @foreach (var item in ViewBag.Billinfo)
-                {
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            @if (ViewBag.Billinfo != null)
+            {
+                <table class="table table-bordered table-condensed table-striped">
                     <tr>
-                        <td>@item.BillId</td>
-                        <td>@item.BillNumber</td>
-                        <td>@item.PatientName</td>
-                        <td>@item.Amount</td>
-                        <td>@item.Paid</td>
-                        <td>@item.Due</td>
-                        <td>@item.Discount</td>
-                        <td>
-                            <a  onclick="getEditBillinfo(@item.BillId,@item.Amount,@item.Paid,@item.Due,@item.Discount)"  class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit Bill</a>
-                        </td>
-                        <td>
-                            <a href="~/Billing/GenerateBill/@item.BillId" class="btn btn-success">Generate Bill</a>
-                        </td>
+                        <th>Auto BillId</th>
+                        <th>Book Bill Number</th>
+                        <th>Patient Name</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>Discount</th>
+                        <th>Action</th>
                     </tr>
-                }
-            </table>
-        }
-    </div>
-
-</div>
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <form action="~/Billing/UpdateBillingInfofromPatientScreen" method="post">
-                    <input type="hidden" name="BillId" id="BillId" />
-                    <div class="form-group">
-                        <label>Total Amount</label>
-                        <input type="text" name="Amount" id="amount" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Paid</label>
-                        <input type="text" name="Paid" id="paid"  class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Due</label>
-                        <input type="text" name="Due" id="due"  class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Discount</label>
-                        <input type="text" name="Discount" id="discount"  class="form-control" />
-                    </div>
-                    @*<div class="form-group">
-                        <label>Status</label>
-                        @Html.DropDownList("Status", new List<SelectListItem>() {
-      new SelectListItem {Text="Paid",Value="true"},
-      new SelectListItem {Text="Due",Value="false"},
-  }, new { @class = "drop-down" })
-                    </div>*@
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-success" />
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                    @foreach (var item in ViewBag.Billinfo)
+                {
+                        <tr>
+                            <td>@item.BillId</td>
+                            <td>@item.BillNumber</td>
+                            <td>@item.PatientName</td>
+                            <td>@item.Amount</td>
+                            <td>@item.Paid</td>
+                            <td>@item.Due</td>
+                            <td>@item.Discount</td>
+                            <td>
+                                <a onclick="getEditBillinfo(@item.BillId,@item.Amount,@item.Paid,@item.Due,@item.Discount)" class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit Bill</a>
+                            </td>
+                            <td>
+                                <a href="~/Billing/GenerateBill/@item.BillId" class="btn btn-success">Generate Bill</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
         </div>
 
     </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="~/Billing/UpdateBillingInfofromPatientScreen" method="post">
+                        <input type="hidden" name="BillId" id="BillId" />
+                        <div class="form-group">
+                            <label>Total Amount</label>
+                            <input type="text" name="Amount" id="amount" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Paid</label>
+                            <input type="text" name="Paid" id="paid" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Due</label>
+                            <input type="text" name="Due" id="due" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Discount</label>
+                            <input type="text" name="Discount" id="discount" class="form-control" />
+                        </div>
+                        @*<div class="form-group">
+                                                  <label>Status</label>
+                                                  @Html.DropDownList("Status", new List<SelectListItem>() {
+                                new SelectListItem {Text="Paid",Value="true"},
+                                new SelectListItem {Text="Due",Value="false"},
+                            }, new { @class = "drop-down" })
+                                              </div>*@
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
- 
 @*<div>
         @Html.ActionLink("Back to List", "Index")
     </div>*@
@@ -328,14 +328,13 @@
                 }
             }
 
-            function getEditBillinfo(billId,total,paid,due,discount)
-            {
+            function getEditBillinfo(billId, total, paid, due, discount) {
                 $('#BillId').val(billId);
                 $('#amount').val(total);
                 $('#paid').val(paid);
                 $('#due').val(due);
                 $('#discount').val(discount);
-                
+
             }
         </script>
     </head>

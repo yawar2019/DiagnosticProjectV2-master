@@ -93,7 +93,7 @@ namespace NamrataKalyani.Controllers
 
             if (result > 0 && roleId==1)
             {
-                return RedirectToAction("GetBillingInfo");
+                return RedirectToAction("Dashboard", "Doc");
             }
             else
             {

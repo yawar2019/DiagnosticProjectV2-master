@@ -29,7 +29,7 @@ namespace NamrataKalyani.Controllers
         }
         public ActionResult ReferDocIndex()
         {
-            var rd = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getReferDoc", null);
+            var rd = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getDoctorsDetail", null);
 
             return View(rd);
         }
@@ -37,6 +37,9 @@ namespace NamrataKalyani.Controllers
 
         public ActionResult CreateRecord()
         {
+            var rd = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getListDoctors", null);
+
+            ViewBag.Doctor = new SelectList(rd, "docid", "doctorName");
             return View();
         }
 
@@ -46,10 +49,25 @@ namespace NamrataKalyani.Controllers
             var param = new DynamicParameters();
     
             param.Add("@DoctorName", rdm.DoctorName);
+            param.Add("@Specilization", rdm.Specilization);
+            param.Add("@Signature", rdm.Signature);
+            param.Add("@Qualification", rdm.Qualification);
+            param.Add("@ContactNumber", rdm.ContactNumber);
+            param.Add("@EmailId", rdm.EmailId);
+            param.Add("@Address1", rdm.Address1);
+            param.Add("@Address2", rdm.Address2);
+            param.Add("@Address3", rdm.Address3);
+            param.Add("@MobileAdd1", rdm.MobileAdd1);
+            param.Add("@MobileAdd2", rdm.MobileAdd2);
+            param.Add("@MobileAdd3", rdm.MobileAdd3);
+            param.Add("@DayAndTime1", rdm.DayAndTime1);
+            param.Add("@DayAndTime2", rdm.DayAndTime2);
+            param.Add("@DayAndTime3", rdm.DayAndTime3);
+            
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
 
-            int i = RetuningData.AddOrSave<int>("uspAddDoctor", param);
+            int i = RetuningData.AddOrSave<int>("usp_DoctorsInfo", param);
             if (i > 0)
             {
 
@@ -61,8 +79,8 @@ namespace NamrataKalyani.Controllers
         public ActionResult EditRecord(int? id)
         {
             var param = new DynamicParameters();
-            param.Add("@Rid", id);
-            var rdm = RetuningData.ReturnigList<ReferalDoctorModel>("sp_ReferDoctorById", param).SingleOrDefault();
+            param.Add("@Docid", id);
+            var rdm = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getDoctorsDetailById", param).SingleOrDefault();
             return View(rdm);
 
         }
@@ -72,15 +90,27 @@ namespace NamrataKalyani.Controllers
         public ActionResult EditRecord(ReferalDoctorModel rdm)
         {
             var param = new DynamicParameters();
+            param.Add("@Specilization", rdm.Specilization);
+            param.Add("@Signature", rdm.Signature);
+            param.Add("@Qualification", rdm.Qualification);
+            param.Add("@ContactNumber", rdm.ContactNumber);
+            param.Add("@EmailId", rdm.EmailId);
+            param.Add("@Address1", rdm.Address1);
+            param.Add("@Address2", rdm.Address2);
+            param.Add("@Address3", rdm.Address3);
+            param.Add("@MobileAdd1", rdm.MobileAdd1);
+            param.Add("@MobileAdd2", rdm.MobileAdd2);
+            param.Add("@MobileAdd3", rdm.MobileAdd3);
+            param.Add("@DayAndTime1", rdm.DayAndTime1);
+            param.Add("@DayAndTime2", rdm.DayAndTime2);
+            param.Add("@DayAndTime3", rdm.DayAndTime3);
             param.Add("@DocId", rdm.DocId);
             param.Add("@DoctorName", rdm.DoctorName);
-            //param.Add("@Email", rdm.Email);
-            //param.Add("@Mobile", rdm.Mobile);
-             param.Add("@UpdatedBy", UserId);
-          
+            param.Add("@CreatedBy", UserId);
+            param.Add("@UpdatedBy", UserId);
 
-            int i = RetuningData.AddOrSave<int>("sp_UpdateReferDoctorById", param);
-
+            int i = RetuningData.AddOrSave<int>("usp_DoctorsInfo", param);
+            
             if (i > 0)
             {
                 return RedirectToAction("ReferDocIndex");
@@ -96,6 +126,13 @@ namespace NamrataKalyani.Controllers
             param.Add("@Rid", id);
             var rm = RetuningData.ReturnigList<ReferalDoctorModel>("sp_ReferDoctorById", param).SingleOrDefault();
             return View(rm);
+        }
+
+        public ActionResult Details(int? id) {
+            var param = new DynamicParameters();
+            param.Add("@Docid", id);
+            var rdm = RetuningData.ReturnigList<ReferalDoctorModel>("usp_getDoctorsDetailById", param).SingleOrDefault();
+            return View(rdm);
         }
 
         [HttpPost]

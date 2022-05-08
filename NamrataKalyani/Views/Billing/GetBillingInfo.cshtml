@@ -51,8 +51,6 @@
                         <th>Paid</th>
                         <th>Due</th>
                         <th>Discount</th>
-                        <th>Expenses</th>
-                        <th>Referal</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -95,12 +93,7 @@
                                 <td>
                                     @Html.DisplayFor(m => item.Discount)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(m => item.Expenses)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(m => item.ReferalAmount)
-                                </td>
+                               
                             
                                 <td>
                                     @if (item.Status == false)
@@ -111,10 +104,10 @@
                                         <span style="color:darkgreen">Paid</span>}
                                 </td>
                                 <td>
-                                    <a href="~/Billing/UpdateBillingInfo/@item.BillId"><i class="fa fa-pencil"></i></a>|
+                                    <a href="~/Billing/UpdateBillingInfo/@item.BillId" class="btn btn-success">Edit</a>
                            
                              
-                                    <a href="~/Billing/DeleteBillingInfo/@item.BillId"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <a href="~/Billing/DeleteBillingInfo/@item.BillId" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr> }}
                 </tbody>
@@ -124,8 +117,8 @@
                         <th style="text-align:left">Total:</th>
                         <th style="text-align:left">Total:</th>
                         <th style="text-align:left">Total:</th>
-                        <th style="text-align:left">Total:</th>
-                        <th style="text-align:left">Total:</th>
+                        @*<th style="text-align:left">Total:</th>
+                        <th style="text-align:left">Total:</th>*@
                         <th></th>
                         <th></th>
                     </tr>

@@ -1,8 +1,9 @@
 ﻿
 @model List<NamrataKalyani.Models.ServiceModel>
 
- @{
+@{
     ViewBag.Title = "ServiceInfo";
+     
 }
 
 <style>
@@ -13,6 +14,10 @@
     div, a, th, td {
         font-size: 14px;
     }
+
+        .div.dt-button-collection>:last-child  {   
+    background-color: brown;
+}
 </style>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -20,7 +25,7 @@
 
 <h2>ServiceInfo</h2>
 <div style="text-align:right">
-    @Html.ActionLink("Create","CreateService", "Doc",null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create", "CreateService", "Doc", null, new { @class = "btn btn-primary" })
 </div>
 
 <table class="table table-bordered table-responsive" id="example">
@@ -30,8 +35,12 @@
             <th>ServiceName</th>
             <th>ShortName</th>
             <th>OP</th>
+@if(Convert.ToInt32(System.Web.HttpContext.Current.Session["RoleId"]) == 1)
+{
+
             <th>LDSL</th>
             <th>LabToLab</th>
+}
             <th>Method</th>
             <th>Sample</th>
             <th>Schedule</th>
@@ -49,8 +58,10 @@
                 <td>@item.ServiceName</td>
                 <td>@item.ShortName</td>
                 <td>@item.OP</td>
+                @if(Convert.ToInt32(System.Web.HttpContext.Current.Session["RoleId"])==1){
                 <td>@item.LDSL</td>
                 <td>@item.LabToLab</td>
+                }
                 <td>@item.Method</td>
                 <td>@item.Sample</td>
                 <td>@item.Schedule</td>
@@ -60,19 +71,19 @@
                 <td>@Html.ActionLink("Edit", "EditService", new { id = @item.ServiceNo }, new { @class = "btn btn-primary" })</td>
             </tr>
         }
-        </tbody>
+    </tbody>
 </table>
 
- 
- @*<script src="~/Scripts/jquery-3.5.1.js"></script>
-<script src="~/Scripts/jquery.dataTables.min.js"></script>
-<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>*@
+
+@*<script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap5.min.js"></script>*@
 
 @*<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>*@
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>*@
 
 
 
@@ -115,4 +126,4 @@
             ]
         });
     });
-    </script>
+</script>
