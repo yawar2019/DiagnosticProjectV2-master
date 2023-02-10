@@ -95,8 +95,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Print View", "ShowReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Edit", "EditPrintReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Bill", "GetBillingInfo", "Billing", new { BillId = item.BillId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "EditPrintReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-primary" })
+                  @*  @Html.ActionLink("Bill", "GetBillingInfo", "Billing", new { BillId = item.BillId }, new { @class = "btn btn-danger" })*@
 
 
                     @*@if (item.ReportTypeId == 1)

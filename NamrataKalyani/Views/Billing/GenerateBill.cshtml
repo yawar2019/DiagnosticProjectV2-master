@@ -65,11 +65,22 @@ table .absorbing-column {
            <td style="font-weight:bold;">Due</td>
            <td>@Model.Due</td>
        </tr>
+       
    </table>
 </div>
+
 <div style="text-align:center;">
     <span style="font-weight:600;font-size:medium;white-space:nowrap">Please Collect your Reports After 7:PM</span><br />
     <span style="font-weight:600;font-size:medium;white-space:nowrap">Notice:Please bring the receipt while collecting the report</span>
+    <span style="font-weight:600;font-size:medium;white-space:nowrap">We are not responsible for report after 10 days.</span>
 </div>
-@Html.ActionLink("Back", "PatientInfo","Doc",null,new { @style = "document.margin='none'; return false;" }) 
+<div>
+    <table class="table-bordered table-responsive" style="width:auto">
+        <tr>
+            <td style="font-weight:bold;">Received By: </td>
+            <td>@Convert.ToString(Session["UserName"])</td>
+        </tr>
+    </table>
+</div>
+@Html.ActionLink("Back", "Dashboard", "Doc",null,new { @style = "document.margin='none'; return false;" })  
 

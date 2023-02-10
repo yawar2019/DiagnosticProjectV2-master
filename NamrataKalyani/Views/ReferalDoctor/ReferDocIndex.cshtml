@@ -21,21 +21,30 @@
     <thead>
         <tr>
             <th>
-                <label>DoctorName</label>
+                DoctorName
             </th>
             <th>
-                <label>CreatedOn</label>
+                CodeName
             </th>
             <th>
-                <label> CreatedOn</label>
+                Specilization
             </th>
             <th>
-                <label> UpdatedBy</label>
+                Contact Number
             </th>
             <th>
-                <label>Update On</label>
+                CreatedBy
             </th>
-            <th></th>
+            <th>
+                 CreatedOn
+            </th>
+            <th>
+                 UpdatedBy
+            </th>
+            <th>
+                Update On
+            </th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +55,16 @@
                     @Html.DisplayFor(modelItem => item.DoctorName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedName)
+                    @Html.DisplayFor(modelItem => item.CodeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specilization)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedOn)
@@ -59,6 +77,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditRecord", new { id = item.DocId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("View", "Details", new { id = item.DocId }, new { @class = "btn btn-warning" })
                     @Html.ActionLink("Delete", "DeleteRecord", new { id = item.DocId }, new { @class = "btn btn-danger" })
                 </td>
             </tr>}

@@ -72,6 +72,11 @@ namespace NamrataKalyani.Models
         public string CollectedByList { get; set; }
               [DisplayName("CollectedBy")]        [Required(ErrorMessage =("Select Collected By"))]        public int CollectedById { get; set; }
 
+        [DisplayName("CollectedByName")]        [Required(ErrorMessage = ("Select Collected By"))]
+
+        public string CollectedByName { get; set; }
+
+
         [DisplayName("Bill Id")]        [Required(ErrorMessage = ("Bill Id Cannot Be Empty"))]        public int BillBookNumber { get; set; }
 
                 [Required(ErrorMessage = ("Cannot be Empty"))]        public string ymd { get; set; }

@@ -75,9 +75,12 @@
                     <a href="@Url.Action("ReferDocIndex","ReferalDoctor",null)" class="nav_link">
                         <i class='bx bxs-plus-circle nav_icon'></i> <span class="nav_name">Doctor</span>
                     </a>
-                    <a href="@Url.Action("GetBillingInfo","Billing",null)" class="nav_link">
+@if (Convert.ToInt32(Session["RoleId"]) == 1)
+{
+                    <a href="@Url.Action("GetBillingInfo", "Billing", null)" class="nav_link">
                         <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bill</span>
                     </a>
+}
                     @if (Convert.ToInt32(Session["RoleId"]) == 1)
                     {
                         <a href="@Url.Action("Employees", "Login", null)" class="nav_link">
@@ -89,6 +92,9 @@
                     }
                     <a href="@Url.Action("ServiceInfo","Doc",null)" class="nav_link">
                         <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">Service</span>
+                    </a>
+                    <a href="@Url.Action("Index","Notepad",null)" class="nav_link">
+                        <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">Notepad</span>
                     </a>
                 </div>
             </div>

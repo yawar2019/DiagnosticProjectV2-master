@@ -76,7 +76,7 @@ namespace NamrataKalyani.Controllers
             }
             else
             {
-                return RedirectToAction("login","login");
+                return RedirectToAction("login", "login");
             }
             var param = new DynamicParameters();
             param.Add("@BillId", Bill.BillId);
@@ -91,13 +91,13 @@ namespace NamrataKalyani.Controllers
             param.Add("@UpdatedBy", UserId);
             result = RetuningData.AddOrSave<int>("usp_UpdateBilling", param);
 
-            if (result > 0 && roleId==1)
+            if (result > 0 && roleId == 1)
             {
-                return RedirectToAction("GetBillingInfo");
+                return RedirectToAction("Dashboard", "Doc");
             }
             else
             {
-                return RedirectToAction("GetBillingInfo",new {BillId= Bill.BillId });
+                return RedirectToAction("GetBillingInfo", new { BillId = Bill.BillId });
             }
         }
 
@@ -122,8 +122,8 @@ namespace NamrataKalyani.Controllers
             param.Add("@UpdatedBy", UserId);
             result = RetuningData.AddOrSave<int>("usp_UpdateBillingFromPatientScreen", param);
 
-            
-                return RedirectToAction("getBillinfo", "Billing", new {id=Bill.BillId });
+
+            return RedirectToAction("getBillinfo", "Billing", new { id = Bill.BillId });
 
 
 
@@ -142,7 +142,7 @@ namespace NamrataKalyani.Controllers
             var _CollectectedById = RetuningData.ReturnigList<CollectedByModel>("usp_getCollectedById", param).SingleOrDefault();
             return View(_CollectectedById);
         }
-        
+
         [HttpGet]
         public ActionResult DeleteBillingInfo(int? Id)
         {
@@ -157,7 +157,7 @@ namespace NamrataKalyani.Controllers
             }
             var param = new DynamicParameters();
             param.Add("@BillId", Id);
-             
+
             result = RetuningData.AddOrSave<int>("usp_DeleteBilling", param);
             if (result > 0)
             {
@@ -189,17 +189,18 @@ namespace NamrataKalyani.Controllers
             {
                 return RedirectToAction("ShowCollectedByDetails");
             }
-            else {
+            else
+            {
                 return null;
             }
-            
+
         }
 
         // uspInsertCollectedByName
 
         public ActionResult SaveCollectedByInfo()
         {
-             
+
             return View();
         }
         [HttpPost]
@@ -261,9 +262,62 @@ namespace NamrataKalyani.Controllers
             param.Add("@EndDate", null);
             param.Add("@RoleId", 1);
             var Bill = RetuningData.ReturnigList<_BilIingInfoModel>("getReports_test", param);
-           
+
             ViewBag.Billinfo = Bill;
             return View("~/Views/Doc/PatientInfo.cshtml");
         }
+        [HttpPost]
+        public ActionResult GetBillingInfo(string BillId, DateTime? BeginDate, DateTime? Enddate)
+        {
+            var dlist = RetuningData.ReturnigList<PatientInfoModel>("usp_getReportsByBill", null);
+            ViewBag.PatientList = new SelectList(dlist, "PId", "PName");
+            var param = new DynamicParameters();
+            if (Request.QueryString["id"] != null)
+            {
+                param.Add("@BillId", Request.QueryString["id"]);
+            }
+            else
+            {
+                param.Add("@BillId", BillId);
+            }
+            param.Add("@BeginDate", BeginDate);
+            param.Add("@EndDate", Enddate);
+            if (string.IsNullOrEmpty(System.Web.HttpContext.Current.Session["RoleId"].ToString()))
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                param.Add("@RoleId", System.Web.HttpContext.Current.Session["RoleId"]);
+
+            }
+            var Bill = RetuningData.ReturnigList<_BilIingInfoModel>("getReports_test", param);
+
+            return View(Bill);
+        }
+
+        [HttpPost]
+        public ActionResult deleteBillId(int[] customerIDs)
+        {
+            int result = 0, roleId;
+            if (!String.IsNullOrEmpty(System.Web.HttpContext.Current.Session["RoleId"].ToString()))
+            {
+                roleId = Convert.ToInt32(System.Web.HttpContext.Current.Session["RoleId"]);
+            }
+            else
+            {
+                return RedirectToAction("login", "login");
+            }
+
+            foreach (var Id in customerIDs)
+            {
+                var param = new DynamicParameters();
+                param.Add("@BillId", Id);
+
+                result = RetuningData.AddOrSave<int>("usp_DeleteBilling", param);
+            }
+            return Json("All the Selected Bill deleted successfully!");
+        }
     }
 }
+

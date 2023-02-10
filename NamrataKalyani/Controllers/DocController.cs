@@ -7,6 +7,7 @@ using NamrataKalyani.Models;
 using ceTe.DynamicPDF.HtmlConverter;
 using NamrataKalyani.CustomAttribute;
 using PagedList;
+using System.Globalization;
 
 namespace NamrataKalyani.Controllers
 {
@@ -51,7 +52,7 @@ namespace NamrataKalyani.Controllers
             ViewBag.ReportType = new SelectList(Reports, "Id", "ReportType");
 
             var Clist = RetuningData.ReturnigList<PatientInfoModel>("uspGetCollectedByList", null);
-            ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedById");
+            ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedByName");
 
             return View();
         }
@@ -76,13 +77,16 @@ namespace NamrataKalyani.Controllers
             param.Add("@Due", pm.Due);
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
-
+            param.Add("@CreatedOn", DateTime.Now.AddHours(12));
+            param.Add("@UpdatedOn", DateTime.Now.AddHours(12));
 
             int Pid = RetuningData.ReturnSingleValue<int>("AddNewPatientInfoDetails", param);
             var param1 = new DynamicParameters();
 
             param1.Add("@CreatedBy", UserId);
             param1.Add("@UpdatedBy", UserId);
+            param1.Add("@CreatedOn", DateTime.Now.AddHours(12));
+            param1.Add("@UpdatedOn", DateTime.Now.AddHours(12));
 
             string[] str = pm.RptId.Split(',');
             var billId = 0;
@@ -336,7 +340,7 @@ namespace NamrataKalyani.Controllers
                 }
                 else
                 {
-                    param.Add("@EndDate", DateTime.Now.ToShortDateString());
+                    param.Add("@EndDate", DateTime.Now.AddHours(48).ToShortDateString());
                 }
 
 
@@ -345,7 +349,12 @@ namespace NamrataKalyani.Controllers
             }
             param.Add("@RoleId", 1);
             var Bill = RetuningData.ReturnigList<_BilIingInfoModel>("getReports_test", param).ToList();
-
+            //string date = string.Empty;
+            //foreach (var item in Bill)
+            //{
+            //    item.showdate = item.Date.ToString("tt", CultureInfo.InvariantCulture);
+            //    Bill.Add(item);
+            //}  
             return Bill;
         }
 
@@ -553,7 +562,7 @@ namespace NamrataKalyani.Controllers
                 var dlist = RetuningData.ReturnigList<PatientInfoModel>("uspGetDoctotList", null);
                 ViewBag.DoctorList = new SelectList(dlist, "docid", "DoctorName");
                 var Clist = RetuningData.ReturnigList<PatientInfoModel>("uspGetCollectedByList", null);
-                ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedById");
+                ViewBag.CollectedByList = new SelectList(Clist, "CollectedById", "CollectedByName");
 
 
                 return View("PatientInfo", i);

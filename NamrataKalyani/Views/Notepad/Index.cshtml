@@ -1,0 +1,89 @@
+﻿@model IEnumerable<NamrataKalyani.Models.NotepadModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<p>
+    @Html.ActionLink("Create New", "Create",null,new {@class="btn btn-success" })
+</p>
+<table class="table" id="example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @if (Model != null)
+    {
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShortDescription)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {id=item.Nid},new {@class="btn btn-success" })
+                        @Html.ActionLink("Details", "Details", new { id = item.Nid }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Nid }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+</script>
