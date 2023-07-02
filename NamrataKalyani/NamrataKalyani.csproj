@@ -277,6 +277,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\AkbarLabHeader.jpeg" />
     <Content Include="Images\akbarLabImage.jpg" />
+    <Content Include="Images\goBack.png" />
     <Content Include="Images\Patient.jpg" />
     <Content Include="Images\QuadriSahabSign.jpeg" />
     <Content Include="Images\ReportIcon.png" />
@@ -450,6 +451,8 @@
     <Content Include="Views\Home\ViewRejectRequest.cshtml" />
     <Content Include="Views\Doc\UpdateApprovalRequest.cshtml" />
     <Content Include="Views\Billing\GetClientBillsByCode.cshtml" />
+    <Content Include="Views\Login\Welcome.cshtml" />
+    <Content Include="Views\Shared\_LayoutWelcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

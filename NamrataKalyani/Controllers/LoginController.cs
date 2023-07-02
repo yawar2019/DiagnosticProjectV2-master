@@ -243,7 +243,7 @@ namespace NamrataKalyani.Controllers
                 if (_login.CodeName == null && _login.Password == null)
                 {
                     ViewBag.Result = "Invalid UserName and Password";
-                    return View("~/Views/Doc/Login.cshtml");
+                    return View("~/Views/Login/CustomerLogin.cshtml");
                 }
                 
 
@@ -261,10 +261,14 @@ namespace NamrataKalyani.Controllers
             else
             {
                 ViewBag.Result = "Invalid UserName and Password";
-                return View("~/Views/Doc/Login.cshtml");
+                return View("~/Views/Login/CustomerLogin.cshtml");
             }
         }
 
+        public ActionResult Welcome()
+        {
+            return View();
+        }
 
     }
 }
