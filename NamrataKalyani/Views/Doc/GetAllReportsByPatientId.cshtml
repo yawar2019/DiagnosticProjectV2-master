@@ -28,7 +28,7 @@
         }
     }
 </script>*@
-<div class="panel panel-default ">
+<div class="panel panel-default" style="width:150%;background-color:dodgerblue">
     <div class="panel-heading headingcolor">
         <h2>Create Reports</h2>
     </div>
@@ -48,14 +48,16 @@
 </div>*@
  
  <div class="container-fluid">
-    <table class="table">
+    <table class="table" style="width:150%;max-width:150%">
         <tr>
+            <th>Action</th>
             <th>
                 Patient Name
             </th>
             <th>
-              Report Name
+                Report Name
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.CreatedName)
             </th>
@@ -68,56 +70,77 @@
             <th>
                 @Html.DisplayNameFor(model => model.UpdatedOn)
             </th>
-            <th>Action</th>
+            <th>Approval Status</th>
+            <th>Approval Reason</th>
+            <th>Approved By</th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PatientName)
-                </td>
-                <td>
-                    <input type="hidden" id="BillId" value="@item.BillId" />
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedOn)
-                </td>
-                <td>
-                    @Html.ActionLink("Print View", "ShowReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Edit", "EditPrintReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-primary" })
-                  @*  @Html.ActionLink("Bill", "GetBillingInfo", "Billing", new { BillId = item.BillId }, new { @class = "btn btn-danger" })*@
 
 
-                    @*@if (item.ReportTypeId == 1)
-                        {
-                            @Html.ActionLink("Edit", "UpdateLIPIDProfileReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Print", "Print_LPIDReport", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId ,Printer_Name = item.Printer_Name }, new { @class = "btn btn-primary" })
+    <tr>
 
-                        }
-                        else if (item.ReportTypeId == 2)
-                        {
-                            @Html.ActionLink("Edit", "UpdateLTFReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Print", "Print_LTF", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId, Printer_Name = item.Printer_Name   }, new { @class = "btn btn-primary" })
-                        }
-                        else if (item.ReportTypeId == 3)
-                        {
-                            @Html.ActionLink("Edit", "UpdateCBPReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Print", "Print_CBPReport1", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId,Printer_Name = item.Printer_Name}, new { @class = "btn btn-primary" })
-                        }*@
+        <td>
+            @if (item.ApprovalFlag == 2)
+            {
+                @Html.ActionLink("Print Without Header", "Print_LIPIDProfileReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Print With Header", "ShowReportWithHeader", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-success" })
+            }
+            @Html.ActionLink("Edit", "EditPrintReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId }, new { @class = "btn btn-primary" })
 
-                </td>
-            </tr>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientName)
+        </td>
+        <td>
+            <input type="hidden" id="BillId" value="@item.BillId" />
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovalReason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        @*  @Html.ActionLink("Bill", "GetBillingInfo", "Billing", new { BillId = item.BillId }, new { @class = "btn btn-danger" })*@
+
+
+        @*@if (item.ReportTypeId == 1)
+        {
+            @Html.ActionLink("Edit", "UpdateLIPIDProfileReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Print", "Print_LPIDReport", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId ,Printer_Name = item.Printer_Name }, new { @class = "btn btn-primary" })
+
+        }
+        else if (item.ReportTypeId == 2)
+        {
+            @Html.ActionLink("Edit", "UpdateLTFReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Print", "Print_LTF", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId, Printer_Name = item.Printer_Name   }, new { @class = "btn btn-primary" })
+        }
+        else if (item.ReportTypeId == 3)
+        {
+            @Html.ActionLink("Edit", "UpdateCBPReportByPatientId", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Print", "Print_CBPReport1", new { Pid = item.Pid, ReportTypeId = item.ReportTypeId, ReportId = item.ReportId,Printer_Name = item.Printer_Name}, new { @class = "btn btn-primary" })
+        }*@
+
+
+    </tr>
         }
 
     </table>

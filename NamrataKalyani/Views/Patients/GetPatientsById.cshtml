@@ -1,0 +1,70 @@
+﻿@model NamrataKalyani.Models.PatientInfoModel
+
+@{
+    ViewBag.Title = "GetPatientsById";
+}
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="background-color: #15269b; text-align: center; font-weight: bolder; color: #d9cece">Patient Details</div>
+        <div class="panel-body" style="overflow:scroll">
+
+            <div class="form-horizontal">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.Label("Patient Name", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            <span>@string.Concat(Model.surname,Model.pname)</span> 
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Age", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.age)
+                            @Html.DisplayFor(model => model.ymd)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Gender", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.gender)
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Mobile", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.mobileNo)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Mobile Belongs", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.MobileBelongsTo)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Address", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.Address)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Registered", new { @class = "col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DisplayFor(model => model.CreatedOn)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="~/Images/Patient.jpg" style="width:250px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List","Dashboard","Doc")
+</div>

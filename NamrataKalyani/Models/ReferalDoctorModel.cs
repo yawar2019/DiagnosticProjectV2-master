@@ -21,7 +21,7 @@ namespace NamrataKalyani.Models
         public string Qualification { get; set; }
         public string ContactNumber { get; set; }
         public string Specilization { get; set; }
-
+        public string Password { get; set; }
 
         public string CreatedName { get; set; }
         public string UpdatedName { get; set; }
@@ -60,7 +60,8 @@ namespace NamrataKalyani.Models
         [DataType(DataType.MultilineText)]
         public string DayAndTime3 { get; set; }
         public DateTime UpdatedOn { get; set; }
-    }
+        public string CodeName { get; set; }
+        public int RoleId { get; set; }
 
-   
+    }
 }

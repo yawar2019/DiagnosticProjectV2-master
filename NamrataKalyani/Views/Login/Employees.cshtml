@@ -2,77 +2,88 @@
 
 @{
     ViewBag.Title = "Employees";
+
 }
 
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<style>
+      thead th {
+        position: sticky;
+        top: 0;
+        overflow:auto;
+        
+    }
+</style>
 
 <h2>Employees</h2>
 
 <p>
     @Html.ActionLink("Create New", "Registration", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table table-bordered table-responsive" id="example">
-   
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.emalid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.password)
-            </th>
+<div style="overflow-y:auto;height:450px;position:sticky;top:0">
+    <table class="table table-fixed" style="border-collapse:collapse" id="example">
 
-            <th>
-                @Html.DisplayNameFor(model => model.RoleId)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.emalid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.password)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.emalid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.password)
+                </th>
 
-                <td>
-                    @{var Role = item.RoleId == 1 ? "Admin" : "Employee";}@Role
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoleId)
+                </th>
 
-                <td>
-                    @{var Status = item.status == true ? "Active" : "In Active";}@Status
-
-
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditRegistration", new { id = item.EmpId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Details", "DetailsRegistration", new { id = item.EmpId }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Delete", "DeleteRegistration", new { id = item.EmpId }, new { @class = "btn btn-danger" })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+                <th>Action</th>
             </tr>
-                        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
 
-    </tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emalid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.password)
+                    </td>
+
+                    <td>
+                        @{var Role = item.RoleId == 1 ? "Admin" : item.RoleId == 2?"Employee": item.RoleId == 3?"Doctor": item.RoleId == 4?"Approval":"";}@Role
+                    </td>
+
+                    <td>
+                        @{var Status = item.status == true ? "Active" : "In Active";}@Status
 
 
-</table>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditRegistration", new { id = item.EmpId }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Details", "DetailsRegistration", new { id = item.EmpId }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "DeleteRegistration", new { id = item.EmpId }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
 
+        </tbody>
+
+
+    </table>
+</div>
 
 <script src="~/Scripts/jquery-3.5.1.js"></script>
 <script src="~/Scripts/jquery.dataTables.min.js"></script>

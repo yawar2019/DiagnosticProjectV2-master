@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NamrataKalyani.Models.GetAllReportsByPatientIdModel>
+
+@{
+    ViewBag.Title = "Reject Request";
+}
+
+<h2>View Reject Request</h2>
+
+<div class="panel-body bagraoung">
+    <div class="form-inline">
+        <div class="col-md-12" style="margin-bottom:3px">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="~/Home/SearchPendingRequestRecord" method="post">
+                        <input type="hidden" name="ApprovalFlag" value="2" />
+                        <label>From Date</label>
+                        <input type="date" id="min" name="BeginDate" class="form-control" />
+                        <label>To Date</label>
+                        <input type="date" name="EndDate" id="max" class="form-control" />
+                        <input type="submit" name="max" id="max" class="btn btn-primary" value="Search" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered" id="example">
+    <thead>
+        <tr>
+
+            <th>Reports</th>
+            <th>Patient Name</th>
+            <th>Requested Date</th>
+            <th>Requested By</th>
+            <th>Reject Reason</th>
+            <th>Reject By</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.Name</td>
+                <td>@item.PatientName</td>
+                <td>@item.UpdatedOn</td>
+                <td>@item.UpdatedName</td>
+                <td>@item.ApprovalReason</td>
+                <td>@item.ApprovedBy</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
+<script src="~/Scripts/dataTables.fixedHeader.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({ fixedHeader: true });
+    });
+</script>

@@ -25,5 +25,19 @@ namespace NamrataKalyani.Models
         
         public int CreatedBy { get; set; }
         public int UpdatedBy { get; set; }
+        [Display(Name = "Consultant Name")]
+        public int ConsultantId { get; set; }
+        public string selectedReport { get; set; }
+    }
+
+    public class Consultant
+    {
+        [Display(Name="Consultant Name")]
+
+        public int ConsultantId { get; set; }
+        public string Name { get; set; }
+        public string Qualification { get; set; }
+        public string Signature { get; set; }
+        public string Department { get; set; }
     }
 }

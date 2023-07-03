@@ -23,8 +23,7 @@
     <div class="form-group">
         <label>Total Amount</label>
         <input type="text" name="Amount" id="amount" value="@Model.Amount" class="form-control" />
-        <label>Referal Discount %</label>
-        <input type="text" name="ReferalPercentage" width="20" id="referalPercentage" value="@Model.ReferalPercentage" class="form-control" />
+
     </div>
     <div class="form-group">
         <label>Paid</label>
@@ -39,10 +38,14 @@
         <input type="text" name="Discount" id="discount" value="@Model.Discount" class="form-control" />
     </div>
     <div class="form-group">
+        <label>Referal Discount %</label>
+        <input type="text" name="ReferalPercentage" width="20" id="referalPercentage" value="@Model.ReferalPercentage" class="form-control" />
+    </div>
+        <div class="form-group">
         <label>Referal Amount</label>
         <input type="text" name="ReferalAmount" id="referalAmount" value="@Model.ReferalAmount" class="form-control" />
     </div>
-   
+
     <div class="form-group">
         <label>Expenses</label>
         <input type="text" name="Expenses" id="expenses" value="@Model.Expenses" class="form-control" />
@@ -63,9 +66,9 @@
 <script>
     $('#referalPercentage').on('change', function () {
 
-        var amt = $("#amount").val();
+        var Paidamt = $("#Paid").val();
         var per = $("#referalPercentage").val();
-        var res = (amt / 100) * per;
+        var res = (Paidamt / 100) * per;
         $("#referalAmount").val(res);
     });
 

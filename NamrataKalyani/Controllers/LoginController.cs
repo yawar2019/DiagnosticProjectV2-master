@@ -12,7 +12,14 @@ namespace NamrataKalyani.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-
+        int UserId;
+        public LoginController()
+        {
+            if (System.Web.HttpContext.Current.Session["UserId"] != null)
+            {
+                UserId = Convert.ToInt32(System.Web.HttpContext.Current.Session["UserId"]);
+            }
+        }
         public ActionResult Login()
         {
             return View("~/Views/Doc/Login.cshtml");
@@ -214,6 +221,48 @@ namespace NamrataKalyani.Controllers
             var Emp = RetuningData.ReturnigList<RegistrationModel>("sp_getLoginbyId", param).SingleOrDefault();
 
             return View(Emp);
+        }
+
+
+        public ActionResult CustomerLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult CustomerLogin(ReferalDoctorModel login)
+        {
+            var param = new DynamicParameters();
+            param.Add("@CodeName", login.CodeName);
+            param.Add("@Password", login.Password);
+
+            ReferalDoctorModel _login = RetuningData.ReturnigList<ReferalDoctorModel>("sp_getLoginMedico", param).SingleOrDefault();
+            if (_login != null)
+            {
+                if (_login.CodeName == null && _login.Password == null)
+                {
+                    ViewBag.Result = "Invalid UserName and Password";
+                    return View("~/Views/Doc/Login.cshtml");
+                }
+                
+
+                if (_login.CodeName != null)
+                {
+                    Session["UserName"] = _login.CodeName;
+                }
+
+                Session["UserId"] = _login.DocId;
+                Session["RoleId"] = 3;
+                FormsAuthentication.SetAuthCookie(_login.DoctorName, false);
+
+                return RedirectToAction("MedicoDashboard", "Medico",new {CodeName=_login.CodeName});
+            }
+            else
+            {
+                ViewBag.Result = "Invalid UserName and Password";
+                return View("~/Views/Doc/Login.cshtml");
+            }
         }
 
 

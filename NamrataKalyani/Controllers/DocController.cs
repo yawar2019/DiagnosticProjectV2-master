@@ -8,11 +8,12 @@ using ceTe.DynamicPDF.HtmlConverter;
 using NamrataKalyani.CustomAttribute;
 using PagedList;
 using System.Globalization;
+using ceTe.DynamicPDF.Viewer;
 
 namespace NamrataKalyani.Controllers
 {
     [Authorize]
-    [SessionTimeoutAttribute]
+    //[SessionTimeoutAttribute]
     public class DocController : Controller
     {
         //string hostname = "akbardiagnostic.dswebcare.com";
@@ -67,7 +68,13 @@ namespace NamrataKalyani.Controllers
             param.Add("@Age", pm.age);
             param.Add("@Gender", pm.gender);
             param.Add("@CollectedById", pm.CollectedById);
-            param.Add("@RefDocId", pm.DoctorList);
+
+            var dlist = RetuningData.ReturnigList<PatientInfoModel>("uspGetDoctotList", null);
+
+            PatientInfoModel Refdr = dlist.Where(N => N.DoctorName.Trim().ToLower() == pm.DoctorList.Trim().ToLower()).SingleOrDefault();
+                        
+
+            param.Add("@RefDocId", Refdr.docid);
             param.Add("@mobileNo", pm.Name_Mobile);
             param.Add("@BillNumber", pm.BillBookNumber);
             param.Add("@ymd", pm.ymd);
@@ -77,16 +84,18 @@ namespace NamrataKalyani.Controllers
             param.Add("@Due", pm.Due);
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
-            param.Add("@CreatedOn", DateTime.Now.AddHours(12));
-            param.Add("@UpdatedOn", DateTime.Now.AddHours(12));
+            param.Add("@CreatedOn", DateTime.Now);
+            param.Add("@UpdatedOn", DateTime.Now);
+            param.Add("@MobileBelongsTo", pm.MobileBelongsTo);
+            param.Add("@Address", pm.Address);
 
             int Pid = RetuningData.ReturnSingleValue<int>("AddNewPatientInfoDetails", param);
             var param1 = new DynamicParameters();
 
             param1.Add("@CreatedBy", UserId);
             param1.Add("@UpdatedBy", UserId);
-            param1.Add("@CreatedOn", DateTime.Now.AddHours(12));
-            param1.Add("@UpdatedOn", DateTime.Now.AddHours(12));
+            param1.Add("@CreatedOn", DateTime.Now);
+            param1.Add("@UpdatedOn", DateTime.Now);
 
             string[] str = pm.RptId.Split(',');
             var billId = 0;
@@ -206,6 +215,13 @@ namespace NamrataKalyani.Controllers
         }
         public ActionResult Print_LIPIDProfileReport(ReportByPidModel rpt)
         {
+            if (Request.QueryString["Pid"] == null)
+            {
+                return RedirectToAction("Dashboard", "Doc");
+            }
+
+            rpt.Pid = Convert.ToInt32(Request.QueryString["Pid"]);
+
             var param = new DynamicParameters();
             param.Add("@Pid", rpt.Pid);
             param.Add("@ReportId", rpt.ReportId);
@@ -215,9 +231,100 @@ namespace NamrataKalyani.Controllers
             {
                 pat.Srno = rpt.Pid;
             }
+            var param1 = new DynamicParameters();
+            param1.Add("@Pid", rpt.Pid);
+            var rltf = RetuningData.ReturnigList<GetAllReportsByPatientIdModel>("usp_getAllReportsByPatientId", param1);
+            var dates = rltf.Where(x => x.Pid == rpt.Pid).FirstOrDefault();
+            pat.ReceivedDate = Convert.ToString(dates.UpdatedOn);
+            pat.RegDate = Convert.ToString(dates.CreatedOn);
+            pat.MobileNo = dates.MobileNo;
+            pat.ConsultantName = dates.ConsultantName;
+            pat.Department = dates.Department;
+            pat.Qualification = dates.Qualification;
+            pat.Signature = dates.Signature;
             return View(pat);
         }
 
+        public ActionResult UpdateApprovalRequest(ReportByPidModel rpt)
+        {
+            if (Request.QueryString["Pid"] == null)
+            {
+                return RedirectToAction("Dashboard", "Doc");
+            }
+
+            rpt.Pid = Convert.ToInt32(Request.QueryString["Pid"]);
+
+            var param = new DynamicParameters();
+            param.Add("@Pid", rpt.Pid);
+            param.Add("@ReportId", rpt.ReportId);
+            param.Add("@BillId", rpt.BillId);
+            ReportByPidModel pat = RetuningData.ReturnigList<ReportByPidModel>("usp_PrintReport", param).SingleOrDefault();
+            if (rpt.Pid != null) 
+            {
+                pat.Srno = rpt.Pid;
+            }
+            var param1 = new DynamicParameters();
+            param1.Add("@Pid", rpt.Pid);
+            var rltf = RetuningData.ReturnigList<GetAllReportsByPatientIdModel>("usp_getAllReportsByPatientId", param1);
+            var dates = rltf.Where(x => x.Pid == rpt.Pid).FirstOrDefault();
+            pat.ReceivedDate = Convert.ToString(dates.UpdatedOn);
+            pat.RegDate = Convert.ToString(dates.CreatedOn);
+            pat.MobileNo = dates.MobileNo;
+            pat.ConsultantName = dates.ConsultantName;
+            pat.Department = dates.Department;
+            pat.Qualification = dates.Qualification;
+            pat.Signature = dates.Signature;
+            return View(pat);
+        }
+
+        public ActionResult Print_LIPIDProfileReportWithHeader(ReportByPidModel rpt)
+        {
+
+            //if (Request.QueryString["Pid"] == null)
+            //{
+            //    return RedirectToAction("Dashboard", "Doc");
+            //}
+
+            rpt.Pid = Convert.ToInt32(Request.QueryString["Pid"]);
+            rpt.ReportId = Convert.ToInt32(Request.QueryString["ReportId"]);
+            rpt.BillId = Convert.ToInt32(Request.QueryString["BillId"]);
+            var param = new DynamicParameters();
+            param.Add("@Pid", rpt.Pid);
+            param.Add("@ReportId", rpt.ReportId);
+            param.Add("@BillId", rpt.BillId);
+            ReportByPidModel pat = RetuningData.ReturnigList<ReportByPidModel>("usp_PrintReport", param).SingleOrDefault();
+            if (rpt.Pid != null)
+            {
+                pat.Srno = rpt.Pid;
+            }
+            var param1 = new DynamicParameters();
+            param1.Add("@Pid", rpt.Pid);
+            var rltf = RetuningData.ReturnigList<GetAllReportsByPatientIdModel>("usp_getAllReportsByPatientId", param1);
+            var dates = rltf.Where(x => x.Pid == rpt.Pid).FirstOrDefault();
+            pat.ReceivedDate = Convert.ToString(dates.UpdatedOn);
+            pat.RegDate = Convert.ToString(dates.CreatedOn);
+            pat.MobileNo = dates.MobileNo;
+            pat.ConsultantName = dates.ConsultantName;
+            pat.Department = dates.Department;
+            pat.Qualification = dates.Qualification;
+            pat.Signature = dates.Signature;
+            return View(pat);
+        }
+
+        public ActionResult PrintReportWithHeader(ReportByPidModel rpt)
+        {
+
+             //return Redirect("http://localhost:54429/Doc/Print_LIPIDProfileReportWithHeader?Pid=" + rpt.Pid + "&ReportTypeId=" + rpt.ReportTypeId + "&ReportId=" + rpt.ReportId + "&BillId=" + rpt.BillingID);
+
+          return RedirectToAction("Print_LIPIDProfileReportWithHeader", "Doc", rpt);
+            // return File("D:\\SimpleConversion.pdf", "application/pdf");
+
+        }
+        //public ActionResult PrintReportWithioutHeader(ReportByPidModel rpt)
+        //{
+        //    var report = new Rotativa.ActionAsPdf("Print_LIPIDProfileReport", rpt);
+        //    return report;
+        //}
         public ActionResult ClinicalBiochemistoryReportLTF()
         {
             return View();
@@ -267,16 +374,16 @@ namespace NamrataKalyani.Controllers
             return View(pat);
         }
 
-        public ActionResult Dashboard(int? id, DateTime? BeginDate, DateTime? EndDate, string Name_Mobile)
+        public ActionResult Dashboard(string id, DateTime? BeginDate, DateTime? EndDate, string Name_Mobile)
         {
             if (!string.IsNullOrEmpty(Name_Mobile))
             {
-                id = Convert.ToInt32(Name_Mobile);
+                id = Name_Mobile;
             }
             var Patientinfo = new List<_BilIingInfoModel>();
             if (id == null && BeginDate == null && EndDate == null)
             {
-                Patientinfo = GetPatientInfo(null, DateTime.Now, DateTime.Now.AddDays(1));
+                Patientinfo = GetPatientInfo(null, DateTime.Now, DateTime.Now.AddHours(48));
             }
             else if (id == null && BeginDate != null && EndDate != null)
             {
@@ -285,9 +392,13 @@ namespace NamrataKalyani.Controllers
             }
             else if (id != null && BeginDate == null && EndDate == null)
             {
-                Patientinfo = GetPatientInfo(1, null, null);
+                Patientinfo = GetPatientInfo(id, null, null);
 
             }
+
+            var param = new DynamicParameters();
+            var notificationHeader = RetuningData.ReturnigList<NotificationModel>("sp_GetRecentNotification", param).SingleOrDefault();
+            ViewBag.NotifcationHeader = notificationHeader.Name;
             return View(Patientinfo);
         }
 
@@ -316,13 +427,13 @@ namespace NamrataKalyani.Controllers
         }
 
         [HttpGet]
-        public List<_BilIingInfoModel> GetPatientInfo(int? id, DateTime? BeginDate, DateTime? EndDate)
+        public List<_BilIingInfoModel> GetPatientInfo(string id, DateTime? BeginDate, DateTime? EndDate)
         {
 
             var param = new DynamicParameters();
             param.Add("@BillId", id);
 
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 if (BeginDate != null)
                 {
@@ -334,13 +445,13 @@ namespace NamrataKalyani.Controllers
                 }
 
 
-                if (BeginDate != null)
+                if (EndDate != null)
                 {
                     param.Add("@EndDate", EndDate.Value.ToString("yyyy-MM-dd"));
                 }
                 else
                 {
-                    param.Add("@EndDate", DateTime.Now.AddHours(48).ToShortDateString());
+                    param.Add("@EndDate", DateTime.Now.ToShortDateString());
                 }
 
 
@@ -393,6 +504,35 @@ namespace NamrataKalyani.Controllers
             var param = new DynamicParameters();
             param.Add("@Pid", Pid);
             var rltf = RetuningData.ReturnigList<GetAllReportsByPatientIdModel>("usp_getAllReportsByPatientId", param);
+            ViewBag.AllReportsByPid = rltf;
+            var Patientinfo = new List<_BilIingInfoModel>();
+            Patientinfo = GetPatientInfo(null, DateTime.Now, DateTime.Now.AddHours(48));
+            var param2 = new DynamicParameters();
+            var notificationHeader = RetuningData.ReturnigList<NotificationModel>("sp_GetRecentNotification", param2).SingleOrDefault();
+            ViewBag.NotifcationHeader = notificationHeader.Name;
+            return View(rltf);
+        }
+
+
+        public ActionResult GetAllReportsByClientPatientId(int? id)
+        {
+            var Reports = RetuningData.ReturnigList<ReportModel>("sp_getReports", null);
+            ViewBag.ReportType = new SelectList(Reports, "Id", "ReportType");
+            int? Pid = id;
+            if (id == null)
+            {
+                Pid = Convert.ToInt32(Request.QueryString["Pid"]);
+            }
+            var param = new DynamicParameters();
+            param.Add("@Pid", Pid);
+            var rltf = RetuningData.ReturnigList<GetAllReportsByPatientIdModel>("usp_getAllReportsByPatientId", param);
+          
+            ViewBag.AllReportsByPid = rltf;
+            var Patientinfo = new List<_BilIingInfoModel>();
+            Patientinfo = GetPatientInfo(null, DateTime.Now, DateTime.Now.AddHours(48));
+            var param2 = new DynamicParameters();
+            var notificationHeader = RetuningData.ReturnigList<NotificationModel>("sp_GetRecentNotification", param2).SingleOrDefault();
+            ViewBag.NotifcationHeader = notificationHeader.Name;
             return View(rltf);
         }
 
@@ -404,20 +544,21 @@ namespace NamrataKalyani.Controllers
             obj.BillId = Convert.ToInt32(Request.QueryString["BillId"]);
             obj.ReportId = Convert.ToInt32(Request.QueryString["ReportId"]);
 
-            //if (obj.ReportTypeId == 1)
-            //{
-            return RedirectToAction("Print_LIPIDProfileReport", obj);
-            //}
-            //else if (obj.ReportTypeId == 2)
-            //{
-            //    return RedirectToAction("Print_LTFReport", obj);
-            //}
-            //else if (obj.ReportTypeId == 3)
-            //{
-            //    return RedirectToAction("Print_CBPReport", obj);
-            //}
-
+            return RedirectToAction("PrintReportWithioutHeader", obj);
         }
+
+
+        public ActionResult ShowReportWithHeader(ReportByPidModel rpt)
+        {
+            ReportByPidModel obj = new ReportByPidModel();
+
+            obj.Pid = rpt.Pid;
+            obj.BillId = Convert.ToInt32(Request.QueryString["BillId"]);
+            obj.ReportId = Convert.ToInt32(Request.QueryString["ReportId"]);
+
+            return RedirectToAction("PrintReportWithHeader", obj);
+        }
+
 
         public ActionResult Print_LPIDReport(ReportByPidModel rept)
         {
@@ -616,7 +757,7 @@ namespace NamrataKalyani.Controllers
             param.Add("@BillID", obj.BillId);
             param.Add("@RptID", obj.ReportId);
             param.Add("@Description", obj.Description);
-            param.Add("@UpdatedBy", UserId);
+            param.Add("@UpdatedBy", UserId); 
             int pat = RetuningData.AddOrSave<int>("usp_UpdatePrintReportById", param);
             return RedirectToAction("GetAllReportsByPatientId", new { id = obj.Pid });
         }
@@ -693,6 +834,15 @@ namespace NamrataKalyani.Controllers
                 return RedirectToAction("ServiceInfo");
             }
             return View("ServiceInfo", pat);
+        }
+
+        public ActionResult Indexpdf()
+        {
+
+          
+            Converter.Convert(new Uri("https://en.wikipedia.org"), "D:\\SimpleConversion.pdf");
+           
+            return File("D:\\SimpleConversion.pdf", "application/pdf");
         }
     }
 }

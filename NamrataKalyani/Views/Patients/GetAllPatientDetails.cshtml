@@ -1,0 +1,166 @@
+﻿@model IEnumerable<NamrataKalyani.Models.PatientInfoModel>
+
+@{
+    ViewBag.Title = "GetAllPatientDetails";
+}
+
+<h2>GetAllPatientDetails</h2>
+
+
+<table class="table table-responsive table-striped" id="example" style="overflow: scroll; overflow: auto; scroll-behavior: smooth; height: 200px;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.pid)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.surname)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.pname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ymd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mobileNo)
+            </th>
+
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.BillBookNumber)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.pid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ymd)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mobileNo)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BillBookNumber)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.pid }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+
+
+
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+<script>
+
+    var minDate, maxDate;
+
+    // Custom filtering function which will search data in column four between two values
+    //$.fn.dataTable.ext.search.push(
+    //    function (settings, data, dataIndex) {
+    //        var min = minDate.val();
+    //        var max = maxDate.val();
+    //        var date = new Date(data[5]);
+
+    //        if (
+    //            (min === null && max === null) ||
+    //            (min === null && date <= max) ||
+    //            (min <= date && max === null) ||
+    //            (min <= date && date <= max)
+    //        ) {
+    //            return true;
+    //        }
+    //        return false;
+    //    }
+    //);
+
+
+    // Create date inputs
+    //minDate = new DateTime($('#min'), {
+    //    format: 'MMMM Do YYYY'
+    //});
+    //maxDate = new DateTime($('#max'), {
+    //    format: 'MMMM Do YYYY'
+    //});
+
+    //// DataTables initialisation
+    //var table = $('#mytable').DataTable();
+
+    //// Refilter the table
+    //$('#min, #max').on('change', function () {
+    //    table.draw();
+    //});
+
+</script>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            order: [[0, 'desc']],
+        });
+    });
+</script>

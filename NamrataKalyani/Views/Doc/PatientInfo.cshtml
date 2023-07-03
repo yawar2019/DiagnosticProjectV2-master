@@ -13,263 +13,346 @@
 </style>
 
 
-<div class="panel panel-default ">
-    <div class="panel-heading headingcolor">
-        <h2>Patient Information</h2>
-    </div>
-</div>
+<div class="panel panel-default">
+    @*<div class="panel-heading headingcolor">
+            <h2>Patient Information</h2>
+        </div>*@
 
-<div class="container-fluid">
-    <div class="panel panel-primary">
-        <div class="panel-heading">Patient Details</div>
-        <div class="panel-body">
-            @using (Html.BeginForm("PatientInfo1", "Doc", FormMethod.Post, new { @class = "form-inline" }))
-            {
-                <div class="col-md-5" style="margin-bottom:2px;">
-                    @Html.Label("User Type", htmlAttributes: new { @class = "control-label" })
-                    @*@Html.RadioButton("User Type", "Existing User", new { Onclick = "DisableObjects(this)" }) Existing User
-                        @Html.RadioButton("User Type", "New User",true, new { Onclick = "EnableObjects(this)" })  New User*@
-                    @Html.DropDownList("UserType", new List<SelectListItem>(){
-                               new SelectListItem {Text="New User",Value="New User"},
-                               //new SelectListItem {Text="Existing User",Value="Existing User"}
-                                }, "Select User Type", new { @class = "form-control", @Onclick = "DisableObjects(this)", @required = "required" })
-                </div>
-                <div class="col-md-7" style="margin-bottom:2px;">
-                    @Html.LabelFor(model => model.mobileNo, htmlAttributes: new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.mobileNo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.mobileNo, "", new { @class = "text-danger" })
-                    <button type="submit" class="btn btn-success" id="search">Search</button>
-                </div>
-                <div class="col-md-12" style="margin-bottom:2px;">
-                </div>            }
-            @using (Html.BeginForm("PatientInfo", "Doc", FormMethod.Post, new { @class = "form-inline" }))
-            {
+    
+    <div class="container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="background-color: #15269b; text-align: center; font-weight: bolder; color: #d9cece">Patient Registration Form</div>
+            <div class="panel-body" style="overflow:scroll">
 
-                <div class="col-md-4">
-                    @* <input type="hidden" id="Name_Mobile" name="Name_Mobile" value="@Model!=null?@Model.Name_Mobile:@string.Empty" />*@
-                    @Html.HiddenFor(model => model.Name_Mobile, new { id = "Name_Mobile" })
-                    @Html.LabelFor(model => model.DoctorName)
-                    @Html.DropDownListFor(model => model.DoctorList, (IEnumerable<SelectListItem>)ViewBag.DoctorList, "Select Doctor", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.DoctorList, "", new { @class = "text-danger" })
-                </div>            <div class="col-md-6">
-                    @Html.DropDownList("surname", new List<SelectListItem>(){
-                               new SelectListItem {Text="Mr.",Value="Mr."},
-                               new SelectListItem {Text="Mrs.",Value="Mrs."},
-                               new SelectListItem {Text="Miss",Value="Miss"},
-                               new SelectListItem {Text="Baby",Value="Baby"},
-                               new SelectListItem {Text="Baba",Value="Baba"},
-                               new SelectListItem {Text="Ms",Value="Ms"},
-                               new SelectListItem {Text="Dr",Value="Dr"},
-                               new SelectListItem {Text="Master",Value="Master"},
-                                }, new { @class = "form-control" })
+                <div class="form-horizontal">
+                    <hr />
+                    @using (Html.BeginForm("PatientInfo", "Doc", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                @Html.Label("Designation", new { @class = "control-label col-md-2" })
+
+                                <div class="col-md-10">
+                                    @Html.DropDownList("surname", new List<SelectListItem>(){
+                                             new SelectListItem {Text="Mr.",Value="Mr."},
+                                             new SelectListItem {Text="Mrs.",Value="Mrs."},
+                                             new SelectListItem {Text="Miss",Value="Miss"},
+                                             new SelectListItem {Text="Smt.",Value="Smt"},
+                                             new SelectListItem {Text="Baby",Value="Baby"},
+                                             new SelectListItem {Text="Baba",Value="Baba"},
+                                             new SelectListItem {Text="Ms",Value="Ms"},
+                                             new SelectListItem {Text="Dr.",Value="Dr"},
+                                             new SelectListItem {Text="Master",Value="Master"},
+                                             new SelectListItem {Text="S/O",Value="S/O"},
+                                             new SelectListItem {Text="D/O",Value="D/O"},
+                                             new SelectListItem {Text="M/O",Value="M/O"},
+                                             new SelectListItem {Text="W/O",Value="W/O"},
+                                             new SelectListItem {Text="Master",Value="Master"},
+                                             new SelectListItem {Text="Baby or Just Born (B/O)",Value="Baby or Just Born (B/O)"},
+                                              }, "Select Designation", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Pt Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.pname, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.pname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Pt Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("PTtype", new List<SelectListItem>(){
+                                         new SelectListItem {Text="IPD",Value="years"},
+                                         new SelectListItem {Text="OPD",Value="months"},
+                                         new SelectListItem {Text="Main Lab",Value="days"},
+                                          }, "Select Department", new { @class = "form-control" })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ymd, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Mobile", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.mobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.mobileNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Mobile Belongs", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("MobileBelongsTo", new List<SelectListItem>(){
+                                         new SelectListItem {Text="Patient",Value="Patient"},
+                                         new SelectListItem {Text="Relative",Value="Relative"},
+                                         new SelectListItem {Text="Guardian",Value="Guardian"},
+                                          }, "Choose Mobile Belongs To", new { @class = "form-control" })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ymd, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("gender", new List<SelectListItem>(){
+                                             new SelectListItem {Text="Male",Value="Male"},
+                                             new SelectListItem {Text="Female",Value="Female"},
+                                             new SelectListItem {Text="Other",Value="Other"},
+                                              }, "Select Gender", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Y/M/D", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("ymd", new List<SelectListItem>(){
+                                         new SelectListItem {Text="years",Value="years"},
+                                         new SelectListItem {Text="months",Value="months"},
+                                         new SelectListItem {Text="days",Value="days"},
+                                          }, "Select Age", new { @class = "form-control" })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ymd, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Address", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextArea("Address", null, 5, 10, new { @class = "form-control" })
+                                    @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Select Report", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select id="ReportType" multiple="multiple" class="form-control" required name="Report">
+                                        @if (ViewBag.ReportType != null)
+                                        {
+                                            foreach (var item in ViewBag.ReportType)
+                                            {
+                                                if (item.Text != null)
+                                                {
+                                                    <option value="@item.Value">
+                                                        @item.Text
+                                                    </option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.Name_Mobile, new { id = "Name_Mobile" })
+                                @Html.Label("Referral Doctor", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @* @Html.DropDownListFor(model => model.DoctorList, (IEnumerable<SelectListItem>)ViewBag.DoctorList, "Select Doctor", new { @class = "form-control" })*@
+                                    @Html.EditorFor(model => model.DoctorList, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.DoctorList, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BillBookNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.BillBookNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillBookNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
 
-                    @Html.LabelFor(model => model.pname, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.pname, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.pname, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-6">
-                    @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control", @style = "width:50px", @type = "text" } })
-                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
 
-                    @Html.DropDownList("ymd", new List<SelectListItem>(){
-                               new SelectListItem {Text="years",Value="years"},
-                               new SelectListItem {Text="months",Value="months"},
-                               new SelectListItem {Text="days",Value="days"},
-                                }, new { @class = "form-control" })
-                </div>
-                <div class="col-md-12" style="margin-bottom:2px;"> </div>
-                <div class="col-md-12" style="margin-bottom:2px;"> </div>
-                <div class="col-md-5">
-                    @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @*@Html.RadioButtonFor(model => model.gender, "Male", new { @checked = true }) Male
-                        @Html.RadioButtonFor(model => model.gender, "Female") Female*@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PaidAmmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PaidAmmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PaidAmmount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Due, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Due, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                    @Html.DropDownListFor(model => model.gender, new List<SelectListItem>(){
-                               new SelectListItem {Text="Male",Value="Male"},
-                               new SelectListItem {Text="Female",Value="Female"},
-                                }, "Select Gender", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.Label("Collected By", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                </div>
-                <div>
-                    @*  @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })*@
-                    @Html.LabelFor(model => model.CollectedById)
-                    @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-7">
-                    <label class="form-inline">Select Report </label>
-                    <select id="ReportType" multiple="multiple" class="form-control" required name="Report">
-                        @if (ViewBag.ReportType != null)
-                        {
-                            foreach (var item in ViewBag.ReportType)
-                            {
-                                if (item.Text != null)
-                                {
-                                    <option value="@item.Value">
-                                        @item.Text
-                                    </option>}
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.BillBookNumber, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.BillBookNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.BillBookNumber, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.PaidAmmount, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.PaidAmmount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PaidAmmount, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Due, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Due, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Due, "", new { @class = "text-danger" })
-                </div>
-                @*<div class="col-md-4">
-                    @Html.LabelFor(model => model.chkprint, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.chkprint, new { htmlAttributes = new { @class = "form-control" } })
-                </div>*@
-                @*<div class="col-md-7">
-                        @Html.LabelFor(model => model.ReportTypeId)
-                        @Html.DropDownListFor(model => model.ReportTypeId, (IEnumerable<SelectListItem>)ViewBag.ReportType, null, new { @class = "form-control", id = "ReportType", multiple = "multiple", name = "Report" })
-                    </div>*@
-                <div class="col-md-4">
+                            <div class="form-group">
 
-                    @Html.HiddenFor(model => model.RptId, new { id = "RptID" })
-                    <div class="col-md-offset-6 col-md-10 text-center" style="margin-top:10px">
-                        <input type="submit" id="Create" class="btn btn-success" value="Create" />
-                    </div>
+                                @Html.HiddenFor(model => model.RptId, new { id = "RptID" })
+                                <div class="col-md-offset-2 col-md-10">
 
-                </div>}
-        </div>
-
-
-        <div style="display:none;">
-            <form class="form-inline" action="~/Billing/getBillinfo" method="get">
-                <div class="form-group">
-                    <label for="BillNo">Bill Id</label>
-                    <input type="text" class="form-control" name="id">
-                </div>
-
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-            @if (ViewBag.Billinfo != null)
-            {
-                <table class="table table-bordered table-condensed table-striped">
-                    <tr>
-                        <th>Auto BillId</th>
-                        <th>Book Bill Number</th>
-                        <th>Patient Name</th>
-                        <th>Total</th>
-                        <th>Paid</th>
-                        <th>Due</th>
-                        <th>Discount</th>
-                        <th>Action</th>
-                    </tr>
-                    @foreach (var item in ViewBag.Billinfo)
-                {
-                        <tr>
-                            <td>@item.BillId</td>
-                            <td>@item.BillNumber</td>
-                            <td>@item.PatientName</td>
-                            <td>@item.Amount</td>
-                            <td>@item.Paid</td>
-                            <td>@item.Due</td>
-                            <td>@item.Discount</td>
-                            <td>
-                                <a onclick="getEditBillinfo(@item.BillId,@item.Amount,@item.Paid,@item.Due,@item.Discount)" class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit Bill</a>
-                            </td>
-                            <td>
-                                <a href="~/Billing/GenerateBill/@item.BillId" class="btn btn-success">Generate Bill</a>
-                            </td>
-                        </tr>
+                                    <input type="submit" id="Create" value="Register" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
                     }
-                </table>
-            }
-        </div>
+                </div>
 
-    </div>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="~/Billing/UpdateBillingInfofromPatientScreen" method="post">
-                        <input type="hidden" name="BillId" id="BillId" />
-                        <div class="form-group">
-                            <label>Total Amount</label>
-                            <input type="text" name="Amount" id="amount" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Paid</label>
-                            <input type="text" name="Paid" id="paid" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Due</label>
-                            <input type="text" name="Due" id="due" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Discount</label>
-                            <input type="text" name="Discount" id="discount" class="form-control" />
-                        </div>
-                        @*<div class="form-group">
-                                                  <label>Status</label>
-                                                  @Html.DropDownList("Status", new List<SelectListItem>() {
-                                new SelectListItem {Text="Paid",Value="true"},
-                                new SelectListItem {Text="Due",Value="false"},
-                            }, new { @class = "drop-down" })
-                                              </div>*@
-                        <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-success" />
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
             </div>
-
+            @* popup code *@
+            <div style="display:none;">
+                <form class="form-inline" action="~/Billing/getBillinfo" method="get">
+                    <div class="form-group">
+                        <label for="BillNo">Bill Id</label>
+                        <input type="text" class="form-control" name="id">
+                    </div>
+                    <div class="col-md-3">
+                        @Html.HiddenFor(model => model.CollectedById, new { id = "CollectedById" })
+                        @Html.LabelFor(model => model.CollectedById)
+                        @Html.DropDownListFor(model => model.CollectedById, (IEnumerable<SelectListItem>)ViewBag.CollectedByList, "Select CollectedBy", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CollectedById, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                @if (ViewBag.Billinfo != null)
+                {
+                    <table class="table table-bordered table-condensed table-striped">
+                        <tr>
+                            <th>Auto BillId</th>
+                            <th>Book Bill Number</th>
+                            <th>Patient Name</th>
+                            <th>Total</th>
+                            <th>Paid</th>
+                            <th>Due</th>
+                            <th>Discount</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var item in ViewBag.Billinfo)
+                        {
+                            <tr>
+                                <td>@item.BillId</td>
+                                <td>@item.BillNumber</td>
+                                <td>@item.PatientName</td>
+                                <td>@item.Amount</td>
+                                <td>@item.Paid</td>
+                                <td>@item.Due</td>
+                                <td>@item.Discount</td>
+                                <td>
+                                    <a onclick="getEditBillinfo(@item.BillId,@item.Amount,@item.Paid,@item.Due,@item.Discount)" class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit Bill</a>
+                                </td>
+                                <td>
+                                    <a href="~/Billing/GenerateBill/@item.BillId" class="btn btn-success">Generate Bill</a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+            </div>
         </div>
+
     </div>
 </div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <form action="~/Billing/UpdateBillingInfofromPatientScreen" method="post">
+                    <input type="hidden" name="BillId" id="BillId" />
+                    <div class="form-group">
+                        <label>Total Amount</label>
+                        <input type="text" name="Amount" id="amount" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Paid</label>
+                        <input type="text" name="Paid" id="paid" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Due</label>
+                        <input type="text" name="Due" id="due" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Discount</label>
+                        <input type="text" name="Discount" id="discount" class="form-control" />
+                    </div>
+                    @*<div class="form-group">
+                                              <label>Status</label>
+                                              @Html.DropDownList("Status", new List<SelectListItem>() {
+                            new SelectListItem {Text="Paid",Value="true"},
+                            new SelectListItem {Text="Due",Value="false"},
+                        }, new { @class = "drop-down" })
+                                          </div>*@
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 @*<div>
         @Html.ActionLink("Back to List", "Index")
     </div>*@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <head runat="server">
-        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-        <script src="~/Scripts/bootstrap.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-        <script src="~/Scripts/bootstrap-multiselect.js"></script>
-        <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
-        <script type="text/javascript">
+<head runat="server">
+    @* <script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+    <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script type="text/javascript">
 
 
-            $(function () {
-                $('#ReportType').multiselect({
-                    includeSelectAllOption: true,         /*To enable the Select all Option*/
-                    selectAllValue: 'multiselect-all',     /*The value used for the select all option can be configured using the selectAllValue*/
-                    enableFiltering: true,   /*A filter input will be added to dynamically filter all the options*/
-                    enableCaseInsensitiveFiltering: true,  /*To enable Case Insenstitive Filtering (Upper and Lower Case Letters)*/
-                    maxHeight: '300',
-                    buttonWidth: '400',
+        $(function () {
+            $('#ReportType').multiselect({
+                includeSelectAllOption: true,         /*To enable the Select all Option*/
+                selectAllValue: 'multiselect-all',     /*The value used for the select all option can be configured using the selectAllValue*/
+                enableFiltering: true,   /*A filter input will be added to dynamically filter all the options*/
+                enableCaseInsensitiveFiltering: true,  /*To enable Case Insenstitive Filtering (Upper and Lower Case Letters)*/
+                maxHeight: '300',
+                buttonWidth: '400',
                 });
             });
 
@@ -282,62 +365,88 @@
                     message += $(this).text() + " " + $(this).val() + "\n";
 
                 });
-                if ($('#mobileNo').val() == null || $('#mobileNo').val() == '') {
-                    alert("Enter Mobile Number");
-                    return;
-                }
-                var s = $("#UserType option:selected").val();
-                if (s == "" || s == '') {
-                    alert("Select User Type");
-                    event.preventDefault();
-                    return;
-                }
-                $('#RptID').val(arrSelected);
-                $('#Name_Mobile').val($('#mobileNo').val());
+            if ($('#mobileNo').val() == null || $('#mobileNo').val() == '') {
+                alert("Enter Mobile Number");
+                return;
+            }
+            var s = $("#UserType option:selected").val();
+            if (s == "" || s == '') {
+                alert("Select User Type");
+                event.preventDefault();
+                return;
+            }
+            $('#RptID').val(arrSelected);
+            $('#Name_Mobile').val($('#mobileNo').val());
 
+        });
+
+        function DisableObjects(rbEUser) {
+            if (rbEUser.selectedIndex == 2) {
+                $('#pname').attr("disabled", "true");
+                $('#age').attr("disabled", "true");
+                $('#gender').attr("disabled", "true");
+                $('#gender').attr("disabled", "true");
+                //document.getElementById(pname).disabled = true;
+                //document.getElementById(age).disabled = true;
+                //document.getElementById(gender).disabled = true;
+                $('#search').css('display', 'block');
+            }
+            else {
+                $('#pname').removeAttr("disabled");
+                $('#age').removeAttr("disabled");
+                $('#gender').removeAttr("disabled");
+                $('#gender').removeAttr("disabled");
+                $('#search').css('display', 'none');
+            }
+
+        }
+        function EnableObjects(rbNUser) {
+            if (rbNUser.checked == true) {
+                $('#pname').removeAttr("disabled");
+                $('#age').removeAttr("disabled");
+                $('#gender').removeAttr("disabled");
+                $('#gender').removeAttr("disabled");
+                $('#search').css('display', 'none');
+
+            }
+        }
+
+        function getEditBillinfo(billId, total, paid, due, discount) {
+            $('#BillId').val(billId);
+            $('#amount').val(total);
+            $('#paid').val(paid);
+            $('#due').val(due);
+            $('#discount').val(discount);
+
+        }
+
+
+        $(document).ready(function () {
+            $("#DoctorList").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/AutocompleteDoctorinfo",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                           
+                            response($.map(data, function (item) {
+                                return { label: item.DoctorName, value: item.docid };
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
             });
+        })
 
-            function DisableObjects(rbEUser) {
-                if (rbEUser.selectedIndex == 2) {
-                    $('#pname').attr("disabled", "true");
-                    $('#age').attr("disabled", "true");
-                    $('#gender').attr("disabled", "true");
-                    $('#gender').attr("disabled", "true");
-                    //document.getElementById(pname).disabled = true;
-                    //document.getElementById(age).disabled = true;
-                    //document.getElementById(gender).disabled = true;
-                    $('#search').css('display', 'block');
-                }
-                else {
-                    $('#pname').removeAttr("disabled");
-                    $('#age').removeAttr("disabled");
-                    $('#gender').removeAttr("disabled");
-                    $('#gender').removeAttr("disabled");
-                    $('#search').css('display', 'none');
-                }
 
-            }
-            function EnableObjects(rbNUser) {
-                if (rbNUser.checked == true) {
-                    $('#pname').removeAttr("disabled");
-                    $('#age').removeAttr("disabled");
-                    $('#gender').removeAttr("disabled");
-                    $('#gender').removeAttr("disabled");
-                    $('#search').css('display', 'none');
-
-                }
-            }
-
-            function getEditBillinfo(billId, total, paid, due, discount) {
-                $('#BillId').val(billId);
-                $('#amount').val(total);
-                $('#paid').val(paid);
-                $('#due').val(due);
-                $('#discount').val(discount);
-
-            }
-        </script>
-    </head>
+    </script>
+</head>
 }
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

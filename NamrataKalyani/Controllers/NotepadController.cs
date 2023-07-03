@@ -34,7 +34,7 @@ namespace NamrataKalyani.Controllers
 
             param.Add("@FileName", FileName);
             param.Add("@ShortDescription", ShortDescription);
-            param.Add("@Notepad", Server.HtmlDecode(Notepad));
+            param.Add("@Notepad",  Notepad);
             param.Add("@CreatedBy", 1);
             param.Add("@UpdatedBy", 1);
 
@@ -68,7 +68,7 @@ namespace NamrataKalyani.Controllers
             param.Add("@Nid", Nid);
             param.Add("@FileName", FileName);
             param.Add("@ShortDescription", ShortDescription);
-            param.Add("@Notepad", Notepad);
+            param.Add("@Notepad",  Notepad);
             param.Add("@UpdatedBy", 1);
 
             int i = RetuningData.AddOrSave<int>("sp_UpdatedNotepad", param);

@@ -15,11 +15,13 @@ namespace NamrataKalyani.Models
         public DateTime Date { get; set; }
         public decimal ReferalPercentage { get; set; }
         public int BillNumber { get; set; }
+        public string UniqueBillNo { get; set; }
         public string YMD { get; set; }
         public string Surname { get; set; }
         public int? Age { get; set; }
         public string gender { get; set; }
         public string showdate { get; set; }
         public string MobileNo { get; set; }
+        public string CollectedByName { get; set; }
     }
 }

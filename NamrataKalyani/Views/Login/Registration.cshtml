@@ -52,7 +52,9 @@
                 @Html.DropDownList("RoleId", new List<SelectListItem>
 {
     new SelectListItem{ Text="Admin", Value = "1" },
-    new SelectListItem{ Text="Employee", Value = "2" }
+    new SelectListItem{ Text="Employee", Value = "2" },
+    new SelectListItem{ Text="Doctor", Value = "3" },
+    new SelectListItem{ Text="Approval", Value = "4" }
 
  }, "Select Role", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })

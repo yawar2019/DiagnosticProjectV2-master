@@ -47,55 +47,168 @@
         }
     </style>
 </head>
-<body id="body-pd">
+<body id="body-pd" style="background-color:white;height:100px;">
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div>
-            <p style="color:white"><i class='bx bx-user nav_icon'></i> <span class="nav_name">Welcome: @System.Web.HttpContext.Current.Session["UserName"].ToString()</span></p>
+        <div class="row" style="padding-top:12px;padding-right:50px;">
+            <div class="col-md-4" style="text-align:left;padding-top:4px;">
+                <p style="color:white"><i class='bx bx-award nav_icon'></i> <span class="nav_name">Welcome: @System.Web.HttpContext.Current.Session["UserName"].ToString()</span></p>
+
+            </div>
+            <div class="col-md-2">
+                <a href="@Url.Action("Settings", "Home", null)" class="nav_link"> <i class='bx bx-briefcase nav_icon'></i> <span class="nav_name">Settings</span></a>
+
+            </div>
+
+            @if (Convert.ToInt32(Session["RoleId"]) == 1)
+            {
+                <div class="col-md-3">
+                    <a href="@Url.Action("Index", "Notification", null)" class="nav_link"> <i class='bx bx-speaker nav_icon'></i> <span class="nav_name">Notification</span></a>
+                </div>
+            }
+            <div class="col-md-3">
+                <a href="@Url.Action("Logout","Login",null)" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
+            </div>
         </div>
-        <div>   <a href="@Url.Action("Logout","Login",null)" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Sign Off</span> </a></div>
+
+
 
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="@Url.Action("PatientInfo","Doc",null)" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">New Registration</span> </a>
+                @if (Convert.ToInt32(Session["RoleId"]) == 1 || Convert.ToInt32(Session["RoleId"]) == 4)
+                {
+                    <div>
+                        <ul style="text-align:left;" class="nav_link">
+                            <li class="dropdown" style="text-align:left;">
+                                <a class="nav-link dropdown-item" href="#" role="button" data-bs-toggle="dropdown" style="color:white;">
+                                    <i class='bx bxs-grid-alt nav_icon'></i>
+                                    <span class="nav_name">Request</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" title="Home" href="@Url.Action("ViewPendingRequest", "Home", null)">
+                                            <i class='bx bxs-grid-alt nav_icon'></i>
+                                            <span class="nav_name">Pending</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" title="Home" href="@Url.Action("ViewApprovalRequest", "Home", null)">
+                                            <i class='bx bxs-grid-alt nav_icon'></i>
+                                            <span class="nav_name">Approval</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" title="Home" href="@Url.Action("ViewRejectRequest", "Home", null)">
+                                            <i class='bx bxs-grid-alt nav_icon'></i>
+                                            <span class="nav_name">Reject</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    @*<a data-toggle="tooltip" title="Home" href="@Url.Action("Dashboard", "Doc", null)" class="nav_link">
+                            <i class='bx bxs-grid-alt nav_icon'></i>
+                            <span class="nav_name">Pending</span>
+                        </a>
+                        <a data-toggle="tooltip" title="Home" href="@Url.Action("Dashboard", "Doc", null)" class="nav_link">
+                            <i class='bx bxs-grid-alt nav_icon'></i>
+                            <span class="nav_name">Approved</span>
+                        </a>
+                        <a data-toggle="tooltip" title="Home" href="@Url.Action("Dashboard", "Doc", null)" class="nav_link">
+                            <i class='bx bxs-grid-alt nav_icon'></i>
+                            <span class="nav_name">Rejected</span>
+                        </a>*@
+
+
+
+
+                }
+                <a data-toggle="tooltip" title="New Registration" href="@Url.Action("PatientInfo","Doc",null)" class="nav_link"> <i class='bx bx-wink-smile nav_icon'></i> <span class="nav_name">New Registration</span> </a>
                 <div>
-                    <a href="@Url.Action("Dashboard","Doc",null)" class="nav_link">
-                        <i class='bx bxs-grid-alt nav_icon'></i>
-                        <span class="nav_name">Home</span>
-                    </a>
                     @if (Convert.ToInt32(Session["RoleId"]) == 1)
                     {
-                        <a href="@Url.Action("index", "Reports", null)" class="nav_link">
+                        <a data-toggle="tooltip" title="Home" href="@Url.Action("Dashboard", "Doc", null)" class="nav_link">
+                            <i class='bx bxs-grid-alt nav_icon'></i>
+                            <span class="nav_name">Home</span>
+                        </a>
+
+                        <a data-toggle="tooltip" title="Reports" href="@Url.Action("index", "Reports", null)" class="nav_link">
                             <i class='bx bxs-report nav_icon'></i>
                             <span class="nav_name">Report</span>
                         </a>
+
+                        <a data-toggle="tooltip" title="Consultant" href="@Url.Action("index", "Consultant", null)" class="nav_link">
+                            <i class='bx bxs-bank nav_icon'></i>
+                            <span class="nav_name">Consultant</span>
+                        </a>
+                        <a data-toggle="tooltip" title="Doctor" href="@Url.Action("ReferDocIndex", "ReferalDoctor", null)" class="nav_link">
+                            <i class='bx bxs-plus-circle nav_icon'></i> <span class="nav_name">Doctor</span>
+                        </a>
                     }
-                    <a href="@Url.Action("ReferDocIndex","ReferalDoctor",null)" class="nav_link">
-                        <i class='bx bxs-plus-circle nav_icon'></i> <span class="nav_name">Doctor</span>
-                    </a>
-@if (Convert.ToInt32(Session["RoleId"]) == 1)
-{
-                    <a href="@Url.Action("GetBillingInfo", "Billing", null)" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bill</span>
-                    </a>
-}
+                    @if (Convert.ToInt32(Session["RoleId"]) == 2)
+                    {
+                        <a data-toggle="tooltip" title="Home" href="@Url.Action("Dashboard", "Doc", null)" class="nav_link">
+                            <i class='bx bxs-grid-alt nav_icon'></i>
+                            <span class="nav_name">Home</span>
+                        </a>
+                        <a data-toggle="tooltip" title="Doctor" href="@Url.Action("ReferDocIndex", "ReferalDoctor", null)" class="nav_link">
+                            <i class='bx bxs-plus-circle nav_icon'></i> <span class="nav_name">Doctor</span>
+                        </a>
+                    }
+
+                    @if (Convert.ToInt32(Session["RoleId"]) == 3)
+                    {
+
+                        <a data-toggle="tooltip" title="Home" href="@Url.Action("MedicoDashboard", "Medico", new {CodeName=Convert.ToString(Session["UserName"])})" class="nav_link">
+                            <i class='bx bxs-grid-alt nav_icon'></i>
+                            <span class="nav_name">Home</span>
+                        </a>
+
+
+                    }
+
                     @if (Convert.ToInt32(Session["RoleId"]) == 1)
                     {
-                        <a href="@Url.Action("Employees", "Login", null)" class="nav_link">
+                        <a data-toggle="tooltip" title="Bill" href="@Url.Action("GetBillingInfo", "Billing", null)" class="nav_link">
+                            <i class='bx bx-pie-chart nav_icon'></i> <span class="nav_name">Finance</span>
+                        </a>
+                    }
+
+                    @if (Convert.ToInt32(Session["RoleId"]) == 1)
+                    {
+                        <a data-toggle="tooltip" title="Employees" href="@Url.Action("Employees", "Login", null)" class="nav_link">
                             <i class='bx bx-walk nav_icon'></i> <span class="nav_name">Employees</span>
                         </a>
-                        @*<a href="@Url.Action("ShowCollectedByDetails", "Billing", null)" class="nav_link">
-                            <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">CollectedBy</span>
-                        </a>*@
+                        <a href="@Url.Action("ShowCollectedByDetails", "Billing", null)" class="nav_link">
+                            <i class='bx bxl-amazon nav_icon'></i> <span class="nav_name">CollectedBy</span>
+                        </a>
                     }
-                    <a href="@Url.Action("ServiceInfo","Doc",null)" class="nav_link">
+                    <a data-toggle="tooltip" title="Service" href="@Url.Action("ServiceInfo","Doc",null)" class="nav_link">
                         <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">Service</span>
                     </a>
-                    <a href="@Url.Action("Index","Notepad",null)" class="nav_link">
-                        <i class='bx bxl-twitter nav_icon'></i> <span class="nav_name">Notepad</span>
+                    <a data-toggle="tooltip" title="Notepad" href="@Url.Action("Index","Notepad",null)" class="nav_link">
+                        <i class='bx bx-book-add nav_icon'></i> <span class="nav_name">Notepad</span>
                     </a>
+
+                    @if (Convert.ToInt32(Session["RoleId"]) == 3)
+                    {
+                        <a data-toggle="tooltip" title="Bill" href="@Url.Action("GetClientBillsByCode", "Billing", null)" class="nav_link">
+                            <i class='bx bx-pie-chart nav_icon'></i> <span class="nav_name">Finance</span>
+                        </a>
+                        <a data-toggle="tooltip" title="Bill" href="@Url.Action("GetClientBillsByCode", "Billing", null)" class="nav_link">
+                            <i class='bx bxs-plane-alt nav_icon'></i> <span class="nav_name">MedicoRx</span>
+                        </a>
+                    }
+                    @if (Convert.ToInt32(Session["RoleId"]) == 1)
+                    {
+                        <a data-toggle="tooltip" title="Edit Registration" href="@Url.Action("GetAllPatientDetails", "Patients", null)" class="nav_link">
+                            <i class='bx bxs-pen nav_icon'></i>
+                            <span class="nav_name">Edit Registration</span>
+                        </a>
+                    }
                 </div>
             </div>
         </nav>

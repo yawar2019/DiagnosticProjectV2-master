@@ -1,0 +1,219 @@
+﻿@model NamrataKalyani.Models.PatientInfoModel
+
+@{
+    ViewBag.Title = "Edit";
+     
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>PatientInfoModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model=>model.pid, new { htmlAttributes = new { @class = "form-control" } })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.pname, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.pname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.pname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("surname", new List<SelectListItem>(){
+                              new SelectListItem {Text="Mr.",Value="Mr."},
+                              new SelectListItem {Text="Mrs.",Value="Mrs."},
+                              new SelectListItem {Text="Miss",Value="Miss"},
+                              new SelectListItem {Text="Baby",Value="Baby"},
+                              new SelectListItem {Text="Baba",Value="Baba"},
+                              new SelectListItem {Text="Ms",Value="Ms"},
+                              new SelectListItem {Text="Dr",Value="Dr"},
+                              new SelectListItem {Text="Master",Value="Master"},
+                               }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.pname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DoctorName, htmlAttributes: new { @class = "control-label col-md-2" })
+       
+
+        <div class="col-md-10">
+            @*@Html.DropDownList("DoctorName", (IEnumerable<SelectListItem>)ViewBag.DoctorList, "Select Doctor", new { @class = "form-control", @required = "required" })*@
+            @Html.EditorFor(model=>Model.DoctorName, new { htmlAttributes = new { @class = "form-control" } })
+
+            @Html.ValidationMessageFor(model => model.DoctorName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.gender, new List<SelectListItem>(){
+                             new SelectListItem {Text="Male",Value="Male"},
+                             new SelectListItem {Text="Female",Value="Female"},
+                              }, "Select Gender", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ymd, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @Html.DropDownList("ymd", new List<SelectListItem>(){
+                             new SelectListItem {Text="years",Value="years"},
+                             new SelectListItem {Text="months",Value="months"},
+                             new SelectListItem {Text="days",Value="days"},
+                              }, new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.ymd, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.mobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.mobileNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.mobileNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+     
+    <input type="hidden" name="BillBookNumber" value="@Model.BillBookNumber" />
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Select Report", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="ReportType" multiple="multiple" class="form-control" required name="newReports">
+                    @if (ViewBag.ReportType != null)
+                    {
+                        foreach (var item in ViewBag.ReportType)
+                        {
+                            if (item.Id != null)
+                            {
+                                // if(item.item.selectedReport == true)
+                                if (item.selectedReport == "true")
+                                {
+                                    <option value="@item.Id" selected="selected">
+                                        @item.ReportType
+                                    </option>
+                                }
+                                else
+                                {
+
+                                    <option value="@item.Id">
+                                        @item.ReportType
+                                    </option>
+                                }
+
+
+                            }
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <head runat="server">
+        @* <script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <script src="~/Scripts/bootstrap-multiselect.js"></script>
+        <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <script type="text/javascript">
+
+
+            $(function () {
+                $('#ReportType').multiselect({
+                    includeSelectAllOption: true,         /*To enable the Select all Option*/
+                    selectAllValue: 'multiselect-all',     /*The value used for the select all option can be configured using the selectAllValue*/
+                    enableFiltering: true,   /*A filter input will be added to dynamically filter all the options*/
+                    enableCaseInsensitiveFiltering: true,  /*To enable Case Insenstitive Filtering (Upper and Lower Case Letters)*/
+                    maxHeight: '300',
+                    buttonWidth: '400',
+                });
+            });
+
+
+
+            $(document).ready(function () {
+                $("#DoctorName").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/Home/AutocompleteDoctorinfo",
+                            type: "POST",
+                            dataType: "json",
+                            data: { Prefix: request.term },
+                            success: function (data) {
+
+                                response($.map(data, function (item) {
+                                    return { label: item.DoctorName, value: item.docid };
+                                }))
+
+                            }
+                        })
+                    },
+                    messages: {
+                        noResults: "", results: ""
+                    }
+                });
+            })
+
+
+
+        </script>
+    </head>
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+
+
+
+
+@*<script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap5.min.js"></script>*@
+
+

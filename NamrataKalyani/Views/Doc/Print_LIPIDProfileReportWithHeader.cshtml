@@ -1,0 +1,184 @@
+﻿@model NamrataKalyani.Models.ReportByPidModel
+@{
+    ViewBag.Title = "Print_Report";
+    Layout = "~/Views/Shared/_LayoutWithHeader.cshtml";
+}
+<style>
+    table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    .table > tbody > label > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        font-size: 12px !important;
+    }
+
+    @@page {
+        margin: 0;
+        padding-bottom: 20px;
+    }
+
+    label {
+        font-size: 12px !important;
+    }
+</style>
+<div class="page-header1" style="text-align: center">
+    <div style="text-align: left">
+
+        <a href="javascript:void(0);" onclick="history.go(-1);" style="color:black;font-weight:bold;">Back to Details</a>
+    </div>
+    <a rel="stylesheet"><img src="~/Content/Images/PrintIcon.png" onclick="window.print(); document.margin='none'; return false;"></a>
+</div>
+
+</div>-->
+<div id="parentDiv">
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <!--place holder for the fixed-position header-->
+
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <!--*** CONTENT GOES HERE ***-->
+
+                    <div class="page">
+                        <div class="example">
+                            <table style="border: 1px solid" width="80%" align="center" cellspacing=1 cellpadding=1>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Patient Name", new { style = "color:Black ; " })
+                                        <b>: </b><span style="font-weight:bolder">@Model.SurName&nbsp;@Model.Pname</span>
+                                    </td>
+                                    <td>
+                                        @Html.Label("Sr No", new { style = "color:Black;  " })
+                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>@Html.Label(Model.Srno.ToString(), new { style = "color:Black; font-weight: bold;" })
+                                    </td>
+                                    <td>
+                                        <label style="color:Black;">Reg.Date</label>
+                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b><span style="font-weight:bolder">@Convert.ToDateTime(Model.RegDate).ToString("dd/MM/yyyy hh: mm:ss tt")</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.Label("Age/Sex", new { style = "color:Black ; " })
+                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>@Html.Label(Model.Age.ToString() + " " + Model.YMD + "/" + Model.Gender, new { style = "color:Black; font-weight: bolder;" })
+
+                                    </td>
+                                    <td>
+                                        @Html.Label("Bill No", new { style = "color:Black ; " })
+                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>@Html.Label(Model.UniqueBillNo.ToString(), new { style = "color:Black; font-weight: bolder;" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("Received Date", new { style = "color:Black ; " })
+                                        <b>: </b><span style="font-weight:bolder">@Convert.ToDateTime(Model.ReceivedDate).ToString("dd/MM/yyyy")</span>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="font-weight:bold;color:black;">Mobile No </label>
+                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> @Html.Label(Model.MobileNo, new { style = "color:Black; font-weight: bolder;" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("Collect By", new { style = "color:Black ; " })
+                                        <b>: </b>@Html.Label(Model.CollectedByName.ToString(), new { style = "color:Black; font-weight: bolder;" })
+                                    </td>
+
+
+                                    <td>
+                                        @Html.Label("Report Date", new { style = "color:Black;" })
+                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;: </b><span><b>@Convert.ToDateTime(Model.RegDate).ToString("dd/MM/yyyy")</b></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="font-weight:bold;color:black;">Referral Dr </label>
+                                        <b>&nbsp;&nbsp;&nbsp;: </b> @Html.Label(Model.RefByDoc, new { style = "color:Black; font-weight: bolder;" })
+                                    </td>
+                                    <td>
+                                        @Html.Label("Unique Id", new { style = "color:Black ; " })
+                                        <b>&nbsp;: </b> @Html.Label(Model.Age.ToString(), new { style = "color:Black; font-weight: bold;" })
+                                    </td>
+                                    <td>
+                                        <div style="display: block">
+                                            <img id="barcode" src="~/Content/Images/barcode.jpg" width="100" />
+                                            <img id="barcode" src="~/Content/Images/barcode.jpg" width="100" style="float:left;" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>
+                                @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Description))
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right; padding-right: 120px;">
+                        <table style="">
+                            <tr>
+                                <td><img src="@Model.Signature" style="height:60px;width:150px;" /></td>
+                            </tr>
+                            <tr>
+                                <td>@Model.ConsultantName</td>
+                            </tr>
+                            <tr>
+                                <td>@Model.Qualification</td>
+                            </tr>
+                            <tr>
+                                <td>@Model.Department</td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                    <div class="page-footer-space">
+                        <center>Contact for Any Software :8686625949</center>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <!--<tfoot>
+            <tr>
+                <td>-->
+        <!--place holder for the fixed-position footer-->
+        <!--<div class="page-footer-space">
+                        Contact for Any Software :8686625949
+                    </div>
+                </td>
+            </tr>
+        </tfoot>-->
+    </table>
+</div>
+
+
+@*<a id="printPDF">Click me</a>*@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $("#printPDF").click(function () {
+
+        var element = document.getElementById('parentDiv');
+        html2pdf().from(element).set({
+            html2canvas: { scale: 2 },
+            margin: 1,
+            //pagebreak: { avoid: 'tr' },
+            jsPDF: { orientation: 'portrait', unit: 'pt', format: 'letter', compressPDF: true }
+
+        }).toPdf().get('pdf').then(function (pdf) {
+            window.open(pdf.output('bloburl'), '_blank');
+        })
+
+    })
+
+</script>

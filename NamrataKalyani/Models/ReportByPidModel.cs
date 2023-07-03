@@ -11,6 +11,17 @@ namespace NamrataKalyani.Models
         public string YMD { get; set; }        public string SurName { get; set; }        public string BillNumber { get; set; }                public string BillingID { get; set; }        public int CollectedBy { get; set; }
 
         public string CollectedByName { get; set; }
-    }
+
+        public string RegDate { get; set; }
+        public string ReceivedDate { get; set; }
+
+        public string MobileNo { get; set; }
+        public string UniqueBillNo { get; set; }
+        public string ConsultantName { get; set; }
+        public string Department { get; set; }
+        public string Signature { get; set; }
+        public string Qualification { get; set; }
+
+    }
 
 }

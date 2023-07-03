@@ -20,6 +20,15 @@ namespace NamrataKalyani.Models
         public string Printer_Name { get; set; }
         public string CreatedName { get; set; }
         public string UpdatedName { get; set; }
-
+        public string MobileNo { get; set; }
+        public string Qualification { get; set; }
+        public string Department { get; set; }
+        public string Signature { get; set; }
+        public string ConsultantName { get; set; }
+        public string ApprovalReason { get; set; }
+        public string Status { get; set; }
+        public int ApprovalFlag { get; set; }
+        public string ApprovedBy { get; set; }
+        public string BillBookNumber { get; set; }
     }
 }

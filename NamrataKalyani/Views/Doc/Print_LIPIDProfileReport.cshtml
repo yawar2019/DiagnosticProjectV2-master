@@ -26,8 +26,10 @@
 <link href="~/Content/Print.css" rel="stylesheet" />
 <div class="page-header" style="text-align: center">
     <div style="text-align: left">
+        @*@if(Convert.ToString(Request.QueryString["Client"]) != "true") { 
         <a href="@Url.Action("GetAllReportsByPatientId","Doc",new { Pid = Model.Pid })">Back to List</a>
-
+        }*@
+        <a href="javascript:void(0);" onclick="history.go(-1);"   style="color:black;font-weight:bold;">Back to Details</a>  
     </div>
     <a rel="stylesheet"><img src="~/Content/Images/PrintIcon.png" onclick="window.print(); document.margin='none'; return false;"></a>
 </div>
@@ -58,72 +60,90 @@
                                 </td>
                                 <td>
                                     @Html.Label("Sr No :- ", new { style = "color:Black; text-decoration:underline; " })
-                                    @Html.Label(Model.Srno.ToString(), new { style = "color:Black; font-weight: normal;" })
+                                    @Html.Label(Model.Srno.ToString(), new { style = "color:Black; font-weight: bolder;" })
                                 </td>
                                 <td>
-                                    @Html.Label("Date:-", new { style = "color:Black;text-decoration:underline;" })
-                                    <span style="font-weight:bolder">@DateTime.Now.ToString("dd/MM/yyyy HH: mm:ss tt")</span>
-</td>
+                                    <label style="color:Black;">Reg.Date</label>
+                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b><span style="font-weight:bolder">@Convert.ToDateTime(Model.RegDate).ToString("dd/MM/yyyy hh: mm:ss tt")</span>
+                                </td>
                             </tr>
-                            <tr style="border: double; border-width: 1px 0;">
+                            <tr>
                                 <td>
-                                    @Html.Label("Bill No :-", new { style = "color:Black ; text-decoration:underline;" })
-                                    @Html.Label(Model.BillingID.ToString() + "/" + Model.BillNumber.ToString(), new { style = "color:Black; font-weight: bolder;" })
+                                    @Html.Label("Age/Sex", new { style = "color:Black ; " })
+                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>@Html.Label(Model.Age.ToString() + " " + Model.YMD + "/" + Model.Gender, new { style = "color:Black; font-weight: bolder;" })
+
                                 </td>
                                 <td>
-                                    @Html.Label("Age :-", new { style = "color:Black ; text-decoration:underline;" })
-                                    @Html.Label(Model.Age.ToString() + " " + Model.YMD, new { style = "color:Black; font-weight: bolder;" })
+                                    @Html.Label("Bill No", new { style = "color:Black ; " })
+                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </b>@Html.Label(Model.UniqueBillNo.ToString(), new { style = "color:Black; font-weight: bolder;" })
                                 </td>
                                 <td>
-                                    @Html.Label("Collected By :- ", new { style = "color:Black ; text-decoration:underline;" })
-                                    @Html.Label(Model.CollectedByName.ToString(), new { style = "color:Black; font-weight: bolder;" })
+                                    @Html.Label("Received Date", new { style = "color:Black ; " })
+                                    <b>: </b><span style="font-weight:bolder">@Convert.ToDateTime(Model.ReceivedDate).ToString("dd/MM/yyyy")</span>
                                 </td>
 
                             </tr>
-                            <tr style="border:double; border-width: 1px 0;">
+                            <tr>
                                 <td>
-                                    @Html.Label("Ref. By DR :-", new { style = "color:Black ; text-decoration:underline; " })
-                                    @Html.Label(Model.RefByDoc, new { style = "color:Black; font-weight: bolder;" })
+                                    <label style="font-weight:bold;color:black;">Mobile No </label>
+                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b> @Html.Label(Model.MobileNo, new { style = "color:Black; font-weight: bolder;" })
                                 </td>
                                 <td>
-                                    @Html.Label("Gender :-", new { style = "color:Black ; text-decoration:underline;" })
-                                    @Html.Label(Model.Gender, new { style = "color:Black; font-weight: bolder;" })
+                                    @Html.Label("Collect By", new { style = "color:Black ; " })
+                                    <b>: </b>@Html.Label(Model.CollectedByName.ToString(), new { style = "color:Black; font-weight: bolder;" })
                                 </td>
+
+
                                 <td>
-                                    <img src="~/Content/Images/barcode.jpg" />
+                                    @Html.Label("Report Date", new { style = "color:Black;" })
+                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;: </b><span><b>@Convert.ToDateTime(Model.RegDate).ToString("dd/MM/yyyy")</b></span>
                                 </td>
                             </tr>
-                            @*<tr style="border: double; border-width: 1px 0;">
-                                    <td>
-                                        @Html.Label("Pt. Name :- ", new { style = "color:Black ; text-decoration:underline;" })
-                                        @Html.Label(Model.Pname, new { style = "color:Black; font-weight: normal;" })
-                                    </td>
-                                    <td>
-                                        @Html.Label("Age :-", new { style = "color:Black ; text-decoration:underline;" })
-                                        @Html.Label(Model.Age.ToString()+" "+Model.YMD, new { style = "color:Black; font-weight: normal;" })
-                                    </td>
-                                    <td>
-                                        @Html.Label("Date:-", new { style = "color:Black;text-decoration:underline;" })
-                                        @DateTime.Now
-                                    </td>
-                                </tr>*@
+                            <tr>
+                                <td>
+                                    <label style="font-weight:bold;color:black;">Referral Dr </label>
+                                    <b>&nbsp;&nbsp;&nbsp;: </b> @Html.Label(Model.RefByDoc, new { style = "color:Black; font-weight: bolder;" })
+                                </td>
+                                <td>
+                                    @Html.Label("Unique Id", new { style = "color:Black ; " })
+                                    <b>&nbsp;: </b> @Html.Label(Model.Age.ToString(), new { style = "color:Black; font-weight: bold;" })
+                                </td>
+                                <td>
+                                    <div style="display: block">
+                                        <img id="barcode" src="~/Content/Images/barcode.jpg" width="100" />
+                                        <img id="barcode" src="~/Content/Images/barcode.jpg" width="100" style="float:left;" />
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                         <div>
                             @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Description))
                         </div>
+                        <div style="text-align: right; padding-right: 120px;padding-bottom:10px;">
+                            <table style="">
+                                <tr>
+                                    <td><img src="@Model.Signature" style="height:60px;width:150px;" /></td>
+                                </tr>
+                                <tr>
+                                    <td>@Model.ConsultantName</td>
+                                </tr>
+                                <tr>
+                                    <td>@Model.Qualification</td>
+                                </tr>
+                                <tr>
+                                    <td>@Model.Department</td>
+                                </tr>
+                            </table>
+                            <div style="color:black">
+                                <center>Note:Contact for Any kind of Software:<b>8686625949</b></center>
+                            </div>
+
+                        </div>
                     </div>
+
+
                 </div>
-
-
             </td>
         </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td>
-                <!--place holder for the fixed-position footer-->
-                <div class="page-footer-space"></div>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+
+       

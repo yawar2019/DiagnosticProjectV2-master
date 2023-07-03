@@ -35,16 +35,22 @@ namespace NamrataKalyani.Controllers
         
         public ActionResult Create()
         {
+            var dbconsultants = RetuningData.ReturnigList<Consultant>("sp_getConsultants", null).ToList();
+            ViewBag.ConsultantId = new SelectList(dbconsultants, "ConsultantId", "Name");
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(ReportModel rem)
         {
+            var dbconsultants = RetuningData.ReturnigList<Consultant>("sp_getConsultants", null).ToList();
+            ViewBag.ConsultantId = new SelectList(dbconsultants, "ConsultantId", "Name");
+
             var param = new DynamicParameters();
             param.Add("@RName", rem.ReportType);
             param.Add("@Description", rem.Description);
             param.Add("@ShortName", rem.ShortName);
+            param.Add("@ConsultantId", rem.ConsultantId);
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
 
@@ -60,11 +66,12 @@ namespace NamrataKalyani.Controllers
 
         public ActionResult Edit(int? id)
         {
-
+           
             var param = new DynamicParameters();
             param.Add("@Rid", id);
             var rm = RetuningData.ReturnigList<ReportModel>("sp_ReportById", param).SingleOrDefault();
-
+            var dbconsultants = RetuningData.ReturnigList<Consultant>("sp_getConsultants", null).ToList();
+            ViewBag.ConsultantId = new SelectList(dbconsultants, "ConsultantId", "Name",rm.ConsultantId);
 
             return View(rm);
         }
@@ -72,11 +79,14 @@ namespace NamrataKalyani.Controllers
         [HttpPost]
         public ActionResult Edit(ReportModel rm)
         {
+            var dbconsultants = RetuningData.ReturnigList<Consultant>("sp_getConsultants", null).ToList();
+            ViewBag.ConsultantId = new SelectList(dbconsultants, "ConsultantId", "Name");
             var param = new DynamicParameters();
             param.Add("@Rid", rm.Id);
             param.Add("@RName", rm.ReportType);
             param.Add("@Description", rm.Description);
             param.Add("@ShortName", rm.ShortName);
+            param.Add("@ConsultantId", rm.ConsultantId);
             param.Add("@UpdatedBy", UserId );
             param.Add("@UpdatedOn", DateTime.Now);
 

@@ -1,0 +1,274 @@
+﻿@model IEnumerable<NamrataKalyani.Models._BilIingInfoModel>
+
+@{
+    ViewBag.Title = "MedicoDashboard";
+}
+
+<style>
+    .divDash {
+        color: white;
+        height: 70px;
+        width: 100px;
+        text-align: center;
+        float: left;
+        white-space: pre-line;
+        margin-right: 3px;
+    }
+    .divDashflooter {
+        color: white;
+        height: 70px;
+        width: 359px;
+        text-align: center;
+        float: left;
+        white-space: pre-line;
+        margin-right: 3px;
+    }
+    .imgClass {
+        height: 20px;
+        padding-bottom: 6px;
+    }
+</style>
+
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <div class="row" style="background-color: #15269b">
+            <div class="divDash">
+                <h4>Akbar Lab Dashboard</h4>
+            </div>
+            <div class="divDashflooter" style="background-color:gold;color:black;">
+                <marquee><b>Pls Contact</b></marquee>
+            </div>
+            <div class="divDash" style="background-color:darkslategray">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Registered</label>
+                
+            </div>
+            <div class="divDash" style="background-color:cadetblue">
+                <img src="~/Images/ReportIcon.png" class="imgClass" />
+                <label>Collected </label>
+                 
+            </div>
+            <div class="divDash" style="background-color:red">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Rejected </label>
+                 
+            </div>
+
+            <div class="divDash" style="background-color:darkblue">
+                <img src="~/Images/ReportIcon.png" class="imgClass" />
+                <label>Result Done</label>
+                
+            </div>
+            <div class="divDash" style="background-color:darkred">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Verified</label>
+                 
+            </div>
+            <div class="divDash" style="background-color:deeppink">
+                <img src="~/Images/ReportIcon.png" class="imgClass" style="padding-bottom:6px;" /> 0
+                <label>Approved</label>
+                
+            </div>
+            <div class="divDash" style="background-color:lightcoral">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Dispatch</label>
+                 
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("Dashboard", "Doc", FormMethod.Get))
+{
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="form-inline" style="text-align:left;">
+                <label>From Date</label>
+                <input type="date" name="name" value="" class="form-control" />
+
+
+                <label>To Date</label>
+
+                <input type="date" name="name" value="" class="form-control" />
+
+
+                <input type="submit" name="name" value="Go" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@{
+
+    var Count = 0;
+}
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+
+<script>
+    function redirectToPatienetRegistration() {
+
+        window.location = "http://localhost:54429/Doc/PatientInfo";
+    }
+</script>
+
+
+
+<div class="row">
+    <div class="col-md-12" style="overflow-y:scroll;height:345px">
+        <table class="table table-bordered table-striped" id="example" style="border:5px solid white">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Book BillNo</th>
+                    <th>Unique BillNo</th>
+                    <th>Date</th>
+                    <th>
+                        Patient Name
+                    </th>
+                    <th>Referal Doctor</th>
+                    <th>Investigation</th>
+                    <th>
+                        Mobile Number
+                    </th>
+
+
+                </tr>
+            </thead>
+            @if (Model != null)
+            {
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                <a class="btn btn-primary" href="~/Doc/GetAllReportsByClientPatientId?id=@item.PId">View Reports</a>
+                            </td>
+                            <td>
+                                @item.BillNumber
+                            </td>
+                            <td>
+                                @item.UniqueBillNo
+                            </td>
+                            <td>
+                                @String.Format("{0:dd/mm/yyyy}", item.showdate)
+                            </td>
+                            <td>
+                                @item.PatientName
+                            </td>
+
+                            <td>
+                                @item.DoctorName
+                            </td>
+                            <td>
+                                @item.ReportName
+                            </td>
+                            <td>
+                                @item.MobileNo
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+    @*<div class="col-md-4">
+        <table class="table table-bordered" id="example2">
+            <thead>
+                <tr>
+
+
+                    <th>
+                        Patient Name
+                    </th>
+                    <th>Report Name</th>
+
+                    <th> Action </th>
+                </tr>
+            </thead>
+            @if (ViewBag.ReportsInfo != null)
+            {
+                <tbody>
+                    @foreach (var item in ViewBag.ReportsInfo)
+                    {
+                        <tr>
+                            <td>
+                                @item.PatientName
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+
+                            <td>
+                                <a style="pointer-events:none;" class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=1">Print Report</a>
+                                <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=1">Print Report</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>*@
+</div>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+<script>
+
+    var minDate, maxDate;
+
+    // Custom filtering function which will search data in column four between two values
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[5]);
+
+            if (
+                (min === null && max === null) ||
+                (min === null && date <= max) ||
+                (min <= date && max === null) ||
+                (min <= date && date <= max)
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'MMMM Do YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'MMMM Do YYYY'
+    });
+
+    // DataTables initialisation
+    var table = $('#mytable').DataTable();
+
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        table.draw();
+    });
+
+</script>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+    $(document).ready(function () {
+        $('#example2').DataTable();
+    });
+</script>
+

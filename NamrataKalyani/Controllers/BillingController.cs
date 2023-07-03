@@ -57,8 +57,12 @@ namespace NamrataKalyani.Controllers
 
         public ActionResult UpdateBillingInfo(int? id, string BeginDate, string Enddate)
         {
+            var param2 = new DynamicParameters();
+            param2.Add("@BillId", id);
+            var BillDet = RetuningData.ReturnigList<_BilIingInfoModel>("sp_getBillReportByBillId", param2).SingleOrDefault(); ;
+
             var param = new DynamicParameters();
-            param.Add("@BillId", id);
+            param.Add("@BillId", BillDet.UniqueBillNo);
             param.Add("@BeginDate", BeginDate);
             param.Add("@EndDate", Enddate);
             var Bill = RetuningData.ReturnigList<_BilIingInfoModel>("getReports_test", param).SingleOrDefault();
@@ -232,8 +236,11 @@ namespace NamrataKalyani.Controllers
         }
         public ActionResult GenerateBill(int? id)
         {
+            var param2 = new DynamicParameters();
+            param2.Add("@BillId", id);
+            var BillDet = RetuningData.ReturnigList<_BilIingInfoModel>("sp_getBillReportByBillId", param2).SingleOrDefault(); ;
             var param = new DynamicParameters();
-            param.Add("@BillId", id);
+            param.Add("@BillId", BillDet.UniqueBillNo);
             param.Add("@BeginDate", null);
             param.Add("@EndDate", null);
             param.Add("@RoleId", 1);
@@ -317,6 +324,19 @@ namespace NamrataKalyani.Controllers
                 result = RetuningData.AddOrSave<int>("usp_DeleteBilling", param);
             }
             return Json("All the Selected Bill deleted successfully!");
+        }
+
+        [HttpGet]
+        public ActionResult GetClientBillsByCode()
+        {
+            var Bill=new List<_BilIingInfoModel>();
+            if (Session["UserName"] != null) {
+                string CodeName = Convert.ToString(Session["UserName"]);
+                var param = new DynamicParameters();
+                param.Add("@CodeName", CodeName);
+                Bill = RetuningData.ReturnigList<_BilIingInfoModel>("sp_getClientBillsByCode", param).ToList();
+            }
+            return View(Bill);
         }
     }
 }
