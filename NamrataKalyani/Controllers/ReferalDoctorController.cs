@@ -64,7 +64,8 @@ namespace NamrataKalyani.Controllers
             param.Add("@DayAndTime1", rdm.DayAndTime1);
             param.Add("@DayAndTime2", rdm.DayAndTime2);
             param.Add("@DayAndTime3", rdm.DayAndTime3);
-            
+            //param.Add("@Day", rdm.DayAndTime3);
+            param.Add("@Password", rdm.Password);
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
 
@@ -110,6 +111,7 @@ namespace NamrataKalyani.Controllers
             param.Add("@CodeName", rdm.CodeName);
             param.Add("@CreatedBy", UserId);
             param.Add("@UpdatedBy", UserId);
+            param.Add("@Password", rdm.Password);
 
             int i = RetuningData.AddOrSave<int>("usp_DoctorsInfo", param);
             

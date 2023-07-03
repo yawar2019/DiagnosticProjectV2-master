@@ -10,21 +10,21 @@
 
 
 <div class="panel panel-default ">
-    <div class="panel-heading headingcolor">
-        <h2>Referal Doctor</h2>
+    <div class="panel-heading headingcolor" style="background-color: #9081eb; text-align: center; font-weight: bolder; color: #121010">
+        <h2><b>Referal Doctor</b></h2>
     </div>
 </div>
-<div style="text-align:right;">
-    @Html.ActionLink("Create New", "CreateRecord", null, new { @class = "btn btn-success" })
+<div style="text-align:right;padding-bottom:10px;">
+    @Html.ActionLink("Create New", "CreateRecord", null, new { @class = "btn btn-primary" })
 </div>
 <table class="table table-bordered table-responsive" id="example">
     <thead>
         <tr>
             <th>
-                DoctorName
+                Doctor Name
             </th>
             <th>
-                CodeName
+                Code Name
             </th>
             <th>
                 Specilization
@@ -32,7 +32,7 @@
             <th>
                 Contact Number
             </th>
-            <th>
+            @*<th>
                 CreatedBy
             </th>
             <th>
@@ -43,7 +43,7 @@
             </th>
             <th>
                 Update On
-            </th>
+            </th>*@
             <th>Action</th>
         </tr>
     </thead>
@@ -63,7 +63,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ContactNumber)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.CreatedBy)
                 </td>
                 <td>
@@ -74,7 +74,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UpdatedOn)
-                </td>
+                </td>*@
                 <td>
                     @Html.ActionLink("Edit", "EditRecord", new { id = item.DocId }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("View", "Details", new { id = item.DocId }, new { @class = "btn btn-warning" })

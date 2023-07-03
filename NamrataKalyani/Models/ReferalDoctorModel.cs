@@ -14,11 +14,6 @@ namespace NamrataKalyani.Models
         [Display(Name ="Doctor Name")]
         public string  DoctorName { get; set; }
 
-
-        [Required(ErrorMessage = "Enter Code Name")]
-        [Display(Name = "Doctor Code Name")]
-        public string CodeName { get; set; }
-
         public string Mobile { get; set; }
 
         public string EmailId { get; set; }

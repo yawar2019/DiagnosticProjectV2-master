@@ -2,188 +2,310 @@
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
+
     var Count = 0;
 }
- <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
-<div class="panel panel-default ">
-    <div class="panel-heading headingcolor">
-        <h4>Dashboard</h4>
-    </div>
-</div>
-<script>
-    function redirectToPatienetRegistration() {
-
-        window.location = "http://localhost:54429/Doc/PatientInfo";
+<style>
+    td {
+        white-space: nowrap !important;
+        word-wrap: normal;
     }
-</script>
-@using (Html.BeginForm("DashBoard","Doc",FormMethod.Get))
-{
+</style>
+<link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/Content/fixedHeader.bootstrap4.css" rel="stylesheet" />
 
 
-    <div class="col-md-12">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="panel panel-default ">
-                <div class="panel-heading headingcolor">
-                    @Html.Label("Search Existing Patient")
+@*<div class="panel panel-default ">
+        <div class="panel-heading headingcolor" style="background-color: #15269b; text-align: center; font-weight: bolder; color: #121010">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 style="color:chartreuse;font-weight:bold;">WELCOME-AKBAR DIAGNOSTIC CENTER</h4>
+                    <h4 style="color:burlywood;font-weight:bold;">Dashboard</h4>
 
                 </div>
-                <div class="panel-body bagraoung">
-                    <div class="form-group">
-                        @Html.Label("Mobile", htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-6" style="margin-bottom:3px">
-                            @Html.TextBox("Name_Mobile", null,new { @class = "form-control",@type="number" })
-                            @Html.ValidationMessage("NameOrMobile", "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-4 col-md-6">
-                            <input type="submit" class="btn btn-success" value="Search" name="Dashboard" />
-                            @Html.ActionLink("New Registration", "PatientInfo", null, new { @class = "btn btn-primary" })
+                <div class="col-md-8">
+                    <marquee onmouseover="this.stop();" onmouseout="this.start();"><h4 style="color:bisque;font-weight:bold">@ViewBag.NotifcationHeader</h4></marquee>
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>*@
+
+<style>
+    .divDash {
+        color: white;
+        height: 70px;
+        width: 100px;
+        text-align: center;
+        float: left;
+        white-space: pre-line;
+        margin-right: 3px;
+    }
+
+    .divDashflooter {
+        color: white;
+        height: 70px;
+        width: 359px;
+        text-align: center;
+        float: left;
+        white-space: pre-line;
+        margin-right: 3px;
+    }
+
+    .imgClass {
+        height: 20px;
+        padding-bottom: 6px;
+    }
+</style>
+
+<div class="panel panel-default ">
+    <div class="panel-heading headingcolor">
+        <div class="row" style="background-color: #15269b">
+            <div class="divDash">
+                <h4>Akbar Lab Dashboard</h4>
+            </div>
+            <div class="divDashflooter" style="background-color:gold;color:black;">
+                <marquee onmouseover="this.stop();" onmouseout="this.start();"><h4 style="color:red;font-weight:bold">@ViewBag.NotifcationHeader</h4></marquee>
+            </div>
+            <div class="divDash" style="background-color:darkslategray">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Registered</label>
+
+            </div>
+            <div class="divDash" style="background-color:cadetblue">
+                <img src="~/Images/ReportIcon.png" class="imgClass" />
+                <label>Collected </label>
+
+            </div>
+            <div class="divDash" style="background-color:red">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Rejected </label>
+
+            </div>
+
+            <div class="divDash" style="background-color:darkblue">
+                <img src="~/Images/ReportIcon.png" class="imgClass" />
+                <label>Result Done</label>
+
+            </div>
+            <div class="divDash" style="background-color:darkred">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Verified</label>
+
+            </div>
+            <div class="divDash" style="background-color:deeppink">
+                <img src="~/Images/ReportIcon.png" class="imgClass" style="padding-bottom:6px;" /> 0
+                <label>Approved</label>
+
+            </div>
+            <div class="divDash" style="background-color:lightcoral">
+                <img src="~/Images/ReportIcon.png" class="imgClass" /> 0
+                <label>Dispatch</label>
+
+            </div>
+        </div>
     </div>
+</div>
+ 
+<script>
+    function redirectToPatienetRegistration() {
 
-}
+        window.location = "http://localhost:54429/Doc/
+        ";
+    }
+</script>
+<div class="container">
 
-@using (Html.BeginForm("Dashboard", "Doc", FormMethod.Get))
-{
     <div class="row">
-        <div class="col-md-offset-2 col-md-2" style="margin-bottom:4px">
-            @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
-            <label>Start Date</label>
-            <input type="date"   id="min" name="BeginDate" class="form-control" />
-        </div>
-        <div class="col-md-2" style="margin-bottom:4px">
-            <label>End Date</label>
-            <input type="date" name="EndDate" id="max" class="form-control" />
-        </div>
-        <div class="col-md-1" style="padding-top:24px;padding-left:1px;">
-           
-            <input type="submit" name="max" id="max" class="btn btn-primary" />
-        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
 
+                <div>
+
+
+                    <div class="panel-body bagraoung">
+                        <div class="form-inline">
+                            <div class="col-md-12" style="margin-bottom:3px">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <form action="~/Doc/Dashboard" method="get">
+                                            <label>Bill No</label>
+                                            @Html.TextBox("Name_Mobile", null, new { @class = "form-control" })
+                                            <input type="submit" class="btn btn-primary" value="Go" name="Dashboard" />
+                                        </form>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <form action="~/Doc/Dashboard" method="get">
+                                            <label>From Date</label>
+                                            <input type="date" id="min" name="BeginDate" class="form-control" />
+                                            <label>To Date</label>
+                                            <input type="date" name="EndDate" id="max" class="form-control" />
+                                            <input type="submit" name="max" id="max" class="btn btn-primary" value="Search" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!--<div class="row">
+                    <div class="col-md-4">-->
+                @*@Html.DropDownList("PatientList", null, "Select Patient", new { @class = "form-control" })*@
+                <!--<label>Start Date</label>
+                            <input type="date" id="min" name="BeginDate" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>End Date</label>
+                            <input type="date" name="EndDate" id="max" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+
+                            <input type="submit" name="max" id="max" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                }-->
+            </div>
+
+        </div>
     </div>
-}
+</div>
 
-<table class="table table-condensed table-striped" id="example">
-    <thead>
-        <tr>
-            <th>Sno</th>
-            <th>Bill No</th>
-            <th>Book BillNo</th>
-            <th>Date</th>
-            <th>
-                Patient Name
-            </th>
-            <th>Referal Doctor</th>
-            <th>Investigation</th>
-            <th>
-                Mobile Number
-            </th>
+@*<div style="padding-top:5px;">
+    <div class="col-md-12 tableFixHead">*@
+<div style="height: 100px;padding-top: 5px;">
+    <table class="table" id="example">
+        <thead>
+            <tr>
+                <th> Action </th>
+                <th>Bill No</th>
+                <th>Book BillNo</th>
+                <th>Date</th>
+                <th>
+                    Patient Name
+                </th>
+                <th>Referal Doctor</th>
+                <th>Investigation</th>
+                <th>
+                    Mobile Number
+                </th>
 
-            <th> Action </th>
-        </tr>
-    </thead>
-    @if (Model != null)
-    {
-    <tbody>
-        @foreach (var item in Model)
+
+            </tr>
+        </thead>
+        @if (Model != null)
         {
+            <tbody>
+                @foreach (var item in Model)
+                {
 
-        <tr>
-            <td>
-                @{Count++; } @Count
-            </td>
-            <td>
-                @item.BillId
-            </td>
-            <td>
-                @item.BillNumber
-            </td>
-            <td>
-               @String.Format("{0:dd/mm/yyyy}",item.showdate)
-            </td>
-            <td>
-                @item.PatientName
-            </td>
+                    <tr>
+                        <td>
+                            <a data-toggle="tooltip" title="View Reports" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId" class="btn btn-success">View Reports</a>
+                            <a data-toggle="tooltip" title="Print Bill" href="~/Billing/GenerateBill/@item.BillId" class="btn btn-warning">Print Bill</a>
+                            <a data-toggle="tooltip" title="Edit Bill" href="~/Billing/UpdateBillingInfo/@item.BillId" class="btn btn-primary">Edit Bill</a>
+                            <a data-toggle="tooltip" title="View Patients" href="~/Patients/GetPatientsById?id=@item.PId" class="btn btn-info">View Patients</a>
 
-            <td>
-                @item.DoctorName
-            </td>
-            <td>
-                @item.ReportName
-            </td>
-            <td>
-                @item.MobileNo
-            </td>
+                        </td>
+                        <td>
+                            @item.BillId
+                        </td>
+                        <td>
+                            @item.UniqueBillNo
+                        </td>
+                        <td>
+                            @String.Format("{0:dd/mm/yyyy}", item.showdate)
+                        </td>
+                        <td>
+                            @item.PatientName
+                        </td>
 
-            <td>
-                <a class="btn btn-primary" href="~/Doc/GetAllReportsByPatientId?Pid=@item.PId">View Reports</a>
-                <a class="btn btn-warning" href="~/Billing/GenerateBill/@item.BillId">Print Bill</a>
-                <a class="btn btn-success" href="~/Billing/UpdateBillingInfo/@item.BillId">Edit Bill</a>
-            </td>
-        </tr>
-        }   
-    </tbody>
-                                            }
-</table>
+                        <td>
+                            @item.DoctorName
+                        </td>
+                        <td>
+                            @item.ReportName
+                        </td>
+                        <td>
+                            @item.MobileNo
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+</div>
+
+
+
+
+
+
 <script src="~/Scripts/jquery-3.5.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
 <script>
-    
-    var minDate, maxDate;
 
-    // Custom filtering function which will search data in column four between two values
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            var min = minDate.val();
-            var max = maxDate.val();
-            var date = new Date(data[5]);
+    //var minDate, maxDate;
 
-            if (
-                (min === null && max === null) ||
-                (min === null && date <= max) ||
-                (min <= date && max === null) ||
-                (min <= date && date <= max)
-            ) {
-                return true;
-            }
-            return false;
-        }
-    );
+    //// Custom filtering function which will search data in column four between two values
+    //$.fn.dataTable.ext.search.push(
+    //    function (settings, data, dataIndex) {
+    //        var min = minDate.val();
+    //        var max = maxDate.val();
+    //        var date = new Date(data[5]);
+
+    //        if (
+    //            (min === null && max === null) ||
+    //            (min === null && date <= max) ||
+    //            (min <= date && max === null) ||
+    //            (min <= date && date <= max)
+    //        ) {
+    //            return true;
+    //        }
+    //        return false;
+    //    }
+    //);
 
 
-    // Create date inputs
-    minDate = new DateTime($('#min'), {
-        format: 'MMMM Do YYYY'
-    });
-    maxDate = new DateTime($('#max'), {
-        format: 'MMMM Do YYYY'
-    });
+    //// Create date inputs
+    //minDate = new DateTime($('#min'), {
+    //    format: 'MMMM Do YYYY'
+    //});
+    //maxDate = new DateTime($('#max'), {
+    //    format: 'MMMM Do YYYY'
+    //});
 
-    // DataTables initialisation
-    var table = $('#mytable').DataTable();
+    //// DataTables initialisation
+    //var table = $('#mytable').DataTable();
 
-    // Refilter the table
-    $('#min, #max').on('change', function () {
-        table.draw();
-    });
-    
+    //// Refilter the table
+    //$('#min, #max').on('change', function () {
+    //    table.draw();
+    //});
+
 </script>
 
-<script src="~/Scripts/jquery-3.5.1.js"></script>
+@*<script src="~/Scripts/jquery-3.5.1.js"></script>*@
 <script src="~/Scripts/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/dataTables.bootstrap5.min.js"></script>
-
+<script src="~/Scripts/dataTables.fixedHeader.js"></script>
 <script>
     $(document).ready(function () {
-        $('#example').DataTable();
+        $('#example').DataTable({ fixedHeader: true });
     });
 </script>
