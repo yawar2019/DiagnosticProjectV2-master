@@ -6,46 +6,61 @@
     <title>Akber Diagnostic Center</title>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Slider.css" rel="stylesheet" />
-    <script src="~/Scripts/Slider.js"></script>
+    
     <link href="~/Content/boxicons.min.css" rel="stylesheet" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
 </head>
-<body id="body-pd">
+<body id="body-pd22" style="overflow: hidden">
+    <div id="footer22" style="background-color: #483d8b; color: white; height: 50px;margin:auto">
+        
+    </div>
     <header class="header" id="header">
         @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Report", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Report", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
+            </div>*@
+    </header>
+    <div class="container" style="height:490px;overflow:hidden;">
+
+        @*@{
+            Html.RenderPartial("_PatientDetails");
+        }*@
+
+        @RenderBody()
+        <div style="height:100px;"></div>
+    </div>
+        <div id="footer2" style="background-color: #483d8b; color: white; height: 10px;padding:40px;position:relative">
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Address:AKBAR DIAGNOSTIC CENTRE . OPP NOORANI MASJED HUSSAN NAGER MAHMOOD NAGER</span>
+                </div>
+                <div class="col-md-4">
+                    <span>Servicess:Biochemistory,Pathology,Heamotology</span>
+                </div>
+                <div class="col-md-4">
+                    <span>Contact:7989342043.</span>
                 </div>
             </div>
-        </div>*@
-    </header>
-        <div class="container body-content">
-
-            @*@{
-                    Html.RenderPartial("_PatientDetails");
-                }*@
-
-            @RenderBody()
-             
         </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+   
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

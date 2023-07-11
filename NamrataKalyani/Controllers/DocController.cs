@@ -110,6 +110,11 @@ namespace NamrataKalyani.Controllers
                 return RedirectToAction("GenerateBill", "Billing", new { id = billId });
 
             }
+            else if (Session["UserName"] != null)
+            { 
+                return Redirect("~/Medico/MedicoDashboard?CodeName="+ Convert.ToString(Session["UserName"]));
+
+            }
             else
             {
                 return RedirectToAction("Dashboard", "Doc");

@@ -10,13 +10,31 @@ namespace NamrataKalyani.Controllers
 {
     public class MedicoController : Controller
     {
-        // GET: Medico
-        public ActionResult MedicoDashboard(string CodeName)
+        // GET: Medico Session["UserName"] 
+        public ActionResult MedicoDashboard(string CodeName, DateTime? BeginDate, DateTime? EndDate )
         {
             var Patientinfo = new List<_BilIingInfoModel>();
-            Patientinfo = GetPatientInfo(null, null, null, CodeName);
-            return View(Patientinfo);
-            
+            if (Session["UserName"] != null)
+            {
+
+                CodeName =Convert.ToString(Session["UserName"]);
+
+                if (BeginDate != null && EndDate != null)
+                {
+                    Patientinfo = GetPatientInfo(null, BeginDate, EndDate, CodeName);
+
+                }
+                else
+                {
+                    Patientinfo = GetPatientInfo(null, null, null, CodeName);
+
+                }
+                return View(Patientinfo);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpGet]
@@ -32,20 +50,20 @@ namespace NamrataKalyani.Controllers
                 {
                     param.Add("@BeginDate", BeginDate.Value.ToString("yyyy-MM-dd"));
                 }
-                else
-                {
-                    param.Add("@BeginDate", DateTime.Now.ToShortDateString());
-                }
+                //else
+                //{
+                //    param.Add("@BeginDate", DateTime.Now.ToShortDateString());
+                //}
 
 
                 if (EndDate != null)
                 {
                     param.Add("@EndDate", EndDate.Value.ToString("yyyy-MM-dd"));
                 }
-                else
-                {
-                    param.Add("@EndDate", DateTime.Now.ToShortDateString());
-                }
+                //else
+                //{
+                //    param.Add("@EndDate", DateTime.Now.ToShortDateString());
+                //}
 
  
             }

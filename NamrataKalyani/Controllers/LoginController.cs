@@ -73,6 +73,7 @@ namespace NamrataKalyani.Controllers
         public ActionResult Employees()
         {
             var employees = RetuningData.ReturnigList<RegistrationModel>("usp_GetEmployees", null);
+            
 
             return View(employees);
         }
@@ -81,11 +82,24 @@ namespace NamrataKalyani.Controllers
         {
             var dlist = RetuningData.ReturnigList<CenterModel>("usp_getCenter", null);
             ViewBag.Center = new SelectList(dlist, "CenterId", "CenterName");
+            var GetRoles = RetuningData.ReturnigList<GetRolesModel>("sp_GetAllRoles", null);
+            ViewBag.GetRoles = new SelectList(GetRoles, "RoleId", "RoleName");
             return View();
         }
         [HttpPost]
         public ActionResult Registration(RegistrationModel reg)
         {
+            var GetRoles = RetuningData.ReturnigList<GetRolesModel>("sp_GetAllRoles", null);
+            ViewBag.GetRoles = new SelectList(GetRoles, "RoleId", "RoleName");
+
+
+            var dlist = RetuningData.ReturnigList<PatientInfoModel>("uspGetDoctotList", null);
+            ViewBag.DoctorList = new SelectList(dlist, "docid", "DoctorName");
+
+            var RefDoc = (from doc in dlist
+                          where doc.DoctorName == reg.DoctorList.Trim()
+                          select doc.docid).SingleOrDefault();
+
             var param = new DynamicParameters();
             param.Add("@Name", reg.name);
             param.Add("@Email", reg.emalid);
@@ -100,6 +114,7 @@ namespace NamrataKalyani.Controllers
             param.Add("@Address", reg.Address);
             param.Add("@CollectedByUser", reg.CollectedByUser);
             param.Add("@CenterId", reg.CenterId);
+            param.Add("@RefDocId", RefDoc);
 
             int i = RetuningData.AddOrSave<int>("usp_getUserLogin", param);
             if (i > 0)
@@ -118,6 +133,8 @@ namespace NamrataKalyani.Controllers
             param.Add("@id", id);
 
             var Emp = RetuningData.ReturnigList<RegistrationModel>("sp_getLoginbyId", param).SingleOrDefault();
+            var GetRoles= RetuningData.ReturnigList<GetRolesModel>("sp_GetAllRoles", null);
+            ViewBag.GetRoles = new SelectList(GetRoles, "RoleId", "RoleName");
 
             return View(Emp);
         }

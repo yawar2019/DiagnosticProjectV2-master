@@ -40,7 +40,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.RoleId)
                 </th>
-
+                <th>
+                    @Html.DisplayNameFor(model => model.CodeName)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.status)
                 </th>
@@ -63,7 +65,10 @@
                     </td>
 
                     <td>
-                        @{var Role = item.RoleId == 1 ? "Admin" : item.RoleId == 2?"Employee": item.RoleId == 3?"Doctor": item.RoleId == 4?"Approval":"";}@Role
+                        @{var Role = item.RoleId == 1 ? "Admin" : item.RoleId == 2 ? "Employee" : item.RoleId == 3 ? "Doctor" : item.RoleId == 4 ? "Approval" : "";}@Role
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodeName)
                     </td>
 
                     <td>

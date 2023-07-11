@@ -4,13 +4,13 @@
     ViewBag.Title = "Registration";
 }
 
-<h2>Registration</h2>
+<h2>Doctor And Employee Login Registration Form</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -49,16 +49,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("RoleId", new List<SelectListItem>
-{
-    new SelectListItem{ Text="Admin", Value = "1" },
-    new SelectListItem{ Text="Employee", Value = "2" },
-    new SelectListItem{ Text="Doctor", Value = "3" },
-    new SelectListItem{ Text="Approval", Value = "4" }
-
- }, "Select Role", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.RoleId, (IEnumerable<SelectListItem>)ViewBag.GetRoles, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
             </div>
+        </div>
+        <div class="form-group" style="display:none;" id="DoctorListDiv">
+            @Html.Label("Referral Doctor", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* @Html.DropDownListFor(model => model.DoctorList, (IEnumerable<SelectListItem>)ViewBag.DoctorList, "Select Doctor", new { @class = "form-control" })*@
+                @Html.TextBox("DoctorList", null, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessage("DoctorList", "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
@@ -145,3 +146,45 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    $('#RoleId').on("change", function () {
+
+        if ($('#RoleId').val() == 3) {
+            $('#DoctorListDiv').css("display", "block");
+        }
+        else {
+            $('#DoctorListDiv').css("display", "none");
+        }
+
+
+    })
+
+
+    $(document).ready(function () {
+        $("#DoctorList").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Home/AutocompleteDoctorinfo",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return { label: item.DoctorName, value: item.docid };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+</script>

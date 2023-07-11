@@ -46,7 +46,9 @@
             <th>
                 Report Name
             </th>
-
+            <th>Approval Status</th>
+            <th>Approval Reason</th>
+            <th>Approved By</th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedName)
             </th>
@@ -59,19 +61,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.UpdatedOn)
             </th>
-            <th>Approval Status</th>
-            <th>Approval Reason</th>
-            <th>Approved By</th>
+
         </tr>
 
         @foreach (var item in Model)
         {
     <tr>
-       
+
         <td>
             @if (item.ApprovalFlag == 2)
             {
-                @Html.ActionLink("Print Without Header", "Print_LIPIDProfileReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId,Client=true }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Print Without Header", "Print_LIPIDProfileReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-success" })
                 @Html.ActionLink("Print With Header", "ShowReportWithHeader", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-success" })
             }
             else if (item.ApprovalFlag == 3)
@@ -80,41 +80,41 @@
             }
             else
             {
-                <span  style="color:blue">Pending</span>
+                <span style="color:blue">Pending</span>
             }
         </td>
-    
-            <td>
-                @Html.DisplayFor(modelItem => item.PatientName)
-            </td>   
-            <td>
-                <input type="hidden" id="BillId" value="@item.BillId" />
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovalReason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovedBy)
-            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientName)
+        </td>
+        <td>
+            <input type="hidden" id="BillId" value="@item.BillId" />
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovalReason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedOn)
+        </td>
 
-        </tr>
+
+    </tr>
         }
 
     </table>

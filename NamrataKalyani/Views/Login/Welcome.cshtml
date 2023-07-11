@@ -123,11 +123,12 @@
     }
 
     body {
-        background-image: url('../../Images/akbarLabImage.jpg');
+        background-image: url('../../Images/istockphoto-490525207-612x612.jpg');
+            background-size: cover;
     }
 </style>
-<body>
-    <div>
+ 
+    <div style="padding-left:140px;">
 
         @using (Html.BeginForm())
         {
@@ -142,13 +143,16 @@
                             <a href="~/Login/Login" class="btn btn-success">Staff Login</a>
                             <a href="~/Login/CustomerLogin" class="btn btn-success">Client Login</a>
                         </div>
-                            </div>
-                        </div>
                     </div>
-             
+                </div>
+            </div>
+
         }
     </div>
-</body>
+    <br />
+   
+ 
+
 
 @*<div>
         @Html.ActionLink("Back to List", "Index") | @Html.ActionLink("Signup", "Registration")

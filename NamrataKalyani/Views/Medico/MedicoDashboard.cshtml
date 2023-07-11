@@ -78,22 +78,22 @@
     </div>
 </div>
 <br />
-@using (Html.BeginForm("Dashboard", "Doc", FormMethod.Get))
+@using (Html.BeginForm("MedicoDashboard", "Medico", FormMethod.Get))
 {
     <div class="container-fluid">
         <div class="row">
 
             <div class="form-inline" style="text-align:left;">
                 <label>From Date</label>
-                <input type="date" name="name" value="" class="form-control" />
+                <input type="date" name="BeginDate" value="" class="form-control" />
 
 
                 <label>To Date</label>
 
-                <input type="date" name="name" value="" class="form-control" />
+                <input type="date" name="EndDate" value="" class="form-control" />
 
 
-                <input type="submit" name="name" value="Go" class="btn btn-success" />
+                <input type="submit" value="Go" class="btn btn-success" />
             </div>
         </div>
     </div>

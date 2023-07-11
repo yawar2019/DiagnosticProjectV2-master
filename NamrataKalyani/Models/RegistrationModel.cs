@@ -60,6 +60,9 @@ namespace NamrataKalyani.Models
         [DisplayName("Address")]
         public string Address { get; set; }
 
+        public string DoctorList { get; set; }
+
+        public  string CodeName { get; set; }
 
     }
 }
