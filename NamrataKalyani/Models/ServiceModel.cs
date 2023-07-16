@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace NamrataKalyani.Models
 {
@@ -12,8 +13,10 @@ namespace NamrataKalyani.Models
         public string ShortName { get; set; }
 
         [Required]
+        [DisplayName("MRP")]
         public int OP { get; set; }
         [Required]
+        [DisplayName("Code")]
         public string LDSL { get; set; }
         [Required]
         public string LabToLab { get; set; }

@@ -30,5 +30,6 @@ namespace NamrataKalyani.Models
         public int ApprovalFlag { get; set; }
         public string ApprovedBy { get; set; }
         public string BillBookNumber { get; set; }
+        public bool? isPrinted { get; set; }
     }
 }

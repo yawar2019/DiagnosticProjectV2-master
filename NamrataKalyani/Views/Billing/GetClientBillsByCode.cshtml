@@ -5,271 +5,280 @@
 }
 
 <h2>GetClientBillsByCode</h2>
- 
-<table class="table" id="mytable">
-    <thead>
-        <tr>
-            <th>
-                Bill No.
-            </th>
 
-            <th>
-             Patient Name.
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.DoctorName)
-            </th>
-
-            <th>
-                <b>Total Amount</b>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paid)
-            </th>
-
-
-
-            <th>
-                @Html.DisplayNameFor(model => model.Due)
-            </th>
-            <th>
-              Ref(%)
-            </th>
-
-            <th>
-               Ref Amount
-            </th>
-
-
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="col-md-12">
+    <form action="~/Doc/Dashboard" method="get">
+        <label>From Date</label>
+        <input type="date" id="min" name="BeginDate" class="form-control" />
+        <label>To Date</label>
+        <input type="date" name="EndDate" id="max" class="form-control" />
+        <input type="submit" name="max" id="max" class="btn btn-primary" value="Search" />
+    </form>
+    </div>
+    <table class="table" id="mytable">
+        <thead>
             <tr>
+                <th>
+                    Bill No.
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.UniqueBillNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PatientName)
-                </td>
+                <th>
+                    Patient Name.
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoctorName)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.DoctorName)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Paid)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Due)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReferalPercentage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReferalAmount)
-                </td>
+                <th>
+                    <b>Total Amount</b>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Paid)
+                </th>
 
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Due)
+                </th>
+                <th>
+                    Ref(%)
+                </th>
+
+                <th>
+                    Ref Amount
+                </th>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
 
 
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UniqueBillNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PatientName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoctorName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paid)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Due)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferalPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferalAmount)
+                    </td>
 
 
-<script src="~/Scripts/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#mytable').DataTable({
-            dom: 'Bfrtip',
-            "pageLength": 100,
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'colvis',
-                'csvHtml5',
-                {
-                    extend: 'pdf',
-                    title: "Akbar Diagnostic Reports",
-                    exportOptions: {
-                        columns: ':visible:not(.not-export-col)',
-                    },
-                    styles: {
-                        tableHeader: {
-                            alignment: 'left',
-                            fontsize:'8px'
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#mytable').DataTable({
+                dom: 'Bfrtip',
+                "pageLength": 100,
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'colvis',
+                    'csvHtml5',
+                    {
+                        extend: 'pdf',
+                        title: "Akbar Diagnostic Reports",
+                        exportOptions: {
+                            columns: ':visible:not(.not-export-col)',
+                        },
+                        styles: {
+                            tableHeader: {
+                                alignment: 'left',
+                                fontsize: '8px'
+                            }
                         }
                     }
+                    //'pdfHtml5'
+                ],
+                //});
+
+
+
+                //$('#mytable').DataTable({
+
+                "footerCallback": function (row, data, start, end, display) {
+
+                    var api = this.api(), data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(6)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+                    // Total over this page
+                    pageTotal6 = api
+                        .column(6, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    pageTotal7 = api
+                        .column(7, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+                    pageTotal8 = api
+                        .column(8, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+                    pageTotal9 = api
+                        .column(9, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    pageTotal10 = api
+                        .column(10, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    pageTotal11 = api
+                        .column(11, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer
+                    $(api.column(6).footer()).html(
+                        pageTotal6
+                    );
+                    $(api.column(7).footer()).html(
+                        pageTotal7
+                    );
+                    $(api.column(8).footer()).html(
+                        pageTotal8
+                    );
+                    $(api.column(9).footer()).html(
+                        pageTotal9
+                    );
+                    $(api.column(10).footer()).html(
+                        pageTotal10
+                    );
+                    $(api.column(11).footer()).html(
+                        pageTotal11
+                    );
                 }
-                //'pdfHtml5'
-            ],
-            //});
-
-
-
-            //$('#mytable').DataTable({
-
-            "footerCallback": function (row, data, start, end, display) {
-
-                var api = this.api(), data;
-
-                // Remove the formatting to get integer data for summation
-                var intVal = function (i) {
-
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '') * 1 :
-                        typeof i === 'number' ?
-                            i : 0;
-                };
-
-                // Total over all pages
-                total = api
-                    .column(6)
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-
-                // Total over this page
-                pageTotal6 = api
-                    .column(6, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                pageTotal7 = api
-                    .column(7, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-
-                pageTotal8 = api
-                    .column(8, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-
-                pageTotal9 = api
-                    .column(9, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                pageTotal10 = api
-                    .column(10, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                pageTotal11 = api
-                    .column(11, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                // Update footer
-                $(api.column(6).footer()).html(
-                    pageTotal6
-                );
-                $(api.column(7).footer()).html(
-                    pageTotal7
-                );
-                $(api.column(8).footer()).html(
-                    pageTotal8
-                );
-                $(api.column(9).footer()).html(
-                    pageTotal9
-                );
-                $(api.column(10).footer()).html(
-                    pageTotal10
-                );
-                $(api.column(11).footer()).html(
-                    pageTotal11
-                );
-            }
-        });
+            });
 
 
 
 
 
-        var minDate, maxDate;
+            var minDate, maxDate;
 
-        // Custom filtering function which will search data in column four between two values
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                var min = minDate.val();
-                var max = maxDate.val();
-                var date = new Date(data[5]);
+            // Custom filtering function which will search data in column four between two values
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = minDate.val();
+                    var max = maxDate.val();
+                    var date = new Date(data[5]);
 
-                if (
-                    (min === null && max === null) ||
-                    (min === null && date <= max) ||
-                    (min <= date && max === null) ||
-                    (min <= date && date <= max)
-                ) {
-                    return true;
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        );
+            );
 
 
-        // Create date inputs
-        minDate = new DateTime($('#min'), {
-            format: 'MMMM Do YYYY'
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            // DataTables initialisation
+            var table = $('#mytable').DataTable();
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
         });
-        maxDate = new DateTime($('#max'), {
-            format: 'MMMM Do YYYY'
-        });
 
-        // DataTables initialisation
-        var table = $('#mytable').DataTable();
 
-        // Refilter the table
-        $('#min, #max').on('change', function () {
-            table.draw();
-        });
-    });
-
-    
-</script>
+    </script>

@@ -15,4 +15,12 @@ namespace NamrataKalyani.Models
         public DateTime UpdatedOn { get; set; }
 
     }
+
+    public class isPrintedModel
+    {
+        public int BillId { get; set; }
+        public string ReportId { get; set; }
+        
+    }
+
 }

@@ -6,36 +6,36 @@
 }
 
 @*<script>
-    function ChangeReportType() {
-        let urlParams = @Request.QueryString["Pid"];
-        //alert(urlParams);
-       // var hostname = "akbardiagnostic.dswebcare.com";
-        var hostname = "http://localhost:54429";
-        
-        if ($('#ReportType').val() == 1) {
-            window.location = hostname + "/Doc/ClinicalBiochemistoryReportLIPIDProfile?pid="+urlParams;
-        }
-        else if ($('#ReportType').val() == 2) {
-            window.location = hostname + "/Doc/ClinicalBiochemistoryReportLTF?pid="+urlParams;
+        function ChangeReportType() {
+            let urlParams = @Request.QueryString["Pid"];
+            //alert(urlParams);
+           // var hostname = "akbardiagnostic.dswebcare.com";
+            var hostname = "http://localhost:54429";
 
-        }
-        else if ($('#ReportType').val() == 3) {
-            window.location = hostname + "/Doc/ComputerBloodPictureReport?pid="+urlParams;
+            if ($('#ReportType').val() == 1) {
+                window.location = hostname + "/Doc/ClinicalBiochemistoryReportLIPIDProfile?pid="+urlParams;
+            }
+            else if ($('#ReportType').val() == 2) {
+                window.location = hostname + "/Doc/ClinicalBiochemistoryReportLTF?pid="+urlParams;
 
+            }
+            else if ($('#ReportType').val() == 3) {
+                window.location = hostname + "/Doc/ComputerBloodPictureReport?pid="+urlParams;
+
+            }
+            else {
+                return null;
+            }
         }
-        else {
-            return null;
-        }
-    }
-</script>*@
+    </script>*@
 <div class="panel panel-default" style="width:150%;background-color:dodgerblue">
     <div class="panel-heading headingcolor">
         <h2>Create Reports</h2>
     </div>
 </div>
 
-  
- <div class="container-fluid">
+
+<div class="container-fluid">
     <table class="table" style="width:150%;max-width:150%">
         <tr>
 
@@ -66,55 +66,73 @@
 
         @foreach (var item in Model)
         {
-    <tr>
+            <tr>
 
-        <td>
-            @if (item.ApprovalFlag == 2)
-            {
-                @Html.ActionLink("Print Without Header", "Print_LIPIDProfileReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Print With Header", "ShowReportWithHeader", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-success" })
-            }
-            else if (item.ApprovalFlag == 3)
-            {
-                <span style="color:red">Rejected</span>
-            }
-            else
-            {
-                <span style="color:blue">Pending</span>
-            }
-        </td>
+                <td>
+                    @if (item.ApprovalFlag == 2)
+                    {
+                        if (item.isPrinted == true)
+                        {
+                            @Html.ActionLink("Print Without Header", "Print_LIPIDProfileReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-danger" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Print Without Header", "Print_LIPIDProfileReport", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-success" })
+                        }
 
-        <td>
-            @Html.DisplayFor(modelItem => item.PatientName)
-        </td>
-        <td>
-            <input type="hidden" id="BillId" value="@item.BillId" />
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApprovalReason)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApprovedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedOn)
-        </td>
+                        if (item.isPrinted == true)
+                        {
+                            @Html.ActionLink("Print With Header", "ShowReportWithHeader", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-danger" })
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Print With Header", "ShowReportWithHeader", new { Pid = item.Pid, BillId = item.BillId, ReportId = item.ReportId, Client = true }, new { @class = "btn btn-success" })
+
+                        }
+
+                    }
+                    else if (item.ApprovalFlag == 3)
+                    {
+                        <span style="color:red">Rejected</span>
+                    }
+                    else
+                    {
+                        <span style="color:blue">Pending</span>
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatientName)
+                </td>
+                <td>
+                    <input type="hidden" id="BillId" value="@item.BillId" />
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApprovalReason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApprovedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedOn)
+                </td>
 
 
-    </tr>
+            </tr>
         }
 
     </table>

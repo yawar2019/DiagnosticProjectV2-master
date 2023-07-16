@@ -1,0 +1,19 @@
+﻿@model  NamrataKalyani.Controllers.InvoiceModel
+@{
+    ViewBag.Title = "InvoicePreview";
+    Layout = null;
+}
+
+<h2>InvoicePreview</h2>
+
+<div style="width:200px;height:200px; background-color:deepskyblue;">
+    @Model.CustomerName
+</div>
+
+<div style="width:200px;height:200px;">
+    @Model.InvoiceNumber
+</div>
+
+<div style="width:200px;height:200px;">
+    @Model.TotalAmount
+</div>
